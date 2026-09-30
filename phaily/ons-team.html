@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ons team · Tandartspraktijk Phaily</title>
+  <meta name="description" content="Maak kennis met het team van Tandartspraktijk Phaily in Schiedam: tandartsen, assistente en paropreventie-assistent.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <style>
+    :root {
+      --ink: #102a43;
+      --ink-soft: #486581;
+      --sky: #5aa9dd;
+      --sky-deep: #1f6fa8;
+      --mist: #eef6fc;
+      --mist-2: #dcecf8;
+      --paper: #ffffff;
+      --line: #d5e4f0;
+      --alert: #c8372d;
+      --alert-soft: #fdeeec;
+      --radius: 20px;
+      --shadow: 0 1px 2px rgba(16, 42, 67, .05), 0 12px 32px -12px rgba(16, 42, 67, .18);
+      --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+      --body: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+      --gutter: clamp(16px, 5vw, 48px);
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+    body {
+      margin: 0;
+      font-family: var(--body);
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--display);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      text-wrap: balance;
+      margin: 0;
+    }
+
+    a { color: var(--sky-deep); }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; border-radius: 6px; }
+
+    .wrap { width: 100%; max-width: 1120px; margin-inline: auto; padding-inline: var(--gutter); }
+
+    .eyebrow {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--sky-deep);
+    }
+
+    /* ---------- Header ---------- */
+    .site-header {
+      position: sticky;
+      top: env(safe-area-inset-top, 0px);
+      z-index: 20;
+      background: rgba(255, 255, 255, .9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .site-header .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 72px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .brand svg { width: 38px; height: 38px; flex: none; }
+    .brand-text { display: grid; line-height: 1.1; }
+    .brand-text small {
+      font-size: .66rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .brand-text strong { font-family: var(--display); font-size: 1.3rem; letter-spacing: -0.01em; }
+
+    .nav { display: flex; align-items: center; gap: .25rem; }
+    .nav a {
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .95rem;
+      padding: .5rem .8rem;
+      border-radius: 999px;
+    }
+    .nav a:hover { background: var(--mist); }
+    .nav a[aria-current="page"] { background: var(--mist-2); color: var(--sky-deep); font-weight: 600; }
+    .nav .nav-call {
+      margin-left: .5rem;
+      background: var(--ink);
+      color: #fff;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+    }
+    .nav .nav-call:hover { background: var(--sky-deep); }
+    .nav-call svg { width: 16px; height: 16px; }
+
+    .menu-btn {
+      display: none;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      border-radius: 12px;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      cursor: pointer;
+      color: var(--ink);
+    }
+    .menu-btn svg { width: 22px; height: 22px; display: block; margin: auto; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      background:
+        radial-gradient(900px 400px at 85% -10%, var(--mist-2), transparent 70%),
+        var(--mist);
+      padding-block: clamp(48px, 8vw, 96px) clamp(40px, 6vw, 72px);
+      border-bottom: 1px solid var(--line);
+    }
+    .hero .wrap {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: clamp(24px, 5vw, 64px);
+      align-items: end;
+    }
+    .hero h1 { font-size: clamp(2.3rem, 5.2vw, 3.6rem); margin-top: .6rem; }
+    .hero h1 em { font-style: normal; color: var(--sky-deep); }
+    .hero p.lead { font-size: 1.12rem; color: var(--ink-soft); max-width: 34rem; margin: 1.2rem 0 0; }
+
+    .hero-facts {
+      display: grid;
+      gap: .75rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .hero-facts li {
+      display: flex;
+      gap: .9rem;
+      align-items: center;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: .9rem 1.1rem;
+    }
+    .hero-facts .num {
+      font-family: var(--display);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--sky-deep);
+      min-width: 2.2ch;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .hero-facts span { color: var(--ink-soft); font-size: .95rem; line-height: 1.4; }
+    .hero-facts b { color: var(--ink); font-weight: 600; }
+
+    /* ---------- Sections ---------- */
+    section.block { padding-block: clamp(56px, 8vw, 96px); }
+    .section-head { display: grid; gap: .6rem; margin-bottom: 2.2rem; max-width: 40rem; }
+    .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+    .section-head p { margin: 0; color: var(--ink-soft); }
+
+    /* ---------- Team cards ---------- */
+    .team {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .member {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.4rem;
+      align-items: start;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: clamp(1.25rem, 3vw, 2rem);
+      box-shadow: var(--shadow);
+    }
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+      color: var(--sky-deep);
+      background: linear-gradient(145deg, var(--mist-2), #bcdcf2);
+      border: 4px solid var(--paper);
+      box-shadow: 0 0 0 1px var(--line);
+      flex: none;
+    }
+    .avatar.alt { background: linear-gradient(145deg, #e6f3ee, #c4e3d6); color: #2b7a5e; }
+
+    .member h3 { font-size: 1.45rem; }
+    .role {
+      display: inline-block;
+      margin-top: .4rem;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--sky-deep);
+      background: var(--mist);
+      border-radius: 999px;
+      padding: .2rem .7rem;
+    }
+    .role.alt { color: #2b7a5e; background: #e8f5ef; }
+
+    .days { margin-top: 1.1rem; }
+    .days-label { font-size: .78rem; font-weight: 600; color: var(--ink-soft); margin-bottom: .4rem; }
+    .day-row { display: flex; gap: .35rem; flex-wrap: wrap; padding: 0; margin: 0; list-style: none; }
+    .day-row li {
+      width: 2.5rem;
+      height: 2.1rem;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: #9fb3c8;
+      background: #f5f8fb;
+      border: 1px dashed var(--line);
+    }
+    .day-row li.on { color: #fff; background: var(--sky-deep); border: 1px solid var(--sky-deep); }
+
+    .creds { list-style: none; padding: 0; margin: 1.1rem 0 0; display: grid; gap: .45rem; font-size: .93rem; color: var(--ink-soft); }
+    .creds li { display: flex; gap: .55rem; align-items: flex-start; line-height: 1.45; }
+    .creds svg { width: 18px; height: 18px; flex: none; margin-top: .1rem; color: var(--sky); }
+
+    .big {
+      margin-top: 1.1rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .4rem .8rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+      font-size: .88rem;
+      color: var(--ink-soft);
+    }
+    .big code {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: .9rem;
+      color: var(--ink);
+      background: var(--mist);
+      padding: .15rem .5rem;
+      border-radius: 6px;
+      letter-spacing: .03em;
+    }
+    .big a { font-weight: 600; text-decoration: none; }
+    .big a:hover { text-decoration: underline; }
+
+    .subgroup { margin-top: 3.5rem; }
+    .subgroup h3.group-title {
+      font-size: 1.15rem;
+      font-family: var(--body);
+      letter-spacing: 0;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      margin-bottom: 1.2rem;
+    }
+    .subgroup h3.group-title::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+    .member.compact { box-shadow: none; background: var(--mist); border-color: transparent; align-items: center; }
+    .member.compact .avatar { width: 72px; height: 72px; font-size: 1.5rem; }
+    .member.compact p { margin: .6rem 0 0; color: var(--ink-soft); font-size: .93rem; }
+
+    /* ---------- Schedule ---------- */
+    .schedule-wrap { background: var(--mist); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: clamp(24px, 5vw, 56px);
+      align-items: start;
+    }
+    .hero .wrap > *, .schedule-grid > *, .cta-grid > *, .footer-grid > * { min-width: 0; }
+    .table-scroll { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--line); background: var(--paper); }
+    table { width: 100%; border-collapse: collapse; min-width: 460px; font-variant-numeric: tabular-nums; }
+    th, td { padding: .9rem .6rem; text-align: center; border-bottom: 1px solid var(--line); font-size: .92rem; }
+    th:first-child, td:first-child { text-align: left; padding-left: 1.2rem; }
+    thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-soft); font-weight: 700; background: #f7fbfe; }
+    tbody tr:last-child td { border-bottom: none; }
+    td.name { font-weight: 600; }
+    .dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: var(--sky-deep); }
+    .dot.off { background: transparent; border: 2px solid var(--line); width: 12px; height: 12px; }
+    tr.hours td { white-space: nowrap; color: var(--ink-soft); font-size: .82rem; background: #f7fbfe; }
+
+    .hours-card { display: grid; gap: 1rem; }
+    .hours-card dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: .55rem 1.5rem; font-variant-numeric: tabular-nums; }
+    .hours-card dt { font-weight: 600; }
+    .hours-card dd { margin: 0; color: var(--ink-soft); }
+    .note { font-size: .9rem; color: var(--ink-soft); margin: 0; }
+
+    /* ---------- Spoed + new patients ---------- */
+    .cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .panel { border-radius: var(--radius); padding: clamp(1.5rem, 4vw, 2.5rem); display: grid; gap: .9rem; align-content: start; }
+    .panel h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+    .panel p { margin: 0; }
+    .panel.welcome { background: var(--ink); color: #e6eef6; }
+    .panel.welcome h2 { color: #fff; }
+    .panel.welcome .eyebrow { color: #8cc8ee; }
+    .panel.spoed { background: var(--alert-soft); border: 1px solid #f4cfca; }
+    .panel.spoed .eyebrow { color: var(--alert); }
+    .phone-lines { display: grid; gap: .6rem; margin-top: .3rem; }
+    .phone-line {
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;
+      background: var(--paper); border-radius: 14px; padding: .8rem 1rem; border: 1px solid #f4cfca;
+    }
+    .phone-line span { font-size: .88rem; color: var(--ink-soft); }
+    .phone-line a { font-weight: 700; color: var(--alert); text-decoration: none; font-variant-numeric: tabular-nums; font-size: 1.05rem; }
+
+    .btn-row { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: .4rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .8rem 1.3rem; border-radius: 999px;
+      font-weight: 600; text-decoration: none; font-size: .95rem;
+    }
+    .btn svg { width: 18px; height: 18px; }
+    .btn.light { background: #fff; color: var(--ink); }
+    .btn.light:hover { background: var(--mist-2); }
+    .btn.ghost { color: #fff; border: 1px solid rgba(255, 255, 255, .35); }
+    .btn.ghost:hover { background: rgba(255, 255, 255, .08); }
+
+    /* ---------- Footer ---------- */
+    .site-footer { background: #0b1f33; color: #b6c7d8; padding-block: 56px 32px; margin-top: clamp(56px, 8vw, 96px); font-size: .93rem; }
+    .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 2rem; }
+    .site-footer h4 { color: #fff; margin: 0 0 .7rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .14em; }
+    .site-footer p { margin: 0; }
+    .site-footer a { color: #d9e7f3; text-decoration: none; }
+    .site-footer a:hover { color: #fff; text-decoration: underline; }
+    .site-footer .brand { color: #fff; margin-bottom: .9rem; }
+    .site-footer .brand-text small { color: #8ca5bd; }
+    .foot-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .35rem; font-variant-numeric: tabular-nums; }
+    .foot-bottom { margin-top: 2.5rem; padding-top: 1.2rem; border-top: 1px solid #1f3a55; display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; font-size: .82rem; color: #7f97ae; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 900px) {
+      .hero .wrap, .schedule-grid, .cta-grid { grid-template-columns: 1fr; }
+      .team { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid > :first-child { grid-column: 1 / -1; }
+    }
+    @media (max-width: 820px) {
+      .menu-btn { display: block; }
+      .nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: .2rem;
+        padding: .75rem var(--gutter) 1.25rem;
+        background: var(--paper);
+        border-bottom: 1px solid var(--line);
+        box-shadow: 0 16px 24px -16px rgba(16, 42, 67, .25);
+      }
+      .nav a { padding: .8rem 1rem; border-radius: 12px; }
+      .nav .nav-call { margin: .4rem 0 0; justify-content: center; }
+      .site-header:not(.open) .nav { display: none; }
+    }
+    @media (max-width: 520px) {
+      .member { grid-template-columns: 1fr; }
+      .member.compact { grid-template-columns: auto 1fr; }
+      .avatar { width: 80px; height: 80px; font-size: 1.7rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-tooth" viewBox="0 0 48 48">
+      <path d="M24 9.5c-3.2-2.6-7-3.6-10.6-2.4C8.6 8.7 6.4 13.4 7.3 19c.8 4.8 3 8.1 4.1 12.6 1 4.2 1.6 9.9 4.6 9.9 3 0 3.4-5.5 4.6-9.1.6-1.8 1.7-2.8 3.4-2.8s2.8 1 3.4 2.8c1.2 3.6 1.6 9.1 4.6 9.1 3 0 3.6-5.7 4.6-9.9 1.1-4.5 3.3-7.8 4.1-12.6.9-5.6-1.3-10.3-6.1-11.9C31 5.9 27.2 6.9 24 9.5Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M14 15.5c1-2.4 3.3-3.6 5.8-3.2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" fill="currentColor" opacity=".16"/>
+      <path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24">
+      <path d="M6.6 3.5h2.3l1.4 4.2-2 1.4a11.5 11.5 0 0 0 6.6 6.6l1.4-2 4.2 1.4v2.3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </symbol>
+  </svg>
+
+  <header class="site-header" id="top">
+    <div class="wrap">
+      <a class="brand" href="https://www.tandartspraktijkphaily.nl/" aria-label="Tandartspraktijk J. Phaily, naar de homepage">
+        <svg style="color: var(--sky)"><use href="#i-tooth"/></svg>
+        <span class="brand-text">
+          <small>Tandartspraktijk</small>
+          <strong>J. Phaily</strong>
+        </span>
+      </a>
+
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu openen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+
+      <nav class="nav" id="nav" aria-label="Hoofdmenu">
+        <a href="https://www.tandartspraktijkphaily.nl/">Home</a>
+        <a href="https://www.tandartspraktijkphaily.nl/ons-team/" aria-current="page">Ons team</a>
+        <a href="https://www.tandartspraktijkphaily.nl/betalen">Betalen</a>
+        <a href="#spoed">Spoed</a>
+        <a href="https://www.tandartspraktijkphaily.nl/contact">Contact</a>
+        <a class="nav-call" href="tel:+31104265271"><svg><use href="#i-phone"/></svg>010 426 52 71</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <p class="eyebrow">Ons team</p>
+          <h1>Vertrouwde gezichten voor een <em>gezonde mond</em></h1>
+          <p class="lead">In onze praktijk aan de Nieuwe Damlaan in Schiedam wordt u zoveel mogelijk geholpen door een vaste behandelaar. Zo kennen wij uw mondgezondheid én uw wensen.</p>
+        </div>
+        <ul class="hero-facts">
+          <li><span class="num">2</span><span><b>Tandartsen</b>, beiden BIG-geregistreerd</span></li>
+          <li><span class="num">5</span><span><b>Dagen per week</b> open, van maandag tot en met vrijdag</span></li>
+          <li><span class="num">1</span><span><b>Vaste behandelaar</b> die u en uw gebit kent</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="tandartsen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Behandelaars</p>
+          <h2 id="tandartsen">Onze tandartsen</h2>
+          <p>Beide tandartsen staan ingeschreven in het vakgerelateerde kwaliteitsregister en zijn lid van een beroepsvereniging.</p>
+        </div>
+
+        <div class="team">
+          <article class="member">
+            <div class="avatar" aria-hidden="true">JP</div>
+            <div>
+              <h3>drs. mw. J. Phaily</h3>
+              <span class="role">Tandarts</span>
+
+              <div class="days">
+                <div class="days-label">Werkdagen</div>
+                <ul class="day-row" aria-label="Werkzaam op maandag, dinsdag, donderdag en vrijdag">
+                  <li class="on">ma</li><li class="on">di</li><li>wo</li><li class="on">do</li><li class="on">vr</li>
+                </ul>
+              </div>
+
+              <ul class="creds">
+                <li><svg><use href="#i-check"/></svg>Ingeschreven in het vakgerelateerde kwaliteitsregister</li>
+                <li><svg><use href="#i-check"/></svg>Lid van een vakgerelateerde beroepsvereniging</li>
+              </ul>
+
+              <div class="big">
+                BIG-nummer <code>89908633702</code>
+                <a href="https://zoeken.bigregister.nl/" target="_blank" rel="noopener">Controleer in het BIG-register ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="member">
+            <div class="avatar" aria-hidden="true">EJ</div>
+            <div>
+              <h3>drs. E. Jongkoen</h3>
+              <span class="role">Tandarts</span>
+
+              <div class="days">
+                <div class="days-label">Werkdag</div>
+                <ul class="day-row" aria-label="Werkzaam op woensdag">
+                  <li>ma</li><li>di</li><li class="on">wo</li><li>do</li><li>vr</li>
+                </ul>
+              </div>
+
+              <ul class="creds">
+                <li><svg><use href="#i-check"/></svg>Ingeschreven in het vakgerelateerde kwaliteitsregister</li>
+                <li><svg><use href="#i-check"/></svg>Lid van een vakgerelateerde beroepsvereniging</li>
+              </ul>
+
+              <div class="big">
+                BIG-nummer <code>69021890602</code>
+                <a href="https://zoeken.bigregister.nl/" target="_blank" rel="noopener">Controleer in het BIG-register ↗</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="subgroup">
+          <h3 class="group-title">Assistentie &amp; preventie</h3>
+          <div class="team">
+            <article class="member compact">
+              <div class="avatar alt" aria-hidden="true">S</div>
+              <div>
+                <h3>Somayeh</h3>
+                <span class="role alt">Tandartsassistente i.o.</span>
+                <p>Assisteert de tandarts tijdens uw behandeling.</p>
+              </div>
+            </article>
+
+            <article class="member compact">
+              <div class="avatar alt" aria-hidden="true">S</div>
+              <div>
+                <h3>Sayran <span style="font-weight:500;color:var(--ink-soft)">(Sanna)</span></h3>
+                <span class="role alt">Paropreventie-assistent</span>
+                <p>Helpt u uw tandvlees gezond te houden, met reinigen en polijsten.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block schedule-wrap" aria-labelledby="rooster">
+      <div class="wrap schedule-grid">
+        <div>
+          <div class="section-head">
+            <p class="eyebrow">Wie ziet u wanneer?</p>
+            <h2 id="rooster">Elke werkdag een tandarts aanwezig</h2>
+            <p>Handig bij het plannen van uw afspraak: zo weet u op welke dag uw eigen tandarts in de praktijk is.</p>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr><th scope="col">Tandarts</th><th scope="col">Ma</th><th scope="col">Di</th><th scope="col">Wo</th><th scope="col">Do</th><th scope="col">Vr</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="name">drs. mw. J. Phaily</td>
+                  <td><span class="dot" title="Aanwezig"></span></td>
+                  <td><span class="dot" title="Aanwezig"></span></td>
+                  <td><span class="dot off" title="Afwezig"></span></td>
+                  <td><span class="dot" title="Aanwezig"></span></td>
+                  <td><span class="dot" title="Aanwezig"></span></td>
+                </tr>
+                <tr>
+                  <td class="name">drs. E. Jongkoen</td>
+                  <td><span class="dot off" title="Afwezig"></span></td>
+                  <td><span class="dot off" title="Afwezig"></span></td>
+                  <td><span class="dot" title="Aanwezig"></span></td>
+                  <td><span class="dot off" title="Afwezig"></span></td>
+                  <td><span class="dot off" title="Afwezig"></span></td>
+                </tr>
+                <tr class="hours">
+                  <td>Openingstijden</td>
+                  <td>8:30–16:30</td><td>8:30–16:30</td><td>8:30–16:30</td><td>8:30–16:30</td><td>8:30–13:00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="hours-card" aria-labelledby="afspraak">
+          <div class="section-head" style="margin-bottom:0">
+            <p class="eyebrow">Afspraak maken</p>
+            <h2 id="afspraak" style="font-size:clamp(1.5rem,3vw,2rem)">Bel of mail ons</h2>
+          </div>
+          <dl>
+            <dt>Telefoon</dt><dd><a href="tel:+31104265271">010 426 52 71</a></dd>
+            <dt>E-mail</dt><dd><a href="mailto:info@tandartspraktijkphaily.nl">info@tandartspraktijkphaily.nl</a></dd>
+            <dt>Adres</dt><dd>Nieuwe Damlaan 894<br>3118 AC Schiedam</dd>
+          </dl>
+          <p class="note">Kunt u niet komen? Zeg uw afspraak dan uiterlijk 24 uur van tevoren af. Bij een tweede keer niet verschijnen zonder bericht kunnen wij kosten in rekening brengen.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="block" aria-label="Nieuwe patiënten en spoed">
+      <div class="wrap cta-grid">
+        <div class="panel welcome">
+          <p class="eyebrow">Nieuwe patiënten</p>
+          <h2>U bent van harte welkom</h2>
+          <p>Door de uitbreiding van ons team hebben we ruimte voor nieuwe patiënten. Neem contact met ons op om u in te schrijven.</p>
+          <div class="btn-row">
+            <a class="btn light" href="tel:+31104265271"><svg><use href="#i-phone"/></svg>Bel 010 426 52 71</a>
+            <a class="btn ghost" href="mailto:info@tandartspraktijkphaily.nl"><svg><use href="#i-mail"/></svg>Stuur een e-mail</a>
+          </div>
+        </div>
+
+        <div class="panel spoed" id="spoed">
+          <p class="eyebrow">Spoed</p>
+          <h2>Acute pijn of een ongeluk?</h2>
+          <p>Twijfelt u of het kan wachten tot de volgende werkdag? De spoeddienst denkt met u mee. Houd pen en papier bij de hand.</p>
+          <div class="phone-lines">
+            <div class="phone-line"><span>Tijdens openingstijden</span><a href="tel:+31104265271">010 426 52 71</a></div>
+            <div class="phone-line"><span>Buiten openingstijden · Dental 365</span><a href="tel:09001515">0900 1515</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="https://www.tandartspraktijkphaily.nl/">
+            <svg style="color:#8cc8ee"><use href="#i-tooth"/></svg>
+            <span class="brand-text"><small>Tandartspraktijk</small><strong>J. Phaily</strong></span>
+          </a>
+          <p>Algemene tandheelkunde in Schiedam, met een vaste behandelaar voor elke patiënt.</p>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul class="foot-list">
+            <li>Nieuwe Damlaan 894</li>
+            <li>3118 AC Schiedam</li>
+            <li><a href="tel:+31104265271">010 426 52 71</a></li>
+            <li><a href="mailto:info@tandartspraktijkphaily.nl">info@tandartspraktijkphaily.nl</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Openingstijden</h4>
+          <ul class="foot-list">
+            <li>Ma t/m do · 08:30–16:30</li>
+            <li>Vrijdag · 08:30–13:00</li>
+            <li>Spoed buiten tijden · <a href="tel:09001515">0900 1515</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© Tandartspraktijk Phaily</span>
+        <a href="#top">Terug naar boven ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var header = document.querySelector('.site-header');
+      var btn = header.querySelector('.menu-btn');
+      btn.addEventListener('click', function () {
+        var open = header.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open);
+        btn.setAttribute('aria-label', open ? 'Menu sluiten' : 'Menu openen');
+      });
+      header.querySelectorAll('.nav a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          header.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
