@@ -178,6 +178,9 @@
     }
     .book-hours dt { font-weight: 600; }
     .book-hours dd { margin: 0; color: var(--ink-soft); }
+    .route-link { display: inline-flex; align-items: center; gap: .35rem; margin-top: .35rem; font-weight: 600; text-decoration: none; }
+    .route-link:hover { text-decoration: underline; }
+    .route-link svg { width: 16px; height: 16px; }
 
     /* ---------- Sections ---------- */
     section.block { padding-block: clamp(56px, 8vw, 96px); }
@@ -217,7 +220,10 @@
       border: 4px solid var(--paper);
       box-shadow: 0 0 0 1px var(--line);
       flex: none;
+      position: relative;
+      overflow: hidden;
     }
+    .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     .avatar.alt { background: linear-gradient(145deg, #e6f3ee, #c4e3d6); color: #2b7a5e; }
 
     .member h3 { font-size: 1.45rem; }
@@ -415,6 +421,10 @@
     <symbol id="i-phone" viewBox="0 0 24 24">
       <path d="M6.6 3.5h2.3l1.4 4.2-2 1.4a11.5 11.5 0 0 0 6.6 6.6l1.4-2 4.2 1.4v2.3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
     </symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24">
+      <path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <circle cx="12" cy="10" r="2.4" fill="none" stroke="currentColor" stroke-width="2"/>
+    </symbol>
     <symbol id="i-mail" viewBox="0 0 24 24">
       <rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/>
       <path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
@@ -466,7 +476,7 @@
           <dl class="book-hours">
             <dt>Ma t/m do</dt><dd>08:30–16:30</dd>
             <dt>Vrijdag</dt><dd>08:30–13:00</dd>
-            <dt>Adres</dt><dd>Nieuwe Damlaan 894, 3118 AC Schiedam</dd>
+            <dt>Adres</dt><dd>Nieuwe Damlaan 894, 3118 AC Schiedam<br><a class="route-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Nieuwe+Damlaan+894%2C+3118+AC+Schiedam" target="_blank" rel="noopener"><svg><use href="#i-pin"/></svg>Route plannen ↗</a></dd>
           </dl>
         </div>
       </div>
@@ -482,7 +492,7 @@
 
         <div class="team">
           <article class="member">
-            <div class="avatar" aria-hidden="true">JP</div>
+            <div class="avatar"><img src="foto/j-phaily.jpg" alt="Foto van drs. mw. J. Phaily" loading="lazy" onerror="this.remove()"><span aria-hidden="true">JP</span></div>
             <div>
               <h3>drs. mw. J. Phaily</h3>
               <span class="role">Tandarts</span>
@@ -507,7 +517,7 @@
           </article>
 
           <article class="member">
-            <div class="avatar" aria-hidden="true">EJ</div>
+            <div class="avatar"><img src="foto/e-jongkoen.jpg" alt="Foto van drs. E. Jongkoen" loading="lazy" onerror="this.remove()"><span aria-hidden="true">EJ</span></div>
             <div>
               <h3>drs. E. Jongkoen</h3>
               <span class="role">Tandarts</span>
@@ -536,7 +546,7 @@
           <h3 class="group-title">Assistentie &amp; preventie</h3>
           <div class="team">
             <article class="member compact">
-              <div class="avatar alt" aria-hidden="true">S</div>
+              <div class="avatar alt"><img src="foto/somayeh.jpg" alt="Foto van Somayeh" loading="lazy" onerror="this.remove()"><span aria-hidden="true">S</span></div>
               <div>
                 <h3>Somayeh</h3>
                 <span class="role alt">Tandartsassistente i.o.</span>
@@ -545,7 +555,7 @@
             </article>
 
             <article class="member compact">
-              <div class="avatar alt" aria-hidden="true">S</div>
+              <div class="avatar alt"><img src="foto/sayran.jpg" alt="Foto van Sayran (Sanna)" loading="lazy" onerror="this.remove()"><span aria-hidden="true">S</span></div>
               <div>
                 <h3>Sayran <span style="font-weight:500;color:var(--ink-soft)">(Sanna)</span></h3>
                 <span class="role alt">Paropreventie-assistent</span>
@@ -639,6 +649,7 @@
           <ul class="foot-list">
             <li>Nieuwe Damlaan 894</li>
             <li>3118 AC Schiedam</li>
+            <li><a href="https://www.google.com/maps/dir/?api=1&amp;destination=Nieuwe+Damlaan+894%2C+3118+AC+Schiedam" target="_blank" rel="noopener">Route plannen ↗</a></li>
             <li><a href="tel:+31104265271">010 426 52 71</a></li>
             <li><a href="mailto:info@tandartspraktijkphaily.nl">info@tandartspraktijkphaily.nl</a></li>
           </ul>
