@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+/*
+ * Kleurenpalet en lettertypes.
+ * Gebruik in classes als: bg-goud, text-antraciet, bg-creme, hover:bg-tomaat, font-heading.
+ *
+ * Contrast-afspraken (WCAG AA):
+ * - goud (#F4B400) NOOIT als tekstkleur op creme/wit (1,9:1). Wel als vlak met antraciet erop (8,9:1)
+ *   of als tekst op antraciet (9:1).
+ * - goud-donker is de variant voor gele tekst op een lichte achtergrond.
+ * - wit op tomaat (5:1) is AA. Voor rode TEKST gebruik je tomaat-donker (≥ 6:1 op alle lichte vlakken);
+ *   gewoon tomaat zakt op creme-donker net onder de 4,5:1.
+ */
+@theme {
+  --color-goud: #f4b400;
+  --color-goud-licht: #ffe59a;
+  --color-goud-donker: #7a5900;
+  --color-antraciet: #1f1f1f;
+  --color-antraciet-zacht: #4a4540;
+  --color-creme: #fff8e7;
+  --color-creme-donker: #f7ebcc;
+  --color-tomaat: #d7263d;
+  --color-tomaat-donker: #b01d31;
+  --color-blad: #2e6b3f;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-bricolage), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-creme);
+    color: var(--color-antraciet);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Duidelijke focus-ring: antraciet op lichte vlakken, goud op donkere (.on-dark) */
+  :focus-visible {
+    outline: 3px solid var(--color-antraciet);
+    outline-offset: 3px;
+  }
+
+  .on-dark :focus-visible {
+    outline-color: var(--color-goud);
+  }
+}
+
+/*
+ * Fade-in bij scrollen (zie components/ui/FadeIn.tsx).
+ * Alleen actief als JavaScript draait (html.js) én de bezoeker geen beperkte beweging wil.
+ * Zonder JS of met prefers-reduced-motion is alles direct zichtbaar.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .js .fade-in {
+    opacity: 0;
+    transform: translateY(1.25rem);
+    transition:
+      opacity 0.7s ease-out,
+      transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: var(--fade-delay, 0ms);
+  }
+
+  .js .fade-in.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Horizontaal scrollen zonder zichtbare scrollbalk (categorie-navigatie) */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
