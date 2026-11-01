@@ -1,0 +1,20 @@
+{
+  "name": "noa-oefenen-erasmusmc",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Oefensite voor de NOA-capaciteitentest (decentrale selectie Geneeskunde Erasmus MC 2027-2028)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "voorbeelden": "esbuild scripts/voorbeelden.ts --bundle --platform=node --format=esm --log-level=warning --outfile=node_modules/.cache/voorbeelden.mjs && node node_modules/.cache/voorbeelden.mjs",
+    "voorbeelden:html": "esbuild scripts/voorbeelden-html.ts --bundle --platform=node --format=cjs --log-level=warning --outfile=node_modules/.cache/voorbeelden-html.cjs && node node_modules/.cache/voorbeelden-html.cjs"
+  },
+  "devDependencies": {
+    "typescript": "5.8.3",
+    "vite": "7.3.7",
+    "vitest": "4.1.12"
+  }
+}
