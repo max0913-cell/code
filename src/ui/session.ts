@@ -194,7 +194,9 @@ export class Session {
     this.bankTime();
     rec.checked = true;
     this.render(false);
-    this.root?.querySelector<HTMLElement>('[data-next]')?.focus();
+    // Focus op "volgende", maar niet helemaal naar beneden springen: de gekleurde opties moeten zichtbaar blijven.
+    this.root?.querySelector<HTMLElement>('[data-next]')?.focus({ preventScroll: true });
+    this.root?.querySelector<HTMLElement>('.feedback')?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
   }
 
   private go(delta: number): void {

@@ -89,8 +89,12 @@ function reasonsHtml(it: CompItem, total: string): string {
   const by = (k: DistractorKind) => it.options.map((o, i) => ({ o, i })).filter((x) => it.reasons[x.i] === k);
   const fig = (xs: { i: number }[]) => `${xs.length > 1 ? 'Figuren' : 'Figuur'} ${LIST(xs.map((x) => LETTERS[x.i]))}`;
   const opp = by('oppervlakte');
-  if (opp.length)
-    out.push(`${opp.map((x, j) => `${j === 0 ? 'Figuur' : 'figuur'} ${LETTERS[x.i]} is ${formatArea(area(x.o))} hokjes groot`).join(' en ')}, maar de stukken samen zijn ${total} hokjes. Dat kan dus nooit.`);
+  if (opp.length) {
+    const groups = new Map<number, number[]>();
+    for (const x of opp) groups.set(area(x.o), [...(groups.get(area(x.o)) ?? []), x.i]);
+    const parts = [...groups.entries()].map(([a, is], j) => `${j === 0 ? (is.length > 1 ? 'Figuren' : 'Figuur') : is.length > 1 ? 'figuren' : 'figuur'} ${LIST(is.map((i) => LETTERS[i]))} ${is.length > 1 ? 'zijn' : 'is'} ${formatArea(a)} hokjes groot`);
+    out.push(`${LIST(parts)}, maar de stukken samen zijn ${total} hokjes. Dat kan dus nooit.`);
+  }
   const same = (xs: { i: number }[]) => (xs.length > 1 ? 'zijn' : 'is');
   const hok = by('hokje');
   if (hok.length) out.push(`${fig(hok)} ${same(hok)} even groot als de stukken samen, maar er zit één hokje op een andere plek dan bij een goede figuur. Dan passen de stukken niet meer.`);
