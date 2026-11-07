@@ -189,12 +189,12 @@
           '<p>Fout beantwoorde vragen komen terug tot je ze 2× achter elkaar goed hebt. Nu: <b>' + fouten.length + '</b> vragen' +
             (state.scope !== 'alle' ? ' (' + foutenInScope.length + ' in ' + esc(scopeLabel()) + ')' : '') + '.</p>' +
           '<div class="btn-row"><button class="btn btn-primary" data-act="fouten-oefen"' + (foutenInScope.length ? '' : ' disabled') + '>Oefen fouten</button>' +
-          '<a class="btn" href="#/fouten">Bekijk lijst</a></div>' +
+          '<a class="btn" href="#fouten">Bekijk lijst</a></div>' +
         '</div>' +
         '<div class="card mode">' +
           '<h2><span class="mode-icon">' + ICONS.kaarten + '</span>Flashcards</h2>' +
           '<p>De belangrijkste begrippen: voorkant begrip, achterkant uitleg en voorbeeld. ' + kaarten.length + ' kaarten voor ' + esc(scopeLabel()) + '.</p>' +
-          '<a class="btn btn-primary" href="#/kaarten">Start flashcards</a>' +
+          '<a class="btn btn-primary" href="#kaarten">Start flashcards</a>' +
         '</div>' +
       '</section>' +
 
@@ -216,18 +216,18 @@
     on('[data-act="oefen"]', function () { startOefen('oefen'); });
     on('[data-act="fouten-oefen"]', function () { startOefen('fouten'); });
     on('[data-act="toets"]', function () {
-      if (toets && !toets.klaar && !window.confirm('Je hebt nog een toetssimulatie open. Een nieuwe starten?')) return;
-      startToets();
+      if (toets && !toets.klaar) bevestig('Je hebt nog een toetssimulatie open. Als je een nieuwe start, gaat die verloren.', 'Nieuwe toets starten', startToets);
+      else startToets();
     });
-    on('[data-act="toets-verder"]', function () { go('#/toets'); });
+    on('[data-act="toets-verder"]', function () { go('#toets'); });
     on('[data-act="reset"]', function () {
-      if (window.confirm('Weet je zeker dat je al je voortgang, de foutenlijst en de toetsresultaten wilt wissen?')) {
+      bevestig('Al je voortgang, de foutenlijst, je toetsresultaten en de gekende flashcards worden gewist.', 'Alles wissen', function () {
         var scope = state.scope;
         state = defaultState();
         state.scope = scope;
         save();
         viewHome();
-      }
+      });
     });
   }
   function on(sel, fn) {
@@ -237,6 +237,39 @@
   function go(hash) {
     if (location.hash === hash) route(); else location.hash = hash;
   }
+
+  /* Eigen bevestigingsvenster: confirm() en alert() werken niet overal (bijv. in een ingesloten pagina). */
+  function venster(tekst, okLabel, opOk, annuleerLabel) {
+    var oud = document.querySelector('.overlay');
+    if (oud) oud.remove();
+    var vorige = document.activeElement;
+    var ov = document.createElement('div');
+    ov.className = 'overlay';
+    ov.innerHTML = '<div class="dialog" role="alertdialog" aria-modal="true" aria-labelledby="dlg-tekst">' +
+      '<p id="dlg-tekst">' + esc(tekst) + '</p>' +
+      '<div class="btn-row end">' +
+        (annuleerLabel ? '<button type="button" class="btn" data-dlg="nee">' + esc(annuleerLabel) + '</button>' : '') +
+        '<button type="button" class="btn btn-primary" data-dlg="ja">' + esc(okLabel) + '</button>' +
+      '</div></div>';
+    function sluit() {
+      ov.remove();
+      document.removeEventListener('keydown', toets_, true);
+      if (vorige && vorige.focus && document.body.contains(vorige)) vorige.focus();
+    }
+    function toets_(e) {
+      if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); sluit(); }
+    }
+    document.body.appendChild(ov);
+    document.addEventListener('keydown', toets_, true);
+    ov.addEventListener('click', function (e) { if (e.target === ov) sluit(); });
+    var nee = ov.querySelector('[data-dlg="nee"]');
+    if (nee) nee.addEventListener('click', sluit);
+    var ja = ov.querySelector('[data-dlg="ja"]');
+    ja.addEventListener('click', function () { sluit(); if (opOk) opOk(); });
+    ja.focus();
+  }
+  function bevestig(tekst, okLabel, opOk) { venster(tekst, okLabel, opOk, 'Annuleren'); }
+  function melding(tekst) { venster(tekst, 'Oké', null, null); }
 
   /* ---------------- Oefenmodus en foutenlijst-modus ---------------- */
   var oefen = null;
@@ -252,9 +285,9 @@
     else pool = QS.filter(function (q) { return inScope(q.week); });
     pool = shuffle(pool);
     if (mode === 'oefen' && !ids && state.aantal !== 'alle') pool = pool.slice(0, Number(state.aantal));
-    if (!pool.length) { window.alert('Er zijn geen vragen voor deze keuze.'); return; }
+    if (!pool.length) { melding('Er zijn geen vragen voor deze keuze.'); return; }
     oefen = { mode: mode, items: pool.map(maakItem), i: 0, klaar: false };
-    go('#/oefenen');
+    go('#oefenen');
   }
 
   function metaChips(q, extra) {
@@ -272,7 +305,7 @@
 
   function viewOefen(keepScroll) {
     setNav(oefen && oefen.mode === 'fouten' ? 'fouten' : 'home');
-    if (!oefen) { go('#/'); return; }
+    if (!oefen) { go('#start'); return; }
     if (oefen.klaar) { viewOefenEind(); return; }
     var n = oefen.items.length;
     var item = oefen.items[oefen.i];
@@ -325,7 +358,7 @@
 
     var html =
       '<div class="session-head">' +
-        '<a class="btn btn-ghost" href="#/">← Stoppen</a>' +
+        '<a class="btn btn-ghost" href="#start">← Stoppen</a>' +
         '<span class="stat">' + (oefen.mode === 'fouten' ? 'Foutenlijst · ' : '') + 'Vraag ' + (oefen.i + 1) + '/' + n + ' · ' + aantalGoed + ' goed</span>' +
       '</div>' +
       '<div class="progress"><span style="width:' + pct(oefen.i + (beantwoord ? 1 : 0), n) + '%"></span></div>' +
@@ -392,7 +425,7 @@
         '<div class="btn-row" style="margin-top:14px">' +
           (fout.length ? '<button class="btn btn-primary" data-act="opnieuw-fout">Fouten uit deze ronde opnieuw (' + fout.length + ')</button>' : '') +
           '<button class="btn" data-act="nieuw">Nieuwe ronde</button>' +
-          '<a class="btn btn-ghost" href="#/">Naar start</a>' +
+          '<a class="btn btn-ghost" href="#start">Naar start</a>' +
         '</div>' +
       '</section>' +
       (lijst ? '<section class="card"><h2>Fout beantwoord</h2>' + lijst + '</section>' : '')
@@ -454,14 +487,14 @@
       items: shuffle(gekozen).map(function (q) { return { id: q.id, order: shuffle([0, 1, 2, 3]), gekozen: null, goed: null }; }),
       i: 0, start: Date.now(), eind: null, klaar: false
     };
-    go('#/toets');
+    go('#toets');
   }
 
   function stopTimer() { if (timerId) { clearInterval(timerId); timerId = null; } }
 
   function viewToets(keepScroll) {
     setNav('home');
-    if (!toets) { go('#/'); return; }
+    if (!toets) { go('#start'); return; }
     if (toets.klaar) { viewToetsResultaat(); return; }
     var n = toets.items.length;
     var item = toets.items[toets.i];
@@ -480,7 +513,7 @@
 
     var html =
       '<div class="session-head">' +
-        '<a class="btn btn-ghost" href="#/">← Start</a>' +
+        '<a class="btn btn-ghost" href="#start">← Start</a>' +
         '<span class="stat">Vraag ' + (toets.i + 1) + '/' + n + ' · beantwoord ' + aantalBeantwoord + '/' + n + ' · <span id="timer">' + fmtTijd(Date.now() - toets.start) + '</span></span>' +
       '</div>' +
       '<div class="progress"><span style="width:' + pct(aantalBeantwoord, n) + '%"></span></div>' +
@@ -530,9 +563,12 @@
   function inleveren() {
     var open = toets.items.filter(function (it) { return it.gekozen === null; }).length;
     var vraag = open
-      ? 'Je hebt nog ' + open + ' ' + (open === 1 ? 'vraag' : 'vragen') + ' niet beantwoord (die tellen als fout). Toch inleveren?'
-      : 'Weet je zeker dat je wilt inleveren?';
-    if (!window.confirm(vraag)) return;
+      ? 'Je hebt nog ' + open + ' ' + (open === 1 ? 'vraag' : 'vragen') + ' niet beantwoord. Die tellen als fout.'
+      : 'Je hebt alle vragen beantwoord. Daarna kun je niets meer veranderen.';
+    bevestig(vraag, open ? 'Toch inleveren' : 'Inleveren', leverIn);
+  }
+
+  function leverIn() {
     stopTimer();
     toets.eind = Date.now();
     var score = 0;
@@ -601,7 +637,7 @@
         '<div class="btn-row" style="margin-top:14px">' +
           (fout.length ? '<button class="btn btn-primary" data-act="oefen-fout">Oefen deze ' + fout.length + ' fouten</button>' : '') +
           '<button class="btn" data-act="nieuwe-toets">Nieuwe toets</button>' +
-          '<a class="btn btn-ghost" href="#/">Naar start</a>' +
+          '<a class="btn btn-ghost" href="#start">Naar start</a>' +
         '</div>' +
       '</section>' +
       '<section class="card"><h2>Score per week</h2><table class="scores"><thead><tr><th>Week</th><th></th><th>Goed</th></tr></thead><tbody>' + weekRows + '</tbody></table></section>' +
@@ -714,24 +750,25 @@
   /* ---------------- Toetsenbord ---------------- */
   document.addEventListener('keydown', function (e) {
     if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (document.querySelector('.overlay')) return;
     var tag = e.target && e.target.tagName ? e.target.tagName.toUpperCase() : '';
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
     var opKnop = tag === 'BUTTON' || tag === 'A';
-    var h = location.hash || '#/';
+    var h = location.hash || '#start';
     var key = (e.key || '').toLowerCase();
     var idx = ['1', '2', '3', '4'].indexOf(key);
     if (idx < 0) idx = ['a', 'b', 'c', 'd'].indexOf(key);
 
-    if (h === '#/oefenen' && oefen && !oefen.klaar) {
+    if (h === '#oefenen' && oefen && !oefen.klaar) {
       var it = oefen.items[oefen.i];
       if (idx >= 0 && it.gekozen === null) { e.preventDefault(); kiesOefen(idx); }
       else if (key === 'h' && it.gekozen === null && !it.hint) { it.hint = true; viewOefen(true); }
       else if (key === 'enter' && it.gekozen !== null && !opKnop) { e.preventDefault(); volgendeOefen(); }
-    } else if (h === '#/toets' && toets && !toets.klaar) {
+    } else if (h === '#toets' && toets && !toets.klaar) {
       if (idx >= 0) { e.preventDefault(); toets.items[toets.i].gekozen = idx; viewToets(true); }
       else if (key === 'arrowright' && toets.i < toets.items.length - 1) { toets.i++; viewToets(); }
       else if (key === 'arrowleft' && toets.i > 0) { toets.i--; viewToets(); }
-    } else if (h === '#/kaarten' && kaart && kaart.ids.length) {
+    } else if (h === '#kaarten' && kaart && kaart.ids.length) {
       if ((key === ' ' || key === 'enter') && !opKnop) { e.preventDefault(); flipKaart(); }
       else if (key === 'arrowright') kaartNaar(1);
       else if (key === 'arrowleft') kaartNaar(-1);
@@ -742,11 +779,11 @@
   /* ---------------- Router ---------------- */
   function route() {
     stopTimer();
-    var h = location.hash || '#/';
-    if (h === '#/oefenen') viewOefen();
-    else if (h === '#/toets') viewToets();
-    else if (h === '#/fouten') viewFouten();
-    else if (h === '#/kaarten') viewKaarten();
+    var h = location.hash || '#start';
+    if (h === '#oefenen') viewOefen();
+    else if (h === '#toets') viewToets();
+    else if (h === '#fouten') viewFouten();
+    else if (h === '#kaarten') viewKaarten();
     else viewHome();
   }
   window.addEventListener('hashchange', route);
