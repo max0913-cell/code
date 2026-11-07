@@ -117,3 +117,7 @@ scripts/       voorbeeldopgaven printen
 - [NOA-testvoorbeelden](https://eur.nl/erasmusmc/media/125011)
 - [Slides coachingswebinar 2025](https://eur.nl/erasmusmc/media/125009)
 - [Gratis oefentest van NOA (assess.ly)](https://assess.ly/en/noa/)
+
+## Ook in deze repo: oefensite Bedrijfstakanalyse
+
+In de map [`bedrijfstakanalyse/`](bedrijfstakanalyse/) staat een losse statische oefensite voor de toets *De meso-omgeving – Bedrijfstakanalyse* (ENTECO02J1). Die heeft geen build-stap: open `bedrijfstakanalyse/index.html` of draai `npx serve bedrijfstakanalyse`. Zie [de README in die map](bedrijfstakanalyse/README.md).
