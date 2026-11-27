@@ -22,14 +22,14 @@ const { vragen, kop: Kop = 'h3' } = Astro.props;
 <div class="faq">
   {
     vragen.map((v) => (
-      <details class="faq__item" id={v.id}>
+      <details class="faq__item">
         <summary>
           <Kop class="faq__vraag">{v.vraag}</Kop>
           <span class="faq__icoon" aria-hidden="true">
             <Icon name="plus" size={20} stroke={2.5} />
           </span>
         </summary>
-        <div class="faq__antwoord">
+        <div class="faq__antwoord" id={v.id}>
           {v.antwoord.map((alinea) => (
             <p>{alinea}</p>
           ))}
@@ -57,7 +57,6 @@ const { vragen, kop: Kop = 'h3' } = Astro.props;
     background: var(--white);
     border: 1px solid var(--grey-200);
     border-radius: var(--radius);
-    scroll-margin-top: 1.5rem;
   }
 
   .faq__item[open] {
@@ -104,7 +103,10 @@ const { vragen, kop: Kop = 'h3' } = Astro.props;
     transform: rotate(45deg);
   }
 
+  /* Het anker zit in het antwoord: bij een link naar #vraag klapt de browser
+     de vraag zelf open. De marge houdt de vraag boven het antwoord in beeld. */
   .faq__antwoord {
+    scroll-margin-top: 6rem;
     padding: 0 1.5rem 1.4rem;
     color: var(--text-muted);
     max-width: 70ch;

@@ -9,7 +9,7 @@ export const home = {
   hero: {
     eyebrow: 'NFC-standaards voor lokale zaken',
     /** De H1. Het deel in `accent` wordt geel. */
-    titel: 'Meer Google-reviews, zonder erom te vragen',
+    titel: 'Meer Google-reviews, zonder erom te\u00A0vragen',
     accent: 'Google-reviews',
     intro:
       'Een NFC-standaard op je toonbank. Je klant tikt met de telefoon en staat meteen op jouw Google-reviewpagina. Geen app nodig. Ik kom langs, stel alles in en test het ter plekke.',

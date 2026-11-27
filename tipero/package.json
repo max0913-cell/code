@@ -17,7 +17,8 @@
     "controleer:schema": "node scripts/controleer-schema.mjs",
     "controleer:contrast": "node scripts/contrast.mjs",
     "lighthouse": "node scripts/lighthouse.mjs",
-    "afbeeldingen": "node scripts/maak-afbeeldingen.mjs"
+    "afbeeldingen": "node scripts/maak-afbeeldingen.mjs",
+    "placeholders": "node scripts/controleer.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.6",

@@ -38,6 +38,8 @@ const fotoAlt = over.fotoAlt.replace('[Jouw naam]', bedrijf.eigenaar);
             formats={['avif', 'webp']}
             widths={[360, 540, 720, 900]}
             sizes="(min-width: 900px) 26rem, 90vw"
+            loading="eager"
+            fetchpriority="high"
             class="portret__foto"
           />
         ) : bedrijf.toonPlaceholders ? (

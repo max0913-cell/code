@@ -31,7 +31,7 @@ const { id, breedte, hoogte } = beeld;
 const branche = branches.find((b) => id === `og-${b.slug}`);
 
 const og: Record<string, { eyebrow: string; titel: string; accent?: string }> = {
-  'og-tipero': { eyebrow: 'NFC-standaards voor lokale zaken', titel: 'Meer Google-reviews, zonder erom te vragen', accent: 'Google-reviews' },
+  'og-tipero': { eyebrow: 'NFC-standaards voor lokale zaken', titel: 'Meer Google-reviews, zonder erom te\u00A0vragen', accent: 'Google-reviews' },
   'og-producten': { eyebrow: 'Producten', titel: 'Eén stand voor reviews, menu en socials', accent: 'reviews, menu en socials' },
   'og-hoe-het-werkt': { eyebrow: 'Hoe het werkt', titel: 'Ik kom langs, stel alles in en test het ter plekke', accent: 'ter plekke' },
   'og-prijzen': { eyebrow: 'Prijzen', titel: `Vanaf ${formatPrijs(prijzen.standaard)}, alles inbegrepen`, accent: formatPrijs(prijzen.standaard) },
