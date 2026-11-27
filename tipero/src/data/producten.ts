@@ -66,7 +66,7 @@ export const producten: Product[] = [
       'Werkt met NFC én met de QR-code',
       'Nieuw menu op dezelfde link? Dan hoeft er niets te veranderen',
     ],
-    idealeVoor: "Snackbars, lunchrooms, bakkers en kappers (prijslijst)",
+    idealeVoor: 'Zaken met een menu, prijslijst of assortiment',
   },
   {
     id: 'socials',
@@ -86,7 +86,7 @@ export const producten: Product[] = [
       'Werkt met NFC én met de QR-code',
       'Goed te combineren met een reviewstand',
     ],
-    idealeVoor: 'Kappers, bakkers en iedereen die mooi werk laat zien',
+    idealeVoor: 'Zaken die hun werk of producten online laten zien',
   },
 ];
 

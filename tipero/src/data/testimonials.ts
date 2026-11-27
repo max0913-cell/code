@@ -11,7 +11,7 @@
  *    tekst: 'Wat de klant zei...',
  *    naam: 'Voornaam',
  *    zaak: 'Naam van de zaak',
- *    plaats: 'Lekkerkerk',
+ *    plaats: 'Rotterdam',
  *  },
  */
 export interface Testimonial {

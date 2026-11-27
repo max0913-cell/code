@@ -22,13 +22,10 @@ export const bedrijf = {
 
   /** Algemene omschrijving (o.a. voor de structured data). */
   omschrijving:
-    'Tipero levert NFC-standaards met QR-code voor op de toonbank van lokale ondernemers in Lekkerkerk en omgeving. Klanten tikken met hun telefoon en komen direct op je Google-reviewpagina, je menu of je socials. Tipero komt langs, stelt alles in en test de stand ter plekke.',
+    'Tipero levert NFC-standaards met QR-code voor op de toonbank van lokale ondernemers in de regio Rotterdam. Klanten tikken met hun telefoon en komen direct op je Google-reviewpagina, je menu of je socials. Tipero komt langs, stelt alles in en test de stand ter plekke.',
 
   /** Je eigen naam, zoals die op de Over-pagina en in de privacyverklaring komt. */
   eigenaar: '[jouw naam]',
-
-  /** Plaats waar je vandaan werkt. Alleen de plaats, nooit je huisadres. */
-  thuisbasis: 'Lekkerkerk',
 
   contact: {
     /** Bijvoorbeeld 'hallo@tipero.nl' */
@@ -94,7 +91,7 @@ export const prijzen = {
   btwTekst: '[Prijzen zijn incl./excl. btw.]',
   /** Wat er bij de prijs inzit. Wordt op de prijzenpagina en bij de prijskaarten getoond. */
   inbegrepen: [
-    'Langskomen in het werkgebied',
+    'Langskomen in de regio Rotterdam',
     'De juiste link voor je opzoeken',
     'NFC-chip programmeren en QR-code maken',
     'Ter plekke testen met iPhone en Android',

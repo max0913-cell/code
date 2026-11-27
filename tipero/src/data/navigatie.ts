@@ -17,16 +17,14 @@ export const footerMenu = {
     { tekst: 'Socials-stand', href: '/producten#socials' },
     { tekst: 'Prijzen', href: '/prijzen' },
   ],
-  voorWie: [
-    { tekst: 'Kappers', href: '/kapper' },
-    { tekst: 'Bakkers', href: '/bakker' },
-    { tekst: 'Snackbars', href: '/snackbar' },
-    { tekst: 'Werkgebied', href: '/werkgebied' },
-  ],
   tipero: [
     { tekst: 'Hoe het werkt', href: '/hoe-het-werkt' },
+    { tekst: 'Werkgebied', href: '/werkgebied' },
     { tekst: 'Over Tipero', href: '/over' },
+  ],
+  hulp: [
     { tekst: 'Veelgestelde vragen', href: '/veelgestelde-vragen' },
     { tekst: 'Contact', href: '/contact' },
+    { tekst: 'Privacyverklaring', href: '/privacy' },
   ],
 };

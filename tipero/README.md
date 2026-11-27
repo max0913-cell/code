@@ -1,11 +1,11 @@
 # Tipero: website
 
-De website van **Tipero**: NFC-standaards voor de toonbank van lokale ondernemers in Lekkerkerk en omgeving.
+De website van **Tipero**: NFC-standaards voor de toonbank van lokale ondernemers in de regio Rotterdam.
 
 Gebouwd met [Astro](https://astro.build) 7 als statische site. Bezoekers krijgen geen JavaScript binnen, alleen HTML en CSS.
 Daardoor is de site snel: Lighthouse (mobiel) geeft 100 op prestaties, toegankelijkheid, best practices en SEO.
 
-- 14 pagina's: home, producten, hoe het werkt, prijzen, kapper, bakker, snackbar, werkgebied, over, contact, veelgestelde vragen, privacy, bedankt en 404
+- 11 pagina's: home, producten, hoe het werkt, prijzen, werkgebied, over, contact, veelgestelde vragen, privacy, bedankt en 404
 - Alle teksten, prijzen en contactgegevens staan in databestanden in `src/data/`
 - SEO: unieke titels en omschrijvingen, canonical-URL's, Open Graph-afbeeldingen, sitemap, robots.txt en structured data (LocalBusiness zonder adres, Product/Offer, FAQPage, BreadcrumbList)
 - Geen cookies en geen tracking, dus ook geen cookiebanner nodig
@@ -54,8 +54,7 @@ Alles wat je zelf wilt aanpassen staat in `src/data/`. Je hoeft geen HTML te ken
 | `src/data/producten.ts` | Reviewstand, menustand en socials-stand |
 | `src/data/stappen.ts` | De stappen op de homepage en op /hoe-het-werkt |
 | `src/data/faq.ts` | Alle veelgestelde vragen (met `opHome: true` staan ze ook op de homepage) |
-| `src/data/branches.ts` | Teksten van /kapper, /bakker en /snackbar |
-| `src/data/werkgebied.ts` | Plaatsen in je werkgebied (ook op het kaartje en in de structured data) |
+| `src/data/werkgebied.ts` | Naam van je werkgebied (nu: regio Rotterdam), ook voor de structured data |
 | `src/data/over.ts` | Je eigen verhaal op /over |
 | `src/data/testimonials.ts` | Ervaringen van klanten (alleen échte, met toestemming) |
 | `src/data/navigatie.ts` | Menu-items in de header en footer |
@@ -202,7 +201,7 @@ Doe dit zodra de site live staat op je eigen domein.
 3. Google geeft je een **TXT-record** (begint met `google-site-verification=`). Voeg dat toe in je DNS: bij je registrar, of in Netlify onder **Domain management → DNS records** als je Netlify DNS gebruikt.
 4. Klik in Search Console op **Verifiëren**. Lukt het niet meteen, probeer het dan na een uur opnieuw.
 5. Ga in het menu naar **Indexering → Sitemaps**, vul `sitemap-index.xml` in en klik op **Indienen**. De status wordt na een tijdje **Geslaagd**.
-6. Vul bovenin bij **URL-inspectie** `https://www.tipero.nl/` in en klik op **Indexering aanvragen**. Doe dat ook voor `/kapper`, `/bakker`, `/snackbar` en `/prijzen`.
+6. Vul bovenin bij **URL-inspectie** `https://www.tipero.nl/` in en klik op **Indexering aanvragen**. Doe dat ook voor `/producten`, `/prijzen` en `/werkgebied`.
 7. Kijk na een paar dagen bij **Indexering → Pagina's** welke pagina's zijn opgenomen, en later bij **Prestaties** op welke zoekwoorden je gevonden wordt.
 
 Controleer de structured data van de live site met de [Rich Results Test](https://search.google.com/test/rich-results) en de [Schema Markup Validator](https://validator.schema.org). Een melding over een ontbrekend adres bij LocalBusiness is verwacht: je werkt vanuit huis en vermeldt bewust alleen je werkgebied (`areaServed`). Meldingen over verzending en retourbeleid bij de producten kun je ook negeren, want je verkoopt niet via een webshop.
@@ -242,7 +241,7 @@ tipero/
 │   ├── data/               ← alle teksten, prijzen en gegevens
 │   ├── layouts/            basislayout met SEO-tags en structured data
 │   ├── lib/                hulpfuncties (opmaak, JSON-LD, QR-code)
-│   ├── pages/              één bestand per pagina; [branche].astro maakt /kapper, /bakker en /snackbar
+│   ├── pages/              één bestand per pagina
 │   └── styles/global.css   kleuren, typografie en knoppen
 ├── astro.config.ts         site-instellingen (domein, lettertypen, sitemap)
 └── netlify.toml            Netlify-instellingen

@@ -4,7 +4,7 @@
  * contactgegevens altijd overeenkomen met wat er op de pagina staat.
  */
 import { bedrijf, prijzen } from '../data/bedrijf';
-import { plaatsen, gebieden } from '../data/werkgebied';
+import { werkgebied } from '../data/werkgebied';
 import { producten } from '../data/producten';
 import type { FaqItem } from '../data/faq';
 import { absoluteUrl, formatPrijs, geldigEmail, isPlaceholder, prijsVoorSchema, telefoonVoorSchema } from './format';
@@ -22,10 +22,7 @@ export interface Kruimel {
   href: string;
 }
 
-const areaServed = () => [
-  ...plaatsen.map((p) => ({ '@type': p.type, name: p.naam })),
-  ...gebieden.map((g) => ({ '@type': g.type, name: g.naam })),
-];
+const areaServed = () => werkgebied.areaServed.map((g) => ({ '@type': g.type, name: g.naam }));
 
 /** De onderneming: een service-area business, dus zonder adres. */
 export function organisatie(): Node {

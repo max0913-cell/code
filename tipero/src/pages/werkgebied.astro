@@ -1,182 +1,85 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BrancheCards from '../components/BrancheCards.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
 import PageHero from '../components/PageHero.astro';
+import RegioBeeld from '../components/RegioBeeld.astro';
 import SectionHeader from '../components/SectionHeader.astro';
-import WerkgebiedKaart from '../components/WerkgebiedKaart.astro';
+import Steps from '../components/Steps.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
-import { plaatsen } from '../data/werkgebied';
+import { stappenKort } from '../data/stappen';
+import { werkgebied } from '../data/werkgebied';
 
 const kruimels = [{ naam: 'Werkgebied', href: '/werkgebied' }];
-
-const groepen = [
-  {
-    titel: 'Krimpenerwaard',
-    intro: 'De gemeente waar Lekkerkerk zelf ook bij hoort. Van de Lek tot de Hollandse IJssel.',
-    plaatsen: plaatsen.filter((p) => p.regio === 'Krimpenerwaard'),
-  },
-  {
-    titel: 'Krimpen aan den IJssel',
-    intro: 'Net over de Hollandse IJssel, tegen Rotterdam aan.',
-    plaatsen: plaatsen.filter((p) => p.regio === 'Krimpen aan den IJssel'),
-  },
-  {
-    titel: 'Rotterdam-Oost',
-    intro: 'Voor zaken aan de oostkant van Rotterdam.',
-    plaatsen: plaatsen.filter((p) => p.regio === 'Rotterdam'),
-  },
-];
 ---
 
 <BaseLayout pad="/werkgebied" kruimels={kruimels}>
   <PageHero
     eyebrow="Werkgebied"
-    titel="Lekkerkerk, de Krimpenerwaard en omgeving"
-    accent="Lekkerkerk"
-    intro="Tipero komt naar je toe. Ik werk vanuit Lekkerkerk en kom langs bij ondernemers in de hele Krimpenerwaard, in Krimpen aan den IJssel en in Rotterdam-Oost."
+    titel={`Tipero komt langs in de ${werkgebied.naam}`}
+    accent={werkgebied.naam}
+    intro="Tipero komt naar je toe. Ik kom langs bij ondernemers in Rotterdam en omgeving, stel de stand in en test hem samen met je."
     kruimels={kruimels}
   >
     <div class="btn-row" slot="acties">
       <WhatsAppButton />
+      <a class="btn btn--outline" href="/prijzen">Bekijk de prijzen</a>
     </div>
-    <WerkgebiedKaart slot="aside" />
+    <RegioBeeld slot="aside" />
   </PageHero>
 
-  <section class="section" aria-labelledby="plaatsen-titel">
-    <div class="container">
-      <SectionHeader
-        eyebrow="Plaatsen"
-        titel="Hier kom ik langs"
-        intro="Een NFC-standaard bestel je bij Tipero niet online en krijg je niet per post. Ik kom naar je zaak, stel de stand in en test hem samen met je."
-        id="plaatsen-titel"
-      />
-      <div class="groepen">
-        {
-          groepen.map((groep) => (
-            <section class="groep" aria-labelledby={`groep-${groep.titel.replace(/\W+/g, '-').toLowerCase()}`}>
-              <h3 id={`groep-${groep.titel.replace(/\W+/g, '-').toLowerCase()}`}>{groep.titel}</h3>
-              <p class="groep__intro">{groep.intro}</p>
-              <ul>
-                {groep.plaatsen.map((p) => (
-                  <li>
-                    <Icon name="pin" size={18} />
-                    <div>
-                      <strong>{p.naam}</strong>
-                      <span>{p.tekst}</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--grey" aria-labelledby="langskomen-titel">
+  <section class="section" aria-labelledby="langskomen-titel">
     <div class="container langskomen">
       <div>
-        <p class="eyebrow">Zo gaat het</p>
-        <h2 id="langskomen-titel">Langskomen hoort erbij</h2>
+        <p class="eyebrow">Persoonlijk</p>
+        <h2 id="langskomen-titel">Waarom ik langskom</h2>
       </div>
       <div class="langskomen__tekst">
         <p>
-          We spreken een moment af dat jou uitkomt: voor openingstijd, op een rustig moment of tussen twee klanten door. Ik
-          neem de stand mee, zoek de juiste link voor je op en test alles ter plekke met een iPhone en een Android.
+          Een NFC-standaard bestel je bij Tipero niet online en krijg je niet per post. Ik kom naar je zaak, zoek de juiste
+          link voor je op en test de stand ter plekke met een iPhone en een Android.
         </p>
         <p>
-          Zit je net buiten dit gebied, bijvoorbeeld in een plaats verderop langs de Lek of de Hollandse IJssel? Vraag het
-          gerust. Vaak is er wel iets te regelen.
+          Dat werkt het beste als je in de buurt zit. Daarom richt Tipero zich op de {werkgebied.naam}. Zo blijf ik ook na
+          de levering makkelijk bereikbaar: een appje is genoeg.
         </p>
         <p>
-          <a class="link-arrow" href="/hoe-het-werkt">
-            Bekijk hoe het werkt
-            <Icon name="arrow-right" />
-          </a>
+          We spreken een moment af dat jou uitkomt: voor openingstijd, op een rustig moment of tussen twee klanten door.
         </p>
       </div>
     </div>
   </section>
 
-  <section class="section section--ink on-dark" aria-labelledby="branches-titel">
+  <section class="section section--grey" aria-labelledby="stappen-titel">
     <div class="container">
-      <SectionHeader
-        eyebrow="Voor wie"
-        titel="Voor lokale zaken met een toonbank"
-        intro="Kappers in Lekkerkerk, bakkers in Schoonhoven, snackbars in Krimpen: bekijk wat een stand voor jouw soort zaak kan doen."
-        id="branches-titel"
-      />
-      <BrancheCards />
+      <SectionHeader eyebrow="Zo gaat het" titel="Van berichtje tot stand op je toonbank" id="stappen-titel" />
+      <Steps stappen={stappenKort} />
+      <p class="meer">
+        <a class="link-arrow" href="/hoe-het-werkt">
+          Lees hoe het precies werkt
+          <Icon name="arrow-right" />
+        </a>
+      </p>
     </div>
   </section>
 
-  <CtaBand titel="Zit je in de buurt?" />
+  <section class="section" aria-labelledby="buiten-titel">
+    <div class="container">
+      <div class="buiten">
+        <span class="buiten__icoon"><Icon name="pin" size={24} /></span>
+        <div>
+          <h2 id="buiten-titel">Net buiten de regio?</h2>
+          <p>Vraag het gerust. Vaak is er wel iets te regelen.</p>
+        </div>
+        <WhatsAppButton variant="ink" tekst="Vraag het via WhatsApp" bericht="Hoi Tipero! Kom je ook langs in mijn plaats?" />
+      </div>
+    </div>
+  </section>
+
+  <CtaBand titel="Zit je in de regio Rotterdam?" />
 </BaseLayout>
 
 <style>
-  .groepen {
-    display: grid;
-    gap: 1.25rem;
-  }
-
-  @media (min-width: 900px) {
-    .groepen {
-      grid-template-columns: 1.4fr 1fr;
-    }
-
-    .groep:first-child {
-      grid-row: span 2;
-    }
-  }
-
-  .groep {
-    padding: clamp(1.5rem, 3vw, 2rem);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--grey-200);
-  }
-
-  .groep__intro {
-    margin-top: 0.5rem;
-    color: var(--text-muted);
-  }
-
-  .groep ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 1.5rem;
-    display: grid;
-    gap: 1rem;
-  }
-
-  @media (min-width: 640px) {
-    .groep:first-child ul {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .groep li {
-    display: grid;
-    grid-template-columns: 1.125rem 1fr;
-    gap: 0.75rem;
-    align-items: start;
-  }
-
-  .groep li :global(svg) {
-    margin-top: 0.25rem;
-  }
-
-  .groep li div {
-    display: grid;
-  }
-
-  .groep li span {
-    font-size: 0.9375rem;
-    color: var(--text-muted);
-  }
-
   .langskomen {
     display: grid;
     gap: 1.5rem 5rem;
@@ -193,11 +96,6 @@ const groepen = [
     font-size: var(--fs-lead);
   }
 
-  .langskomen__tekst .link-arrow {
-    color: var(--ink);
-    font-size: 1rem;
-  }
-
   @media (min-width: 900px) {
     .langskomen {
       grid-template-columns: 1fr 1fr;
@@ -205,6 +103,44 @@ const groepen = [
 
     .langskomen__tekst {
       padding-top: 2.4rem;
+    }
+  }
+
+  .meer {
+    margin-top: 2.5rem;
+  }
+
+  .buiten {
+    display: grid;
+    gap: 1.25rem;
+    align-items: center;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: var(--radius-lg);
+    background: var(--yellow-soft);
+  }
+
+  .buiten h2 {
+    font-size: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);
+  }
+
+  .buiten p {
+    margin-top: 0.35rem;
+    color: var(--text-muted);
+  }
+
+  .buiten__icoon {
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 50%;
+    background: var(--yellow);
+  }
+
+  @media (min-width: 800px) {
+    .buiten {
+      grid-template-columns: auto 1fr auto;
+      gap: 1.5rem;
     }
   }
 </style>

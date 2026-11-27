@@ -25,7 +25,7 @@ export const seo = {
   '/': {
     titel: 'Google review standaard met NFC voor je zaak | Tipero',
     omschrijving:
-      'Meer Google-reviews voor je zaak in Lekkerkerk en omgeving. Klanten tikken met hun telefoon op de NFC-standaard op je toonbank. Ik stel alles voor je in.',
+      'Meer Google-reviews voor je zaak in de regio Rotterdam. Klanten tikken met hun telefoon op de NFC-standaard op je toonbank. Ik stel alles voor je in.',
     ogAfbeelding: '/og/tipero.png',
   },
   '/producten': {
@@ -45,40 +45,22 @@ export const seo = {
     omschrijving: `Een NFC-standaard voor je toonbank vanaf ${vanaf}. In je eigen huisstijl ${formatPrijs(prijzen.huisstijl)}, set review + menu ${formatPrijs(prijzen.set)}. Langskomen en instellen inbegrepen.`,
     ogAfbeelding: '/og/prijzen.png',
   },
-  '/kapper': {
-    titel: 'NFC review standaard voor kappers en barbers | Tipero',
-    omschrijving:
-      'Meer Google-reviews voor je kapsalon of barbershop in Lekkerkerk en de Krimpenerwaard. Je klant tikt bij het afrekenen. Ik stel alles voor je in.',
-    ogAfbeelding: '/og/kapper.png',
-  },
-  '/bakker': {
-    titel: 'NFC-standaard voor bakkers: reviews en assortiment | Tipero',
-    omschrijving:
-      'Meer Google-reviews voor je bakkerij in Lekkerkerk en omgeving. Klanten tikken in de rij op de standaard bij de kassa. Ook voor je assortiment of socials.',
-    ogAfbeelding: '/og/bakker.png',
-  },
-  '/snackbar': {
-    titel: 'NFC menu- en reviewstandaard voor snackbars | Tipero',
-    omschrijving:
-      "Wachtende klanten bekijken je menu of laten een Google-review achter met één tik. Voor snackbars en cafetaria's in Lekkerkerk en omgeving.",
-    ogAfbeelding: '/og/snackbar.png',
-  },
   '/werkgebied': {
-    titel: 'Werkgebied: Lekkerkerk, Krimpenerwaard en omgeving | Tipero',
+    titel: 'NFC review standaard in de regio Rotterdam | Tipero',
     omschrijving:
-      'Tipero komt langs bij ondernemers in Lekkerkerk, de Krimpenerwaard, Krimpen aan den IJssel, Ouderkerk, Schoonhoven en Rotterdam-Oost.',
+      'Tipero komt langs bij ondernemers in Rotterdam en omgeving. Ik zoek de juiste link op, programmeer je NFC-standaard en test hem ter plekke.',
     ogAfbeelding: '/og/werkgebied.png',
   },
   '/over': {
-    titel: 'Over Tipero: student-ondernemer uit Lekkerkerk',
+    titel: 'Over Tipero: student-ondernemer uit de regio Rotterdam',
     omschrijving:
-      'Tipero is opgericht door een student-ondernemer uit Lekkerkerk. Ik help lokale zaken aan meer Google-reviews: persoonlijk, snel en zonder gedoe.',
+      'Tipero is opgericht door een student-ondernemer uit de regio Rotterdam. Ik help lokale zaken aan meer Google-reviews: persoonlijk en zonder gedoe.',
     ogAfbeelding: '/og/tipero.png',
   },
   '/contact': {
     titel: 'Contact: vraag je NFC-standaard aan | Tipero',
     omschrijving:
-      'Stuur een WhatsApp, mail of vul het formulier in. Ik kom langs in Lekkerkerk en omgeving en stel je NFC-standaard ter plekke voor je in.',
+      'Stuur een WhatsApp, mail of vul het formulier in. Ik kom langs in de regio Rotterdam en stel je NFC-standaard ter plekke voor je in.',
     ogAfbeelding: '/og/tipero.png',
   },
   '/veelgestelde-vragen': {

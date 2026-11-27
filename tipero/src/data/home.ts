@@ -38,9 +38,25 @@ export const home = {
 
   voorWie: {
     eyebrow: 'Voor wie',
-    titel: 'Gemaakt voor zaken met een toonbank',
-    intro: 'Overal waar klanten afrekenen of even wachten, werkt een stand. Ik heb aparte pagina’s voor:',
-    andereTitel: 'Maar ook voor',
+    titel: 'Voor elke zaak met een toonbank',
+    intro: 'Overal waar klanten afrekenen, bestellen of even wachten, werkt een stand. Zo zet je hem in:',
+    plekken: [
+      {
+        icoon: 'store',
+        titel: 'Bij de kassa',
+        tekst: 'Hier komt iedere klant langs, precies op het moment dat het bezoek erop zit. De beste plek voor een reviewstand.',
+      },
+      {
+        icoon: 'clock',
+        titel: 'Waar klanten wachten',
+        tekst: 'Wie wacht, pakt de telefoon. Een menu- of socials-stand valt hier vanzelf op.',
+      },
+      {
+        icoon: 'book',
+        titel: 'Op tafel of aan de balie',
+        tekst: 'Laat klanten je menu, prijslijst of assortiment bekijken op hun eigen telefoon.',
+      },
+    ] satisfies { icoon: IconName; titel: string; tekst: string }[],
   },
 
   waarom: {
@@ -52,7 +68,7 @@ export const home = {
       {
         icoon: 'pin',
         titel: 'Ik kom langs',
-        tekst: 'Ik kom naar je zaak in Lekkerkerk of omgeving. Persoonlijk, op een moment dat het jou uitkomt.',
+        tekst: 'Ik kom naar je zaak in de regio Rotterdam. Persoonlijk, op een moment dat het jou uitkomt.',
       },
       {
         icoon: 'link',

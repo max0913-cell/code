@@ -1,6 +1,6 @@
 /**
  * Kleine statische server voor dist/, die zich gedraagt zoals Netlify:
- * - /kapper → kapper.html, / → index.html, onbekend → 404.html (status 404)
+ * - /prijzen → prijzen.html, / → index.html, onbekend → 404.html (status 404)
  * - headers uit public/_headers (CSP, caching, ...)
  * - gzip/brotli-compressie voor tekstbestanden
  * Wordt gebruikt door scripts/lighthouse.mjs.

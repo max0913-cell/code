@@ -7,7 +7,6 @@
  */
 import Icon from './Icon.astro';
 import { bedrijf } from '../data/bedrijf';
-import { plaatsen } from '../data/werkgebied';
 
 const { aanbieder, formspreeId } = bedrijf.formulier;
 const isNetlify = aanbieder === 'netlify';
@@ -52,10 +51,7 @@ const uitvoeringen = ['Tipero-ontwerp (zwart/geel)', 'Eigen huisstijl', 'Weet ik
 
   <div class="veld">
     <label for="plaats">Plaats van je zaak <span class="veld__optioneel">(optioneel)</span></label>
-    <input id="plaats" name="plaats" type="text" list="plaatsen" autocomplete="address-level2" />
-    <datalist id="plaatsen">
-      {plaatsen.map((p) => <option value={p.naam} />)}
-    </datalist>
+    <input id="plaats" name="plaats" type="text" autocomplete="address-level2" />
   </div>
 
   <fieldset class="keuzes">

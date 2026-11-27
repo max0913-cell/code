@@ -127,6 +127,13 @@ export const faq: FaqCategorie[] = [
         ],
       },
       {
+        id: 'welke-links',
+        vraag: 'Naar welke pagina kan een stand linken?',
+        antwoord: [
+          'Naar elke webpagina. Bijvoorbeeld je Google-reviewpagina, je menu of prijslijst, je online agenda of bestelpagina, of je Instagram, TikTok of Linktree.',
+        ],
+      },
+      {
         id: 'huisstijl',
         vraag: 'Kan de stand in mijn eigen huisstijl?',
         antwoord: [
@@ -164,9 +171,9 @@ export const faq: FaqCategorie[] = [
       },
       {
         id: 'werkgebied',
-        vraag: 'In welke plaatsen kom je langs?',
+        vraag: 'Waar kom je langs?',
         antwoord: [
-          'In Lekkerkerk en omgeving: de Krimpenerwaard (zoals Krimpen aan de Lek, Ouderkerk aan den IJssel en Schoonhoven), Krimpen aan den IJssel en Rotterdam-Oost. Zit je net buiten dit gebied? Vraag het gerust.',
+          'In de regio Rotterdam: in Rotterdam zelf en in de plaatsen eromheen. Zit je net buiten de regio? Vraag het gerust.',
         ],
         link: { tekst: 'Bekijk het werkgebied', href: '/werkgebied' },
       },

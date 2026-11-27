@@ -3,6 +3,7 @@ import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import { bedrijf } from '../data/bedrijf';
 import { footerMenu } from '../data/navigatie';
+import { werkgebied } from '../data/werkgebied';
 import { geldigEmail, whatsappUrl } from '../lib/format';
 
 const jaar = new Date().getFullYear();
@@ -13,8 +14,8 @@ const btw = bedrijf.contact.btw.trim();
 
 const kolommen = [
   { titel: 'Producten', links: footerMenu.producten },
-  { titel: 'Voor wie', links: footerMenu.voorWie },
   { titel: 'Tipero', links: footerMenu.tipero },
+  { titel: 'Hulp', links: footerMenu.hulp },
 ];
 ---
 
@@ -26,7 +27,7 @@ const kolommen = [
           <Logo variant="wit" label="" />
         </a>
         <p class="muted">
-          NFC-standaards voor de toonbank van lokale zaken in {bedrijf.thuisbasis}, de Krimpenerwaard en omgeving.
+          NFC-standaards voor de toonbank van lokale zaken in de {werkgebied.naam}.
         </p>
         <ul class="site-footer__contact">
           <li>
@@ -48,7 +49,7 @@ const kolommen = [
           </li>
           <li>
             <Icon name="pin" size={20} />
-            <a href="/werkgebied">Werkgebied: {bedrijf.thuisbasis} en omgeving</a>
+            <a href="/werkgebied">Werkgebied: {werkgebied.naam}</a>
           </li>
         </ul>
       </div>
@@ -75,10 +76,7 @@ const kolommen = [
         {kvk && <span> · KvK {kvk}</span>}
         {btw && <span> · Btw {btw}</span>}
       </p>
-      <ul>
-        <li><a href="/privacy">Privacyverklaring</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
+      <p>Geen cookies, geen tracking.</p>
     </div>
   </div>
 </footer>
@@ -189,12 +187,5 @@ const kolommen = [
     border-top: 1px solid var(--ink-line);
     color: var(--text-on-dark-muted);
     font-size: 0.875rem;
-  }
-
-  .site-footer__bottom ul {
-    display: flex;
-    gap: 1.5rem;
-    list-style: none;
-    padding: 0;
   }
 </style>

@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AccentTitel from '../components/AccentTitel.astro';
-import BrancheCards from '../components/BrancheCards.astro';
 import CtaBand from '../components/CtaBand.astro';
 import FaqList from '../components/FaqList.astro';
 import HeroTap from '../components/HeroTap.astro';
@@ -15,7 +14,6 @@ import Vergelijking from '../components/Vergelijking.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import { home } from '../data/home';
 import { stappenKort } from '../data/stappen';
-import { andereZaken } from '../data/branches';
 import { homeVragen } from '../data/faq';
 import { bedrijf, prijzen } from '../data/bedrijf';
 import { testimonials } from '../data/testimonials';
@@ -113,13 +111,25 @@ const toonTestimonials = testimonials.length > 0 || bedrijf.toonPlaceholders;
         intro={home.voorWie.intro}
         id="voorwie-titel"
       />
-      <BrancheCards />
-      <div class="andere-zaken">
-        <h3>{home.voorWie.andereTitel}</h3>
-        <ul>
-          {andereZaken.map((zaak) => <li>{zaak}</li>)}
-        </ul>
-      </div>
+      <ul class="plekken" role="list">
+        {
+          home.voorWie.plekken.map((plek) => (
+            <li class="plek">
+              <span class="plek__icoon">
+                <Icon name={plek.icoon} size={26} />
+              </span>
+              <h3>{plek.titel}</h3>
+              <p>{plek.tekst}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="section-link">
+        <a class="link-arrow" href="/producten">
+          Bekijk welke stand waar past
+          <Icon name="arrow-right" />
+        </a>
+      </p>
     </div>
   </section>
 
@@ -312,31 +322,47 @@ const toonTestimonials = testimonials.length > 0 || bedrijf.toonPlaceholders;
   }
 
   /* ── Voor wie ── */
-  .andere-zaken {
-    margin-top: 2.5rem;
+  .plekken {
+    list-style: none;
+    padding: 0;
     display: grid;
     gap: 1rem;
   }
 
-  .andere-zaken h3 {
-    font-size: 1rem;
-    color: var(--text-on-dark-muted);
-    font-weight: 500;
+  @media (min-width: 760px) {
+    .plekken {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 
-  .andere-zaken ul {
+  .plek {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    list-style: none;
-    padding: 0;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.75rem;
+    border-radius: var(--radius);
+    background: var(--ink-2);
+    border: 1px solid var(--ink-3);
   }
 
-  .andere-zaken li {
-    padding: 0.45rem 1rem;
-    border: 1px solid var(--ink-line);
-    border-radius: 999px;
+  .plek__icoon {
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    margin-bottom: 0.5rem;
+    border-radius: 50%;
+    background: var(--yellow);
+    color: var(--ink);
+  }
+
+  .plek p {
+    color: var(--text-on-dark-muted);
     font-size: 0.9375rem;
+  }
+
+  .on-dark .section-link .link-arrow {
+    color: var(--white);
   }
 
   /* ── Waarom ── */

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BrancheCards from '../components/BrancheCards.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
 import PageHero from '../components/PageHero.astro';
@@ -157,21 +156,6 @@ const kruimels = [{ naam: 'Producten', href: '/producten' }];
         <li>QR-code als back-up voor elke telefoon</li>
         {prijzen.inbegrepen.map((i) => <li>{i}</li>)}
       </ul>
-    </div>
-  </section>
-
-  <!-- Branches -->
-  <section class="section section--grey" aria-labelledby="branches-titel">
-    <div class="container">
-      <SectionHeader
-        eyebrow="Per branche"
-        titel="Bekijk voorbeelden voor jouw zaak"
-        intro="Een kapper gebruikt een stand anders dan een snackbar. Bekijk per branche waar de stand het beste staat en welke teksten goed werken."
-        id="branches-titel"
-      />
-      <div class="on-dark branches-donker">
-        <BrancheCards />
-      </div>
     </div>
   </section>
 
@@ -434,11 +418,5 @@ const kruimels = [{ naam: 'Producten', href: '/producten' }];
     .inbegrepen {
       grid-template-columns: 1fr 1fr;
     }
-  }
-
-  .branches-donker {
-    background: var(--ink);
-    padding: clamp(1rem, 3vw, 1.5rem);
-    border-radius: var(--radius-lg);
   }
 </style>

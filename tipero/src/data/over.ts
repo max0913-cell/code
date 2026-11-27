@@ -9,7 +9,7 @@ import type { IconName } from '../lib/icons';
 
 export const over = {
   intro:
-    'Student-ondernemer uit Lekkerkerk en oprichter van Tipero. Ik help lokale zaken aan meer Google-reviews, met een stand op de toonbank die ik persoonlijk voor je regel.',
+    'Student-ondernemer uit de regio Rotterdam en oprichter van Tipero. Ik help lokale zaken aan meer Google-reviews, met een stand op de toonbank die ik persoonlijk voor je regel.',
 
   /** Alt-tekst van je foto. */
   fotoAlt: '[Jouw naam] van Tipero',
@@ -26,7 +26,7 @@ export const over = {
     {
       icoon: 'pin',
       titel: 'Lokaal',
-      tekst: 'Ik werk vanuit Lekkerkerk en help ondernemers in de buurt. Je weet precies bij wie je terechtkunt.',
+      tekst: 'Ik help ondernemers in de regio Rotterdam. Je weet precies bij wie je terechtkunt.',
     },
     {
       icoon: 'user',

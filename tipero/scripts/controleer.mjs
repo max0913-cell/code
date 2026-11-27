@@ -39,7 +39,7 @@ async function htmlBestanden(map) {
   return lijst;
 }
 
-/** "/kapper" → dist/kapper.html, "/" → dist/index.html, "/favicon.svg" → dist/favicon.svg */
+/** "/prijzen" → dist/prijzen.html, "/" → dist/index.html, "/favicon.svg" → dist/favicon.svg */
 function bestandVoorPad(pad) {
   if (pad === '/' || pad === '') return join(dist, 'index.html');
   if (/\.[a-z0-9]+$/i.test(pad)) return join(dist, pad);

@@ -1,0 +1,79 @@
+---
+/**
+ * Illustratie van het werkgebied: ringen rond Rotterdam, zonder losse plaatsnamen.
+ */
+import { werkgebied } from '../data/werkgebied';
+
+const zaken = [
+  { x: 152, y: 132 },
+  { x: 338, y: 118 },
+  { x: 372, y: 262 },
+  { x: 118, y: 286 },
+  { x: 250, y: 66 },
+  { x: 214, y: 344 },
+  { x: 300, y: 196 },
+];
+---
+
+<svg class="regio" viewBox="0 0 500 420" role="img" aria-label={`Illustratie van het werkgebied: ${werkgebied.kort}.`}>
+  <defs>
+    <path id="regio-ring" d="M250 400 A190 190 0 1 1 250.1 400"></path>
+  </defs>
+  <circle cx="250" cy="210" r="190" fill="rgb(255 198 26 / 0.06)" stroke="#3A3F60" stroke-width="2" stroke-dasharray="6 8"></circle>
+  <circle cx="250" cy="210" r="128" fill="none" stroke="#3A3F60" stroke-width="2" stroke-dasharray="6 8"></circle>
+  <circle class="regio__kern" cx="250" cy="210" r="66" fill="rgb(255 198 26 / 0.16)" stroke="rgb(255 198 26 / 0.7)" stroke-width="2"></circle>
+
+  <text class="regio__ringtekst">
+    <textPath href="#regio-ring" startOffset="50%" text-anchor="middle">EN OMGEVING</textPath>
+  </text>
+
+  {zaken.map((z) => <circle cx={z.x} cy={z.y} r="7" fill="#FFC61A" stroke="#15172A" stroke-width="3" />)}
+
+  <!-- pin -->
+  <path d="M250 228c-16-17-26-30-26-43a26 26 0 0 1 52 0c0 13-10 26-26 43z" fill="#FFC61A"></path>
+  <circle cx="250" cy="185" r="9" fill="#15172A"></circle>
+  <text x="250" y="262" text-anchor="middle" class="regio__naam">Rotterdam</text>
+</svg>
+
+<style>
+  .regio {
+    width: 100%;
+    max-width: 30rem;
+    height: auto;
+    margin-inline: auto;
+    aspect-ratio: 500 / 420;
+    overflow: visible;
+  }
+
+  .regio__naam {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    fill: #ffffff;
+  }
+
+  .regio__ringtekst {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    fill: #8a8eaa;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .regio__kern {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: regio-puls 4s ease-in-out infinite;
+    }
+  }
+
+  @keyframes regio-puls {
+    0%,
+    100% {
+      transform: scale(0.92);
+    }
+    50% {
+      transform: scale(1.06);
+    }
+  }
+</style>

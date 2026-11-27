@@ -51,8 +51,8 @@ export const absoluteUrl = (pad: string): string => new URL(pad, `${bedrijf.url}
 
 /**
  * Nette, canonieke URL voor een pagina.
- * Astro geeft bij build.format 'file' paden als "/kapper.html" en "/index.html";
- * die maken we "/kapper" en "/".
+ * Astro geeft bij build.format 'file' paden als "/prijzen.html" en "/index.html";
+ * die maken we "/prijzen" en "/".
  */
 export function canoniekPad(pathname: string): string {
   let pad = pathname.replace(/\.html$/, '').replace(/\/index$/, '/');
