@@ -1,0 +1,18 @@
+[
+  { "id": "og-tipero", "breedte": 1200, "hoogte": 630, "uit": "public/og/tipero.png" },
+  { "id": "og-producten", "breedte": 1200, "hoogte": 630, "uit": "public/og/producten.png" },
+  { "id": "og-hoe-het-werkt", "breedte": 1200, "hoogte": 630, "uit": "public/og/hoe-het-werkt.png" },
+  { "id": "og-prijzen", "breedte": 1200, "hoogte": 630, "uit": "public/og/prijzen.png" },
+  { "id": "og-kapper", "breedte": 1200, "hoogte": 630, "uit": "public/og/kapper.png" },
+  { "id": "og-bakker", "breedte": 1200, "hoogte": 630, "uit": "public/og/bakker.png" },
+  { "id": "og-snackbar", "breedte": 1200, "hoogte": 630, "uit": "public/og/snackbar.png" },
+  { "id": "og-werkgebied", "breedte": 1200, "hoogte": 630, "uit": "public/og/werkgebied.png" },
+  { "id": "og-veelgestelde-vragen", "breedte": 1200, "hoogte": 630, "uit": "public/og/veelgestelde-vragen.png" },
+  { "id": "logo-512", "breedte": 512, "hoogte": 512, "uit": "public/logo-512.png" },
+  { "id": "apple-touch-icon", "breedte": 180, "hoogte": 180, "uit": "public/apple-touch-icon.png" },
+  { "id": "favicon-32", "breedte": 32, "hoogte": 32, "uit": "public/favicon.ico", "ico": true, "transparant": true },
+  { "id": "product-review", "breedte": 800, "hoogte": 800, "uit": "public/images/producten/review.png" },
+  { "id": "product-menu", "breedte": 800, "hoogte": 800, "uit": "public/images/producten/menu.png" },
+  { "id": "product-socials", "breedte": 800, "hoogte": 800, "uit": "public/images/producten/socials.png" },
+  { "id": "product-set", "breedte": 800, "hoogte": 800, "uit": "public/images/producten/set.png" }
+]

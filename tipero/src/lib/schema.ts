@@ -43,8 +43,6 @@ export function organisatie(): Node {
       '@id': ids.logo,
       url: absoluteUrl('/logo-512.png'),
       contentUrl: absoluteUrl('/logo-512.png'),
-      width: 512,
-      height: 512,
       caption: bedrijf.naam,
     },
     image: { '@id': ids.logo },
@@ -167,7 +165,7 @@ export function productNodes(): Node[] {
     category: 'NFC-standaard',
     brand: merk,
     image: absoluteUrl('/images/producten/set.png'),
-    url: absoluteUrl('/prijzen#set'),
+    url: absoluteUrl('/prijzen#prijs-set'),
     offers: aanbieding('Set reviewstand + menustand', prijzen.set, prijsUrl),
   };
 

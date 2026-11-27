@@ -63,7 +63,7 @@ const kaarten = [
     kaarten.map((k) => {
       const wa = whatsappUrl(`Hoi Tipero! Ik heb interesse in: ${k.titel} (${formatPrijs(k.prijs)}).`);
       return (
-        <article class:list={['price-card', { 'price-card--uitgelicht': k.uitgelicht, 'on-dark': k.uitgelicht }]} id={k.id}>
+        <article class:list={['price-card', { 'price-card--uitgelicht': k.uitgelicht, 'on-dark': k.uitgelicht }]} id={`prijs-${k.id}`}>
           <div class="price-card__kop">
             <div class="price-card__mockup" aria-hidden="true">
               <StandMockup soort={k.mockup.soort} ontwerp={k.mockup.ontwerp} label="" />

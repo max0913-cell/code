@@ -1,0 +1,10 @@
+# Netlify-instellingen voor de Tipero-site.
+# Staat de site in een submap van je repository? Zet dan in Netlify
+# bij "Base directory" de naam van die map (bijvoorbeeld: tipero).
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
