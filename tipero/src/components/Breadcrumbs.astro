@@ -33,13 +33,13 @@ const alle = [{ naam: 'Home', href: '/' }, ...kruimels];
     list-style: none;
     padding: 0;
     font-size: 0.875rem;
-    color: var(--text-on-dark-muted);
+    color: var(--text-muted);
   }
 
   .breadcrumbs li + li::before {
     content: '/';
     margin-right: 0.5rem;
-    color: var(--ink-line);
+    color: #9a9db3;
   }
 
   .breadcrumbs a {
@@ -47,11 +47,12 @@ const alle = [{ naam: 'Home', href: '/' }, ...kruimels];
   }
 
   .breadcrumbs a:hover {
-    color: var(--white);
+    color: var(--ink);
     text-decoration: underline;
   }
 
   .breadcrumbs [aria-current='page'] {
-    color: var(--white);
+    color: var(--ink);
+    font-weight: 500;
   }
 </style>

@@ -6,7 +6,7 @@
 const kleur = {
   ink: '#15172a', ink2: '#1e2137', ink3: '#2a2e4a', yellow: '#ffc61a', yellowSoft: '#fff5d1',
   white: '#ffffff', grey50: '#f5f5f8', grey100: '#ececf2', muted: '#4a4d66', mutedDark: '#b8bbd0',
-  placeholder: '#6b6e86', veldrand: '#7d8098', huisstijlAccent: '#0e6e5c', rivierNaam: '#8a8eaa', gebiedNaam: '#6f7391',
+  placeholder: '#6b6e86', veldrand: '#7d8098', huisstijlAccent: '#0e6e5c',
 };
 
 const kanaal = (c) => {
@@ -24,28 +24,22 @@ const contrast = (a, b) => {
 
 // [voorgrond, achtergrond, minimum, omschrijving]
 const paren = [
-  ['ink', 'white', 4.5, 'gewone tekst'],
-  ['ink', 'grey50', 4.5, 'tekst op lichtgrijze secties'],
+  ['ink', 'white', 4.5, 'gewone tekst en koppen'],
+  ['ink', 'grey50', 4.5, 'tekst op lichtgrijze vlakken (heroes, footer)'],
   ['ink', 'grey100', 4.5, 'labels op lichtgrijs'],
   ['ink', 'yellow', 4.5, 'tekst op gele knoppen en vlakken'],
-  ['ink', 'yellowSoft', 4.5, 'tekst in lichtgele vakken'],
+  ['ink', 'yellowSoft', 4.5, 'tekst op de lichtgele prijskaart en vakken'],
   ['muted', 'white', 4.5, 'gedempte tekst op wit'],
   ['muted', 'grey50', 4.5, 'gedempte tekst op lichtgrijs'],
   ['muted', 'yellowSoft', 4.5, 'gedempte tekst op lichtgeel'],
-  ['white', 'ink', 4.5, 'tekst op zwart'],
-  ['white', 'ink2', 4.5, 'tekst op donkere kaarten'],
-  ['white', 'ink3', 4.5, 'tekst op donkerste kaarten'],
-  ['mutedDark', 'ink', 4.5, 'gedempte tekst op zwart'],
-  ['mutedDark', 'ink2', 4.5, 'gedempte tekst op donkere kaarten'],
-  ['yellow', 'ink', 4.5, 'geel accent op zwart'],
-  ['yellow', 'ink2', 4.5, 'geel accent op donkere kaarten'],
+  ['white', 'ink', 4.5, 'witte tekst op donkerblauwe knoppen en labels'],
+  ['yellow', 'ink', 4.5, 'geel op de donkere stand (illustraties)'],
+  ['mutedDark', 'ink', 4.5, 'kleine tekst op de donkere stand (illustraties)'],
   ['placeholder', 'white', 4.5, 'placeholdertekst in formulier'],
   ['veldrand', 'white', 3, 'rand van formuliervelden (UI)'],
   ['huisstijlAccent', 'white', 4.5, 'accentkleur huisstijl-voorbeeld'],
-  ['rivierNaam', 'ink', 4.5, 'riviernamen op de kaart'],
-  ['gebiedNaam', 'ink', 3, 'gebiedsnaam op de kaart (groot, uitgespatieerd)'],
-  ['yellow', 'ink', 3, 'focusring op donker (UI)'],
-  ['ink', 'white', 3, 'focusring op licht (UI)'],
+  ['ink', 'white', 3, 'focusring (UI)'],
+  ['ink', 'grey50', 3, 'focusring op lichtgrijs (UI)'],
 ];
 
 let fouten = 0;

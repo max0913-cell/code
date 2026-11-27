@@ -53,9 +53,9 @@ const product = id.startsWith('product-') ? id.replace('product-', '') : null;
   <body class:list={{ transparant: beeld.transparant }}>
     {
       isOg && kaart && (
-        <div class="og on-dark">
+        <div class="og">
           <div class="og__tekst">
-            <Logo variant="wit" label="" class="og__logo" />
+            <Logo variant="donker" label="" class="og__logo" />
             <div>
               <p class="eyebrow">{kaart.eyebrow}</p>
               <AccentTitel as="h1" tekst={kaart.titel} accent={kaart.accent} class="og__titel" />
@@ -139,7 +139,7 @@ const product = id.startsWith('product-') ? id.replace('product-', '') : null;
     width: 1200px;
     height: 630px;
     padding: 56px 40px 52px 64px;
-    background: var(--ink);
+    background: var(--grey-50);
     overflow: hidden;
   }
 
@@ -170,7 +170,7 @@ const product = id.startsWith('product-') ? id.replace('product-', '') : null;
     gap: 12px;
     font-size: 20px;
     font-weight: 600;
-    color: var(--text-on-dark-muted);
+    color: var(--text-muted);
   }
 
   .og__beeld {
@@ -195,7 +195,7 @@ const product = id.startsWith('product-') ? id.replace('product-', '') : null;
 
   .og__trio :global(svg) {
     width: 170px;
-    filter: drop-shadow(0 18px 24px rgb(0 0 0 / 0.35));
+    filter: drop-shadow(0 16px 22px rgb(21 23 42 / 0.2));
   }
 
   .og__trio :global(svg:nth-child(1)) {
@@ -213,7 +213,7 @@ const product = id.startsWith('product-') ? id.replace('product-', '') : null;
 
   .og__duo :global(svg) {
     width: 215px;
-    filter: drop-shadow(0 18px 24px rgb(0 0 0 / 0.35));
+    filter: drop-shadow(0 16px 22px rgb(21 23 42 / 0.2));
   }
 
   .og__duo :global(svg:nth-child(1)) {
@@ -231,7 +231,7 @@ const product = id.startsWith('product-') ? id.replace('product-', '') : null;
 
   .og__een :global(svg) {
     width: 250px;
-    filter: drop-shadow(0 18px 24px rgb(0 0 0 / 0.35));
+    filter: drop-shadow(0 16px 22px rgb(21 23 42 / 0.2));
   }
 
   .vlak {

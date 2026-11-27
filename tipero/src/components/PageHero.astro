@@ -19,7 +19,7 @@ const { eyebrow, titel, accent, intro, kruimels } = Astro.props;
 const heeftAside = Astro.slots.has('aside');
 ---
 
-<section class:list={['page-hero', 'on-dark', { 'page-hero--aside': heeftAside }]} aria-labelledby="paginatitel">
+<section class:list={['page-hero', { 'page-hero--aside': heeftAside }]} aria-labelledby="paginatitel">
   <div class="container page-hero__inner">
     <div class="page-hero__text">
       {kruimels && <Breadcrumbs kruimels={kruimels} />}
@@ -42,7 +42,8 @@ const heeftAside = Astro.slots.has('aside');
   .page-hero {
     position: relative;
     overflow: hidden;
-    background: var(--ink);
+    background: var(--grey-50);
+    border-bottom: 1px solid var(--grey-100);
     padding-block: clamp(1.5rem, 4vw, 2.5rem) clamp(3.5rem, 8vw, 6rem);
     isolation: isolate;
   }
@@ -56,9 +57,9 @@ const heeftAside = Astro.slots.has('aside');
     top: -5rem;
     width: 30rem;
     height: 30rem;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='57 -16 48 48' fill='none' stroke='%23FFFFFF' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M70.47 2.3A20 20 0 0 1 86.7 18.53'/%3E%3Cpath d='M72.73-10.5A33 33 0 0 1 99.5 16.27'/%3E%3C/svg%3E")
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='57 -16 48 48' fill='none' stroke='%2315172A' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M70.47 2.3A20 20 0 0 1 86.7 18.53'/%3E%3Cpath d='M72.73-10.5A33 33 0 0 1 99.5 16.27'/%3E%3C/svg%3E")
       center / contain no-repeat;
-    opacity: 0.05;
+    opacity: 0.045;
     pointer-events: none;
   }
 

@@ -19,12 +19,12 @@ const kolommen = [
 ];
 ---
 
-<footer class="site-footer on-dark">
+<footer class="site-footer">
   <div class="container">
     <div class="site-footer__top">
       <div class="site-footer__brand">
         <a href="/" class="site-footer__logo" aria-label="Tipero, naar de homepage">
-          <Logo variant="wit" label="" />
+          <Logo variant="donker" label="" />
         </a>
         <p class="muted">
           NFC-standaards voor de toonbank van lokale zaken in de {werkgebied.naam}.
@@ -83,7 +83,8 @@ const kolommen = [
 
 <style>
   .site-footer {
-    background: var(--ink);
+    background: var(--grey-50);
+    border-top: 1px solid var(--grey-200);
     padding-block: clamp(3.5rem, 7vw, 5.5rem) 2rem;
     font-size: 0.9375rem;
   }
@@ -151,7 +152,7 @@ const kolommen = [
   }
 
   .site-footer__contact :global(svg) {
-    color: var(--yellow);
+    color: var(--ink);
     flex: none;
   }
 
@@ -160,7 +161,7 @@ const kolommen = [
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--text-on-dark-muted);
+    color: var(--text-muted);
     margin-bottom: 1rem;
   }
 
@@ -184,8 +185,8 @@ const kolommen = [
     gap: 1rem;
     margin-top: 3.5rem;
     padding-top: 1.5rem;
-    border-top: 1px solid var(--ink-line);
-    color: var(--text-on-dark-muted);
+    border-top: 1px solid var(--grey-200);
+    color: var(--text-muted);
     font-size: 0.875rem;
   }
 </style>

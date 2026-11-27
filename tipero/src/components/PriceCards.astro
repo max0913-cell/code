@@ -63,7 +63,7 @@ const kaarten = [
     kaarten.map((k) => {
       const wa = whatsappUrl(`Hoi Tipero! Ik heb interesse in: ${k.titel} (${formatPrijs(k.prijs)}).`);
       return (
-        <article class:list={['price-card', { 'price-card--uitgelicht': k.uitgelicht, 'on-dark': k.uitgelicht }]} id={`prijs-${k.id}`}>
+        <article class:list={['price-card', { 'price-card--uitgelicht': k.uitgelicht }]} id={`prijs-${k.id}`}>
           <div class="price-card__kop">
             <div class="price-card__mockup" aria-hidden="true">
               <StandMockup soort={k.mockup.soort} ontwerp={k.mockup.ontwerp} label="" />
@@ -83,7 +83,7 @@ const kaarten = [
             ))}
           </ul>
           <a
-            class:list={['btn', k.uitgelicht ? 'btn--yellow' : 'btn--ink', 'price-card__knop']}
+            class:list={['btn', 'btn--ink', 'price-card__knop']}
             href={wa ?? '/contact'}
             {...(wa ? { rel: 'noopener', target: '_blank' } : {})}
           >
@@ -123,8 +123,8 @@ const kaarten = [
   }
 
   .price-card--uitgelicht {
-    background: var(--ink);
-    border-color: var(--ink);
+    background: var(--yellow-soft);
+    border: 2px solid var(--yellow);
     box-shadow: var(--shadow);
   }
 
@@ -140,14 +140,15 @@ const kaarten = [
   .price-card__label {
     padding: 0.3rem 0.75rem;
     border-radius: 999px;
-    background: var(--yellow);
+    background: var(--grey-100);
     color: var(--ink);
     font-size: 0.75rem;
     font-weight: 600;
   }
 
-  .price-card:not(.price-card--uitgelicht) .price-card__label {
-    background: var(--grey-100);
+  .price-card--uitgelicht .price-card__label {
+    background: var(--ink);
+    color: var(--white);
   }
 
   .price-card__mockup {
@@ -167,9 +168,6 @@ const kaarten = [
     font-size: 0.9375rem;
   }
 
-  .on-dark .price-card__sub {
-    color: var(--text-on-dark-muted);
-  }
 
   .price-card__prijs {
     display: flex;
@@ -181,8 +179,8 @@ const kaarten = [
     border-block: 1px solid var(--grey-200);
   }
 
-  .on-dark .price-card__prijs {
-    border-color: var(--ink-line);
+  .price-card--uitgelicht .price-card__prijs {
+    border-color: rgb(21 23 42 / 0.12);
   }
 
   .price-card__bedrag {
@@ -192,18 +190,12 @@ const kaarten = [
     line-height: 1;
   }
 
-  .on-dark .price-card__bedrag {
-    color: var(--yellow);
-  }
 
   .price-card__eenheid {
     font-size: 0.875rem;
     color: var(--text-muted);
   }
 
-  .on-dark .price-card__eenheid {
-    color: var(--text-on-dark-muted);
-  }
 
   .price-card__punten {
     font-size: 0.9375rem;

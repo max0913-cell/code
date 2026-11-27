@@ -30,7 +30,7 @@ const slug = (titel: string) => titel.toLowerCase().replace(/[^a-z0-9]+/g, '-').
     </nav>
   </PageHero>
 
-  <div class="section section--grey">
+  <div class="section">
     <div class="container container--narrow categorieen">
       {
         faq.map((categorie) => (
@@ -60,7 +60,7 @@ const slug = (titel: string) => titel.toLowerCase().replace(/[^a-z0-9]+/g, '-').
     align-items: center;
     min-height: 2.75rem;
     padding: 0.5rem 1rem;
-    border: 1px solid var(--ink-line);
+    border: 1px solid var(--grey-200);
     border-radius: 999px;
     font-size: 0.9375rem;
     font-weight: 500;
@@ -68,7 +68,7 @@ const slug = (titel: string) => titel.toLowerCase().replace(/[^a-z0-9]+/g, '-').
   }
 
   .onderwerpen a:hover {
-    border-color: var(--yellow);
+    border-color: var(--ink);
   }
 
   .categorieen {

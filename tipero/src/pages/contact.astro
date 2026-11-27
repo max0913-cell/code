@@ -26,14 +26,14 @@ const vervolg = [
     kruimels={kruimels}
   />
 
-  <section class="section section--grey contact" aria-label="Contactmogelijkheden">
+  <section class="section contact" aria-label="Contactmogelijkheden">
     <div class="container contact__grid">
       <div class="contact__opties">
-        <article class="optie optie--whatsapp on-dark">
+        <article class="optie optie--whatsapp">
           <p class="optie__label">Snelste manier</p>
           <h2>Stuur een WhatsApp</h2>
           <p>Even een vraag of meteen een afspraak? App me, dan reageer ik zo snel mogelijk.</p>
-          <WhatsAppButton tekst={`WhatsApp ${bedrijf.contact.whatsapp}`} />
+          <WhatsAppButton variant="ink" tekst={`WhatsApp ${bedrijf.contact.whatsapp}`} />
         </article>
 
         <article class="optie">
@@ -63,7 +63,7 @@ const vervolg = [
     </div>
   </section>
 
-  <section class="section" aria-labelledby="vervolg-titel">
+  <section class="section section--grey" aria-labelledby="vervolg-titel">
     <div class="container">
       <h2 id="vervolg-titel" class="vervolg__titel">Wat gebeurt er na je bericht?</h2>
       <ol class="vervolg">
@@ -127,12 +127,8 @@ const vervolg = [
   }
 
   .optie--whatsapp {
-    background: var(--ink);
-    border-color: var(--ink);
-  }
-
-  .optie--whatsapp p {
-    color: var(--text-on-dark-muted);
+    background: var(--yellow);
+    border-color: var(--yellow);
   }
 
   .optie--whatsapp :global(.btn) {
@@ -144,8 +140,8 @@ const vervolg = [
     display: inline-block;
     padding: 0.25rem 0.75rem;
     border-radius: 999px;
-    background: var(--yellow);
-    color: var(--ink) !important;
+    background: var(--ink);
+    color: var(--white) !important;
     font-size: 0.75rem;
     font-weight: 600;
   }

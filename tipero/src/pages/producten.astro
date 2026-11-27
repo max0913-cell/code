@@ -98,7 +98,7 @@ const kruimels = [{ naam: 'Producten', href: '/producten' }];
   }
 
   <!-- Uitvoeringen -->
-  <section class="section section--ink on-dark" aria-labelledby="uitvoeringen-titel">
+  <section class="section section--grey" aria-labelledby="uitvoeringen-titel">
     <div class="container">
       <SectionHeader
         eyebrow="Uitvoeringen"
@@ -178,7 +178,7 @@ const kruimels = [{ naam: 'Producten', href: '/producten' }];
     gap: 0.5rem;
     min-height: 2.75rem;
     padding: 0.5rem 1rem;
-    border: 1px solid var(--ink-line);
+    border: 1px solid var(--grey-200);
     border-radius: 999px;
     font-size: 0.9375rem;
     font-weight: 500;
@@ -186,11 +186,11 @@ const kruimels = [{ naam: 'Producten', href: '/producten' }];
   }
 
   .spring a:hover {
-    border-color: var(--yellow);
+    border-color: var(--ink);
   }
 
   .spring :global(svg) {
-    color: var(--yellow);
+    color: var(--ink);
   }
 
   /* Drie standen in de hero */
@@ -207,7 +207,7 @@ const kruimels = [{ naam: 'Producten', href: '/producten' }];
   .trio :global(svg) {
     grid-row: 1;
     width: 150%;
-    filter: drop-shadow(0 20px 30px rgb(0 0 0 / 0.35));
+    filter: drop-shadow(0 18px 26px rgb(21 23 42 / 0.22));
   }
 
   .trio :global(.trio__links) {
@@ -337,8 +337,8 @@ const kruimels = [{ naam: 'Producten', href: '/producten' }];
     gap: 1.5rem;
     padding: clamp(1.5rem, 3vw, 2rem);
     border-radius: var(--radius-lg);
-    background: var(--ink-2);
-    border: 1px solid var(--ink-3);
+    background: var(--white);
+    border: 1px solid var(--grey-200);
   }
 
   @media (min-width: 560px) {
@@ -351,7 +351,7 @@ const kruimels = [{ naam: 'Producten', href: '/producten' }];
   .uitvoering__beeld {
     padding: 1.25rem;
     border-radius: var(--radius);
-    background: var(--ink-3);
+    background: var(--grey-100);
     max-width: 12rem;
   }
 
@@ -372,22 +372,21 @@ const kruimels = [{ naam: 'Producten', href: '/producten' }];
     margin-top: 1.25rem;
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--yellow);
   }
 
   .uitvoering__prijs span {
     font-size: 0.875rem;
     font-weight: 400;
-    color: var(--text-on-dark-muted);
+    color: var(--text-muted);
   }
 
   .uitvoeringen__set {
     margin-top: 2rem;
-    color: var(--text-on-dark-muted);
+    color: var(--text-muted);
   }
 
   .uitvoeringen__set a {
-    color: var(--white);
+    color: var(--ink);
     font-weight: 600;
     margin-left: 0.25rem;
   }

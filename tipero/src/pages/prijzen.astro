@@ -42,7 +42,7 @@ const keuzehulp = [
     kruimels={kruimels}
   />
 
-  <section class="section section--grey" aria-labelledby="kies-titel">
+  <section class="section" aria-labelledby="kies-titel">
     <div class="container">
       <SectionHeader eyebrow="Kies je stand" titel="Drie keuzes, geen kleine lettertjes" id="kies-titel" center />
       <PriceCards />
@@ -50,7 +50,7 @@ const keuzehulp = [
   </section>
 
   <!-- Inbegrepen -->
-  <section class="section" aria-labelledby="inbegrepen-titel">
+  <section class="section section--grey" aria-labelledby="inbegrepen-titel">
     <div class="container inbegrepen">
       <div>
         <p class="eyebrow">Bij elke stand</p>
@@ -67,7 +67,7 @@ const keuzehulp = [
   </section>
 
   <!-- Keuzehulp -->
-  <section class="section section--ink on-dark" aria-labelledby="keuze-titel">
+  <section class="section" aria-labelledby="keuze-titel">
     <div class="container">
       <SectionHeader eyebrow="Keuzehulp" titel="Welke stand past bij jou?" id="keuze-titel" />
       <ul class="keuzes" role="list">
@@ -98,7 +98,7 @@ const keuzehulp = [
   </section>
 
   <!-- Vragen -->
-  <section class="section" aria-labelledby="vragen-titel">
+  <section class="section section--grey" aria-labelledby="vragen-titel">
     <div class="container container--narrow">
       <SectionHeader eyebrow="Vragen" titel="Vragen over prijzen en levering" id="vragen-titel" center />
       <FaqList vragen={vragen} />
@@ -123,7 +123,7 @@ const keuzehulp = [
   .inbegrepen__lijst {
     padding: clamp(1.5rem, 3vw, 2.25rem);
     border-radius: var(--radius-lg);
-    background: var(--grey-50);
+    background: var(--white);
     gap: 1rem;
   }
 
@@ -153,12 +153,12 @@ const keuzehulp = [
     gap: 0.75rem;
     padding: 1.75rem;
     border-radius: var(--radius);
-    background: var(--ink-2);
-    border: 1px solid var(--ink-3);
+    background: var(--white);
+    border: 1px solid var(--grey-200);
   }
 
   .keuze p {
-    color: var(--text-on-dark-muted);
+    color: var(--text-muted);
   }
 
   .keuze .link-arrow {
@@ -173,12 +173,12 @@ const keuzehulp = [
     margin-top: 2.5rem;
     padding: clamp(1.5rem, 3vw, 2.25rem);
     border-radius: var(--radius-lg);
-    border: 1px dashed var(--ink-line);
+    border: 1px dashed var(--grey-200);
   }
 
   .maatwerk p {
     margin-top: 0.5rem;
-    color: var(--text-on-dark-muted);
+    color: var(--text-muted);
     max-width: 60ch;
   }
 
