@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from '../components/CtaBand.astro';
+import FaqList from '../components/FaqList.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import PriceCards from '../components/PriceCards.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { prijzen } from '../data/bedrijf';
+import { alleVragen } from '../data/faq';
+import { formatPrijs } from '../lib/format';
+
+const kruimels = [{ naam: 'Prijzen', href: '/prijzen' }];
+const vragen = alleVragen.filter((v) => ['kosten', 'levertijd', 'huisstijl', 'link-aanpassen'].includes(v.id));
+
+const keuzehulp = [
+  {
+    vraag: 'Vooral meer Google-reviews?',
+    antwoord: `Kies een reviewstand. In het Tipero-ontwerp voor ${formatPrijs(prijzen.standaard)}, of in je eigen huisstijl voor ${formatPrijs(prijzen.huisstijl)}.`,
+    link: { tekst: 'Over de reviewstand', href: '/producten#review' },
+  },
+  {
+    vraag: 'Klanten die wachten of bestellen?',
+    antwoord: `Neem de set met een reviewstand én een menustand voor ${formatPrijs(prijzen.set)}. Handig voor snackbars, lunchrooms en bakkers.`,
+    link: { tekst: 'Over de menustand', href: '/producten#menu' },
+  },
+  {
+    vraag: 'Moet de stand bij je zaak passen?',
+    antwoord: 'Kies voor je eigen huisstijl: met je logo, je kleuren en je eigen tekst. Zo voelt de stand als onderdeel van je zaak.',
+    link: { tekst: 'Over de uitvoeringen', href: '/producten' },
+  },
+];
+---
+
+<BaseLayout pad="/prijzen" kruimels={kruimels}>
+  <PageHero
+    eyebrow="Prijzen"
+    titel="Eerlijke prijzen, alles inbegrepen"
+    accent="alles inbegrepen"
+    intro={`${prijzen.eenmalig ? 'Je betaalt één keer per stand, zonder abonnement. ' : ''}Langskomen, de juiste link opzoeken, programmeren en testen zitten bij de prijs in.`}
+    kruimels={kruimels}
+  />
+
+  <section class="section section--grey" aria-labelledby="kies-titel">
+    <div class="container">
+      <SectionHeader eyebrow="Kies je stand" titel="Drie keuzes, geen kleine lettertjes" id="kies-titel" center />
+      <PriceCards />
+    </div>
+  </section>
+
+  <!-- Inbegrepen -->
+  <section class="section" aria-labelledby="inbegrepen-titel">
+    <div class="container inbegrepen">
+      <div>
+        <p class="eyebrow">Bij elke stand</p>
+        <h2 id="inbegrepen-titel">Dit zit er altijd bij in</h2>
+        <p class="lead">Je betaalt niet alleen voor een stand, maar voor een stand die werkt op jouw toonbank.</p>
+      </div>
+      <ul class="checklist inbegrepen__lijst">
+        <li>NFC-chip zonder batterij</li>
+        <li>QR-code als back-up voor elke telefoon</li>
+        {prijzen.inbegrepen.map((i) => <li>{i}</li>)}
+        <li>Hulp via WhatsApp als je iets wilt aanpassen</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Keuzehulp -->
+  <section class="section section--ink on-dark" aria-labelledby="keuze-titel">
+    <div class="container">
+      <SectionHeader eyebrow="Keuzehulp" titel="Welke stand past bij jou?" id="keuze-titel" />
+      <ul class="keuzes" role="list">
+        {
+          keuzehulp.map((k) => (
+            <li class="keuze">
+              <h3>{k.vraag}</h3>
+              <p>{k.antwoord}</p>
+              <a class="link-arrow" href={k.link.href}>
+                {k.link.tekst}
+                <Icon name="arrow-right" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="maatwerk">
+        <div>
+          <h3>Meer standen of iets op maat?</h3>
+          <p>
+            Meerdere vestigingen, een stand per tafel of een ander idee? Stuur een berichtje, dan maak ik een voorstel
+            dat bij je zaak past.
+          </p>
+        </div>
+        <WhatsAppButton tekst="Vraag een voorstel" bericht="Hoi Tipero! Ik zoek meerdere standen of iets op maat." />
+      </div>
+    </div>
+  </section>
+
+  <!-- Vragen -->
+  <section class="section" aria-labelledby="vragen-titel">
+    <div class="container container--narrow">
+      <SectionHeader eyebrow="Vragen" titel="Vragen over prijzen en levering" id="vragen-titel" center />
+      <FaqList vragen={vragen} />
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .inbegrepen {
+    display: grid;
+    gap: 2.5rem 5rem;
+    align-items: center;
+  }
+
+  .inbegrepen h2,
+  .inbegrepen .lead {
+    margin-top: 1rem;
+  }
+
+  .inbegrepen__lijst {
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border-radius: var(--radius-lg);
+    background: var(--grey-50);
+    gap: 1rem;
+  }
+
+  @media (min-width: 900px) {
+    .inbegrepen {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .keuzes {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 900px) {
+    .keuzes {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+  }
+
+  .keuze {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.75rem;
+    border-radius: var(--radius);
+    background: var(--ink-2);
+    border: 1px solid var(--ink-3);
+  }
+
+  .keuze p {
+    color: var(--text-on-dark-muted);
+  }
+
+  .keuze .link-arrow {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+
+  .maatwerk {
+    display: grid;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 2.5rem;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border-radius: var(--radius-lg);
+    border: 1px dashed var(--ink-line);
+  }
+
+  .maatwerk p {
+    margin-top: 0.5rem;
+    color: var(--text-on-dark-muted);
+    max-width: 60ch;
+  }
+
+  @media (min-width: 800px) {
+    .maatwerk {
+      grid-template-columns: 1fr auto;
+    }
+  }
+</style>

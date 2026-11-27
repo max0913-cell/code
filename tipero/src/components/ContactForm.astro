@@ -1,0 +1,243 @@
+---
+/**
+ * Contactformulier zonder eigen server.
+ * - Netlify Forms: Netlify herkent het formulier automatisch bij het publiceren.
+ * - Formspree: zet `formulier.aanbieder` op 'formspree' en vul het ID in (bedrijf.ts).
+ * Werkt zonder JavaScript; de browser controleert de verplichte velden.
+ */
+import Icon from './Icon.astro';
+import { bedrijf } from '../data/bedrijf';
+import { plaatsen } from '../data/werkgebied';
+
+const { aanbieder, formspreeId } = bedrijf.formulier;
+const isNetlify = aanbieder === 'netlify';
+const action = isNetlify ? '/bedankt' : `https://formspree.io/f/${formspreeId || '[formspree-id]'}`;
+
+const netlifyAttributen = isNetlify ? { 'data-netlify': 'true', 'netlify-honeypot': 'bot-field' } : {};
+
+const interesses = ['Reviewstand', 'Menustand', 'Socials-stand', 'Set: review + menu', 'Weet ik nog niet'];
+const uitvoeringen = ['Tipero-ontwerp (zwart/geel)', 'Eigen huisstijl', 'Weet ik nog niet'];
+---
+
+<form class="contact-form" name="contact" method="POST" action={action} {...netlifyAttributen}>
+  {isNetlify && <input type="hidden" name="form-name" value="contact" />}
+  {!isNetlify && <input type="hidden" name="_subject" value="Nieuwe aanvraag via tipero.nl" />}
+
+  <!-- Honeypot tegen spam: echte bezoekers zien dit veld niet. -->
+  <p class="contact-form__honing" aria-hidden="true">
+    <label>Niet invullen <input name={isNetlify ? 'bot-field' : '_gotcha'} tabindex="-1" autocomplete="off" /></label>
+  </p>
+
+  <div class="veld-rij">
+    <div class="veld">
+      <label for="naam">Je naam <span aria-hidden="true">*</span></label>
+      <input id="naam" name="naam" type="text" autocomplete="name" required />
+    </div>
+    <div class="veld">
+      <label for="zaak">Naam van je zaak <span aria-hidden="true">*</span></label>
+      <input id="zaak" name="zaak" type="text" autocomplete="organization" required />
+    </div>
+  </div>
+
+  <div class="veld-rij">
+    <div class="veld">
+      <label for="email">E-mailadres <span aria-hidden="true">*</span></label>
+      <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required />
+    </div>
+    <div class="veld">
+      <label for="telefoon">Telefoonnummer <span class="veld__optioneel">(optioneel)</span></label>
+      <input id="telefoon" name="telefoon" type="tel" autocomplete="tel" inputmode="tel" />
+    </div>
+  </div>
+
+  <div class="veld">
+    <label for="plaats">Plaats van je zaak <span class="veld__optioneel">(optioneel)</span></label>
+    <input id="plaats" name="plaats" type="text" list="plaatsen" autocomplete="address-level2" />
+    <datalist id="plaatsen">
+      {plaatsen.map((p) => <option value={p.naam} />)}
+    </datalist>
+  </div>
+
+  <fieldset class="keuzes">
+    <legend>Waar heb je interesse in? <span class="veld__optioneel">(optioneel)</span></legend>
+    <div class="keuzes__opties">
+      {
+        interesses.map((i, n) => (
+          <label class="keuze" for={`interesse-${n}`}>
+            <input id={`interesse-${n}`} type="checkbox" name="interesse[]" value={i} />
+            <span>{i}</span>
+          </label>
+        ))
+      }
+    </div>
+  </fieldset>
+
+  <fieldset class="keuzes">
+    <legend>Welke uitvoering? <span class="veld__optioneel">(optioneel)</span></legend>
+    <div class="keuzes__opties">
+      {
+        uitvoeringen.map((u, n) => (
+          <label class="keuze" for={`uitvoering-${n}`}>
+            <input id={`uitvoering-${n}`} type="radio" name="uitvoering" value={u} />
+            <span>{u}</span>
+          </label>
+        ))
+      }
+    </div>
+  </fieldset>
+
+  <div class="veld">
+    <label for="bericht">Je bericht <span class="veld__optioneel">(optioneel)</span></label>
+    <textarea id="bericht" name="bericht" rows="5" placeholder="Bijvoorbeeld: wanneer het je uitkomt dat ik langskom."
+    ></textarea>
+  </div>
+
+  <p class="contact-form__privacy">
+    Ik gebruik je gegevens alleen om je vraag te beantwoorden. Lees meer in de <a href="/privacy">privacyverklaring</a>.
+  </p>
+
+  <button class="btn btn--ink contact-form__knop" type="submit">
+    <span>Verstuur je aanvraag</span>
+    <Icon name="arrow-right" class="btn__icon" />
+  </button>
+  <p class="contact-form__verplicht"><span aria-hidden="true">*</span> Verplicht veld</p>
+</form>
+
+<style>
+  .contact-form {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .contact-form__honing {
+    display: none;
+  }
+
+  .veld-rij {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .veld-rij {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .veld {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  label,
+  legend {
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+
+  .veld__optioneel {
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+
+  input:not([type='checkbox'], [type='radio']),
+  textarea {
+    width: 100%;
+    min-height: 3.25rem;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--field-border, #7d8098);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 8rem;
+  }
+
+  input:not([type='checkbox'], [type='radio']):hover,
+  textarea:hover {
+    border-color: var(--ink);
+  }
+
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 1px;
+    border-color: var(--ink);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #6b6e86;
+  }
+
+  .keuzes {
+    border: 0;
+    padding: 0;
+    min-width: 0;
+  }
+
+  .keuzes legend {
+    padding: 0;
+    margin-bottom: 0.6rem;
+  }
+
+  .keuzes__opties {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .keuze {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 1rem 0.5rem 0.85rem;
+    border: 1.5px solid var(--field-border, #7d8098);
+    border-radius: 999px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .keuze input {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin: 0;
+    accent-color: var(--ink);
+  }
+
+  .keuze:has(input:checked) {
+    background: var(--yellow);
+    border-color: var(--ink);
+  }
+
+  .keuze:has(input:focus-visible) {
+    outline: 3px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  .keuze input:focus-visible {
+    outline: none;
+  }
+
+  .contact-form__privacy,
+  .contact-form__verplicht {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .contact-form__knop {
+    justify-self: start;
+  }
+
+  @media (max-width: 479.98px) {
+    .contact-form__knop {
+      justify-self: stretch;
+    }
+  }
+</style>

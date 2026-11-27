@@ -1,0 +1,271 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from '../components/CtaBand.astro';
+import FaqList from '../components/FaqList.astro';
+import HeroTap from '../components/HeroTap.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Steps from '../components/Steps.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { klantStappen, stappenUitgebreid } from '../data/stappen';
+import { alleVragen } from '../data/faq';
+
+const kruimels = [{ naam: 'Hoe het werkt', href: '/hoe-het-werkt' }];
+const vragen = alleVragen.filter((v) => ['geen-nfc', 'link-aanpassen', 'google', 'zelf-instellen'].includes(v.id));
+
+const telefoons = [
+  {
+    icoon: 'phone',
+    titel: 'iPhone',
+    tekst:
+      'Vanaf de iPhone XS leest een iPhone NFC automatisch, zonder app. Je klant houdt de bovenkant van de telefoon bij het tikpunt en tikt op de melding die verschijnt.',
+  },
+  {
+    icoon: 'wifi',
+    titel: 'Android',
+    tekst:
+      'Bij de meeste Android-telefoons staat NFC standaard aan. De lezer zit meestal midden op de achterkant. Het scherm moet wel ontgrendeld zijn.',
+  },
+  {
+    icoon: 'qr',
+    titel: 'QR-code',
+    tekst:
+      'Oudere telefoon of NFC uit? Dan scant je klant de QR-code met de camera. Die gaat naar precies dezelfde pagina.',
+  },
+] as const;
+---
+
+<BaseLayout pad="/hoe-het-werkt" kruimels={kruimels}>
+  <PageHero
+    eyebrow="Hoe het werkt"
+    titel="Zo werkt een NFC-standaard van Tipero"
+    accent="NFC-standaard"
+    intro="Van je eerste berichtje tot de eerste tik van een klant. Jij hoeft er bijna niets voor te doen: ik kom langs en regel de rest."
+    kruimels={kruimels}
+  >
+    <div class="btn-row" slot="acties">
+      <WhatsAppButton />
+      <a class="btn btn--outline" href="/prijzen">Bekijk de prijzen</a>
+    </div>
+    <HeroTap slot="aside" />
+  </PageHero>
+
+  <!-- Voor de ondernemer -->
+  <section class="section section--grey" aria-labelledby="ondernemer-titel">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Voor jou als ondernemer"
+        titel="Van aanvraag tot stand op je toonbank"
+        intro="Geen pakketje met een handleiding. Ik doe het werk, jij kiest alleen wat de stand moet doen en waar hij komt te staan."
+        id="ondernemer-titel"
+      />
+      <Steps stappen={stappenUitgebreid} />
+    </div>
+  </section>
+
+  <!-- Voor de klant -->
+  <section class="section section--ink on-dark" aria-labelledby="klant-titel">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Voor je klant"
+        titel="Tikken, tikken, klaar"
+        intro="Voor je klant is het nog makkelijker. Geen app, geen account en niets om op te zoeken."
+        id="klant-titel"
+      />
+      <ol class="klant">
+        {
+          klantStappen.map((stap, i) => (
+            <li class="klant__stap">
+              <span class="klant__nummer" aria-hidden="true">
+                {i + 1}
+              </span>
+              <h3>{stap.titel}</h3>
+              <p>{stap.tekst}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <h3 class="telefoons__titel">Werkt het op elke telefoon?</h3>
+      <ul class="telefoons" role="list">
+        {
+          telefoons.map((t) => (
+            <li class="telefoon">
+              <span class="telefoon__icoon">
+                <Icon name={t.icoon} size={22} />
+              </span>
+              <h4>{t.titel}</h4>
+              <p>{t.tekst}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Wat is NFC -->
+  <section class="section" aria-labelledby="nfc-titel">
+    <div class="container nfc">
+      <div class="nfc__beeld" aria-hidden="true">
+        <svg viewBox="0 0 240 240" class="nfc__svg">
+          <circle cx="120" cy="120" r="112" fill="#F5F5F8"></circle>
+          <circle cx="120" cy="120" r="86" fill="none" stroke="#DCDDE6" stroke-width="2" stroke-dasharray="5 7"></circle>
+          <circle cx="120" cy="120" r="58" fill="none" stroke="#DCDDE6" stroke-width="2" stroke-dasharray="5 7"></circle>
+          <rect x="84" y="84" width="72" height="72" rx="14" fill="#15172A"></rect>
+          <rect x="99" y="99" width="42" height="42" rx="4" fill="none" stroke="#FFC61A" stroke-width="3"></rect>
+          <rect x="107" y="107" width="26" height="26" rx="2" fill="none" stroke="#FFC61A" stroke-width="3"></rect>
+          <circle cx="120" cy="120" r="4" fill="#FFC61A"></circle>
+        </svg>
+      </div>
+      <div class="nfc__tekst">
+        <p class="eyebrow">Wat is NFC?</p>
+        <h2 id="nfc-titel">Dezelfde techniek als contactloos betalen</h2>
+        <p>
+          NFC staat voor Near Field Communication. In de stand zit een dunne chip zonder batterij. Houdt iemand een
+          telefoon binnen een paar centimeter van het tikpunt, dan geeft de chip een link door. De telefoon opent die
+          link, net zoals bij een link in een appje.
+        </p>
+        <p>
+          De chip bewaart alleen die ene link. Hij leest niets uit de telefoon en verzamelt geen gegevens van je klanten.
+          Daarom kan de stand ook geen kwaad: hij wijst alleen de weg.
+        </p>
+        <p>
+          Voor een reviewstand moet je zaak wel op Google staan, met een Google Bedrijfsprofiel. Heb je dat nog niet?
+          Laat het me weten, dan kijken we samen wat er nodig is.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vragen -->
+  <section class="section section--grey" aria-labelledby="vragen-titel">
+    <div class="container container--narrow">
+      <SectionHeader eyebrow="Vragen" titel="Goed om te weten" id="vragen-titel" center />
+      <FaqList vragen={vragen} />
+      <p class="meer-vragen">
+        <a class="link-arrow" href="/veelgestelde-vragen">
+          Alle veelgestelde vragen
+          <Icon name="arrow-right" />
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .klant {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 800px) {
+    .klant {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+  }
+
+  .klant__stap {
+    padding: 1.75rem;
+    border-radius: var(--radius);
+    background: var(--ink-2);
+    border: 1px solid var(--ink-3);
+  }
+
+  .klant__nummer {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-bottom: 1.25rem;
+    border-radius: 50%;
+    background: var(--yellow);
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 1.125rem;
+  }
+
+  .klant__stap p,
+  .telefoon p {
+    margin-top: 0.5rem;
+    color: var(--text-on-dark-muted);
+  }
+
+  .telefoons__titel {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    margin-bottom: 1.5rem;
+    font-size: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);
+  }
+
+  .telefoons {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 800px) {
+    .telefoons {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .telefoon {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--ink-line);
+  }
+
+  .telefoon__icoon {
+    display: inline-grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--ink-line);
+    color: var(--yellow);
+  }
+
+  .telefoon h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  .nfc {
+    display: grid;
+    gap: 2.5rem 5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .nfc {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    }
+  }
+
+  .nfc__svg {
+    width: min(20rem, 80%);
+    margin-inline: auto;
+  }
+
+  .nfc__tekst > * + * {
+    margin-top: 1.1rem;
+  }
+
+  .nfc__tekst h2 {
+    margin-top: 0.75rem;
+  }
+
+  .nfc__tekst p:not(.eyebrow) {
+    color: var(--text-muted);
+  }
+
+  .meer-vragen {
+    margin-top: 2.5rem;
+    text-align: center;
+  }
+</style>

@@ -1,0 +1,131 @@
+---
+/**
+ * Privacyverklaring (AVG). Contactgegevens komen uit bedrijf.ts.
+ * Controleer de tekst voordat je live gaat, en pas de datum aan als je iets wijzigt.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { bedrijf } from '../data/bedrijf';
+import { geldigEmail } from '../lib/format';
+
+const kruimels = [{ naam: 'Privacyverklaring', href: '/privacy' }];
+const email = geldigEmail();
+const kvk = bedrijf.contact.kvk.trim();
+const laatstBijgewerkt = '27 november 2026';
+const formulierAanbieder =
+  bedrijf.formulier.aanbieder === 'netlify' ? 'Netlify, Inc. (hosting en formulieren)' : 'Formspree, Inc. (formulieren)';
+---
+
+<BaseLayout pad="/privacy" kruimels={kruimels}>
+  <PageHero
+    eyebrow="Privacy"
+    titel="Privacyverklaring"
+    intro="Tipero gaat zorgvuldig om met je gegevens. Geen trackingcookies, geen advertentienetwerken: ik gebruik alleen wat nodig is om je te helpen."
+    kruimels={kruimels}
+  />
+
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="prose">
+        <p class="muted">Laatst bijgewerkt: {laatstBijgewerkt}</p>
+
+        <h2>1. Wie is verantwoordelijk?</h2>
+        <p>
+          {bedrijf.naam} is verantwoordelijk voor de verwerking van persoonsgegevens zoals beschreven in deze verklaring.
+          {bedrijf.naam} is een onderneming van {bedrijf.eigenaar}, gevestigd in {bedrijf.thuisbasis}.
+          {kvk && <span> KvK-nummer: {kvk}.</span>}
+        </p>
+        <p>
+          Vragen over je privacy? Mail naar{' '}
+          {email ? <a href={`mailto:${email}`}>{email}</a> : <span>{bedrijf.contact.email}</span>}.
+        </p>
+
+        <h2>2. Welke gegevens gebruik ik, en waarvoor?</h2>
+        <h3>Contactformulier, e-mail en WhatsApp</h3>
+        <p>
+          Neem je contact op, dan ontvang ik de gegevens die je zelf invult of stuurt: je naam, de naam van je zaak, je
+          e-mailadres, en als je die invult ook je telefoonnummer, plaats, interesse en bericht. Ik gebruik deze gegevens
+          alleen om je vraag te beantwoorden, een afspraak te maken en je een voorstel te doen.
+        </p>
+        <p>
+          Grondslag: het nemen van stappen op jouw verzoek voordat we een overeenkomst sluiten, en mijn gerechtvaardigd
+          belang om vragen te beantwoorden (artikel 6 lid 1 sub b en f AVG).
+        </p>
+
+        <h3>Klanten</h3>
+        <p>
+          Word je klant, dan gebruik ik je gegevens (zoals je naam, de naam en het adres van je zaak en je
+          contactgegevens) om de opdracht uit te voeren en te factureren. Grondslag: de uitvoering van de overeenkomst en
+          de wettelijke bewaarplicht voor de administratie (artikel 6 lid 1 sub b en c AVG).
+        </p>
+
+        <h3>Bezoek aan deze website</h3>
+        <p>
+          Bij elk bezoek verwerkt de hostingpartij technische gegevens, zoals je IP-adres, het type browser en het
+          tijdstip. Dat is nodig om de website te laten werken en te beveiligen. Grondslag: gerechtvaardigd belang
+          (artikel 6 lid 1 sub f AVG). Ik gebruik deze gegevens niet om je te volgen of een profiel van je te maken.
+        </p>
+
+        <h2>3. Cookies en tracking</h2>
+        <p>
+          Deze website plaatst geen cookies en gebruikt geen analytics, advertentiepixels of andere trackers. Ook de
+          lettertypen worden vanaf deze website zelf geladen, dus niet via Google. Daarom zie je ook geen cookiemelding.
+        </p>
+
+        <h2>4. De NFC-standaard zelf</h2>
+        <p>
+          Op de chip in een Tipero-stand staat alleen een link, bijvoorbeeld naar een Google-reviewpagina. Tikt of scant
+          iemand de stand, dan opent de telefoon die link rechtstreeks. Tipero ontvangt daarbij geen gegevens van de
+          klanten die de stand gebruiken.
+        </p>
+
+        <h2>5. Met wie deel ik gegevens?</h2>
+        <p>Ik verkoop je gegevens nooit. Ik deel ze alleen met partijen die nodig zijn om mijn werk te doen:</p>
+        <ul>
+          <li>{formulierAanbieder}, die de website host en formulierinzendingen verwerkt;</li>
+          <li>mijn e-mailprovider [naam e-mailprovider], voor het ontvangen en versturen van e-mail;</li>
+          <li>
+            WhatsApp (Meta), als je via WhatsApp contact opneemt. WhatsApp is daarbij zelf verantwoordelijk voor de
+            verwerking volgens zijn eigen privacybeleid.
+          </li>
+        </ul>
+        <p>
+          Sommige van deze partijen zitten buiten de Europese Unie, bijvoorbeeld in de Verenigde Staten. Gegevens gaan
+          alleen daarheen met passende waarborgen, zoals het EU-VS Data Privacy Framework of de
+          standaardcontractbepalingen van de Europese Commissie.
+        </p>
+
+        <h2>6. Hoe lang bewaar ik je gegevens?</h2>
+        <ul>
+          <li>Contactaanvragen zonder opdracht: maximaal 1 jaar na het laatste contact.</li>
+          <li>Gegevens van klanten: zolang dat nodig is voor de opdracht en eventuele nazorg.</li>
+          <li>Facturen en administratie: 7 jaar, omdat de wet dat verplicht.</li>
+        </ul>
+
+        <h2>7. Beveiliging</h2>
+        <p>
+          Ik neem passende maatregelen om je gegevens te beschermen tegen verlies en onbevoegd gebruik. De website werkt
+          bijvoorbeeld altijd via een beveiligde verbinding (https).
+        </p>
+
+        <h2>8. Jouw rechten</h2>
+        <p>
+          Je hebt het recht om je gegevens in te zien, te laten corrigeren of te laten verwijderen. Ook kun je bezwaar maken
+          tegen het gebruik ervan, vragen om de verwerking te beperken of je gegevens in een gangbaar formaat te ontvangen.
+          Stuur daarvoor een mail. Ik reageer binnen een maand.
+        </p>
+        <p>
+          Ben je het niet eens met hoe ik met je gegevens omga? Dan kun je een klacht indienen bij de{' '}
+          <a href="https://www.autoriteitpersoonsgegevens.nl" rel="noopener">Autoriteit Persoonsgegevens</a>. Ik hoop
+          natuurlijk dat we het eerst samen kunnen oplossen.
+        </p>
+
+        <h2>9. Wijzigingen</h2>
+        <p>
+          Ik kan deze privacyverklaring aanpassen, bijvoorbeeld als de website verandert. De datum bovenaan laat zien
+          wanneer dat voor het laatst is gebeurd.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

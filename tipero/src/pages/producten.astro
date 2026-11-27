@@ -1,0 +1,444 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BrancheCards from '../components/BrancheCards.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import StandMockup from '../components/StandMockup.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { producten, uitvoeringen } from '../data/producten';
+import { prijzen } from '../data/bedrijf';
+import { formatPrijs } from '../lib/format';
+import { productNodes } from '../lib/schema';
+
+const kruimels = [{ naam: 'Producten', href: '/producten' }];
+---
+
+<BaseLayout pad="/producten" kruimels={kruimels} schema={productNodes()}>
+  <PageHero
+    eyebrow="Producten"
+    titel="Een NFC-standaard voor elk doel"
+    accent="NFC-standaard"
+    intro="Reviews, je menu of je socials: elke stand opent met één tik de pagina die jij kiest. Met NFC voor moderne telefoons en een QR-code voor alle andere."
+    kruimels={kruimels}
+  >
+    <ul class="spring" slot="acties">
+      {
+        producten.map((p) => (
+          <li>
+            <a href={`#${p.id}`}>
+              <Icon name={p.icoon} size={18} />
+              {p.naam}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="trio" slot="aside" aria-hidden="true">
+      <StandMockup soort="menu" label="" class="trio__links" />
+      <StandMockup soort="socials" label="" class="trio__rechts" />
+      <StandMockup soort="review" label="" class="trio__midden" />
+    </div>
+  </PageHero>
+
+  {
+    producten.map((p, i) => (
+      <section
+        id={p.id}
+        class:list={['section', 'product', { 'section--grey': i % 2 === 1 }]}
+        aria-labelledby={`${p.id}-titel`}
+      >
+        <div class:list={['container', 'product__grid', { 'product__grid--omgekeerd': i % 2 === 1 }]}>
+          <div class="product__beeld">
+            <StandMockup soort={p.id} />
+          </div>
+          <div class="product__tekst">
+            <p class="eyebrow">{p.naam}</p>
+            <h2 id={`${p.id}-titel`}>{p.volledigeNaam}</h2>
+            {p.uitleg.map((alinea) => (
+              <p class="product__alinea">{alinea}</p>
+            ))}
+            <ul class="checklist">
+              {p.kenmerken.map((k) => (
+                <li>{k}</li>
+              ))}
+            </ul>
+            <p class="product__ideaal">
+              <strong>Ideaal voor:</strong> {p.idealeVoor}
+            </p>
+            {p.id === 'review' && (
+              <p class="product__regels">
+                <Icon name="shield" size={20} />
+                <span>
+                  De tekst op de stand vraagt iedere klant om een review, zonder beloning. Zo blijf je binnen de regels van
+                  Google. <a href="/veelgestelde-vragen#google">Lees hoe dat zit</a>.
+                </span>
+              </p>
+            )}
+            <div class="product__prijs">
+              <p>
+                <span class="product__vanaf">Vanaf</span> <strong>{formatPrijs(prijzen.standaard)}</strong>
+                {prijzen.eenmalig && <span class="muted">, eenmalig</span>}
+              </p>
+              <div class="btn-row">
+                <WhatsAppButton
+                  variant="ink"
+                  tekst="Vraag deze stand aan"
+                  bericht={`Hoi Tipero! Ik heb interesse in de ${p.naam.toLowerCase()}.`}
+                />
+                <a class="btn btn--outline" href="/prijzen">
+                  Prijzen
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <!-- Uitvoeringen -->
+  <section class="section section--ink on-dark" aria-labelledby="uitvoeringen-titel">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Uitvoeringen"
+        titel="Tipero-ontwerp of je eigen huisstijl"
+        intro="Elke stand is er in twee uitvoeringen. Strak en herkenbaar in zwart/geel, of helemaal in de stijl van je zaak."
+        id="uitvoeringen-titel"
+      />
+      <div class="uitvoeringen">
+        <article class="uitvoering">
+          <div class="uitvoering__beeld">
+            <StandMockup soort="review" ontwerp="standaard" />
+          </div>
+          <div>
+            <h3>{uitvoeringen.standaard.titel}</h3>
+            <p class="muted">{uitvoeringen.standaard.omschrijving}</p>
+            <ul class="checklist">
+              {uitvoeringen.standaard.kenmerken.map((k) => <li>{k}</li>)}
+            </ul>
+            <p class="uitvoering__prijs">{formatPrijs(prijzen.standaard)} <span>per stand</span></p>
+          </div>
+        </article>
+        <article class="uitvoering">
+          <div class="uitvoering__beeld uitvoering__beeld--licht">
+            <StandMockup soort="review" ontwerp="huisstijl" />
+          </div>
+          <div>
+            <h3>{uitvoeringen.huisstijl.titel}</h3>
+            <p class="muted">{uitvoeringen.huisstijl.omschrijving}</p>
+            <ul class="checklist">
+              {uitvoeringen.huisstijl.kenmerken.map((k) => <li>{k}</li>)}
+            </ul>
+            <p class="uitvoering__prijs">{formatPrijs(prijzen.huisstijl)} <span>per stand</span></p>
+          </div>
+        </article>
+      </div>
+      <p class="uitvoeringen__set">
+        Reviewstand en menustand samen? De set kost {formatPrijs(prijzen.set)}.{' '}
+        <a href="/prijzen#set">Bekijk de set</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Inbegrepen -->
+  <section class="section" aria-labelledby="inbegrepen-titel">
+    <div class="container inbegrepen">
+      <div>
+        <p class="eyebrow">Altijd inbegrepen</p>
+        <h2 id="inbegrepen-titel">Geen losse onderdelen, maar een stand die werkt</h2>
+        <p class="lead">
+          Bij elke stand hoort hetzelfde: ik kom langs, stel alles in en test het. Jij hoeft niets uit te zoeken.
+        </p>
+      </div>
+      <ul class="checklist inbegrepen__lijst">
+        <li>NFC-chip zonder batterij</li>
+        <li>QR-code als back-up voor elke telefoon</li>
+        {prijzen.inbegrepen.map((i) => <li>{i}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Branches -->
+  <section class="section section--grey" aria-labelledby="branches-titel">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Per branche"
+        titel="Bekijk voorbeelden voor jouw zaak"
+        intro="Een kapper gebruikt een stand anders dan een snackbar. Bekijk per branche waar de stand het beste staat en welke teksten goed werken."
+        id="branches-titel"
+      />
+      <div class="on-dark branches-donker">
+        <BrancheCards />
+      </div>
+    </div>
+  </section>
+
+  <CtaBand titel="Welke stand past bij jou?" tekst="Twijfel je nog? Stuur een berichtje. Ik kom langs en we kijken samen wat het beste werkt voor jouw zaak." />
+</BaseLayout>
+
+<style>
+  /* Snelkoppelingen in de hero */
+  .spring {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .spring a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--ink-line);
+    border-radius: 999px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .spring a:hover {
+    border-color: var(--yellow);
+  }
+
+  .spring :global(svg) {
+    color: var(--yellow);
+  }
+
+  /* Drie standen in de hero */
+  .trio {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: end;
+    max-width: 34rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  .trio :global(svg) {
+    grid-row: 1;
+    width: 150%;
+    filter: drop-shadow(0 20px 30px rgb(0 0 0 / 0.35));
+  }
+
+  .trio :global(.trio__links) {
+    grid-column: 1;
+    transform: rotate(-8deg) translateY(4%);
+  }
+
+  .trio :global(.trio__midden) {
+    grid-column: 2;
+    z-index: 1;
+    margin-left: -25%;
+  }
+
+  .trio :global(.trio__rechts) {
+    grid-column: 3;
+    margin-left: -50%;
+    transform: rotate(8deg) translateY(4%);
+  }
+
+  /* Productsecties */
+  .product {
+    scroll-margin-top: 1rem;
+  }
+
+  .product__grid {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .product__beeld {
+    display: grid;
+    place-items: center;
+    padding: clamp(2rem, 5vw, 3.5rem);
+    border-radius: var(--radius-lg);
+    background:
+      radial-gradient(circle at 50% 55%, var(--yellow) 0 36%, transparent 36.5%),
+      var(--grey-100);
+  }
+
+  .section--grey .product__beeld {
+    background:
+      radial-gradient(circle at 50% 55%, var(--yellow) 0 36%, transparent 36.5%),
+      var(--white);
+  }
+
+  .product__beeld :global(svg) {
+    width: min(16rem, 72%);
+  }
+
+  .product__tekst > * + * {
+    margin-top: 1.1rem;
+  }
+
+  .product__tekst h2 {
+    margin-top: 0.75rem;
+  }
+
+  .product__alinea {
+    color: var(--text-muted);
+  }
+
+  .product__tekst .checklist {
+    margin-top: 1.75rem;
+  }
+
+  .product__ideaal {
+    font-size: 0.9375rem;
+  }
+
+  .product__regels {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-sm);
+    background: var(--yellow-soft);
+    font-size: 0.9375rem;
+  }
+
+  .product__regels :global(svg) {
+    flex: none;
+    margin-top: 0.15rem;
+  }
+
+  .product__prijs {
+    margin-top: 2rem !important;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--grey-200);
+    display: grid;
+    gap: 1rem;
+  }
+
+  .product__prijs strong {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .product__vanaf {
+    color: var(--text-muted);
+  }
+
+  @media (min-width: 900px) {
+    .product__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      gap: 5rem;
+    }
+
+    .product__grid--omgekeerd .product__beeld {
+      order: 2;
+    }
+  }
+
+  /* Uitvoeringen */
+  .uitvoeringen {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 900px) {
+    .uitvoeringen {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .uitvoering {
+    display: grid;
+    gap: 1.5rem;
+    padding: clamp(1.5rem, 3vw, 2rem);
+    border-radius: var(--radius-lg);
+    background: var(--ink-2);
+    border: 1px solid var(--ink-3);
+  }
+
+  @media (min-width: 560px) {
+    .uitvoering {
+      grid-template-columns: 10rem 1fr;
+      align-items: center;
+    }
+  }
+
+  .uitvoering__beeld {
+    padding: 1.25rem;
+    border-radius: var(--radius);
+    background: var(--ink-3);
+    max-width: 12rem;
+  }
+
+  .uitvoering__beeld--licht {
+    background: var(--grey-100);
+  }
+
+  .uitvoering h3 + p {
+    margin-top: 0.5rem;
+  }
+
+  .uitvoering .checklist {
+    margin-top: 1.25rem;
+    font-size: 0.9375rem;
+  }
+
+  .uitvoering__prijs {
+    margin-top: 1.25rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--yellow);
+  }
+
+  .uitvoering__prijs span {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--text-on-dark-muted);
+  }
+
+  .uitvoeringen__set {
+    margin-top: 2rem;
+    color: var(--text-on-dark-muted);
+  }
+
+  .uitvoeringen__set a {
+    color: var(--white);
+    font-weight: 600;
+    margin-left: 0.25rem;
+  }
+
+  /* Inbegrepen */
+  .inbegrepen {
+    display: grid;
+    gap: 2.5rem 5rem;
+    align-items: center;
+  }
+
+  .inbegrepen h2 {
+    margin-top: 1rem;
+  }
+
+  .inbegrepen .lead {
+    margin-top: 1rem;
+  }
+
+  .inbegrepen__lijst {
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border-radius: var(--radius-lg);
+    background: var(--grey-50);
+    gap: 1rem;
+  }
+
+  @media (min-width: 900px) {
+    .inbegrepen {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .branches-donker {
+    background: var(--ink);
+    padding: clamp(1rem, 3vw, 1.5rem);
+    border-radius: var(--radius-lg);
+  }
+</style>

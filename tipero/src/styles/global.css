@@ -300,8 +300,9 @@ strong {
   -webkit-box-decoration-break: clone;
 }
 
+/* Korte accenten (zoals "Google-reviews") niet over twee regels breken. */
 @media (min-width: 600px) {
-  .marker {
+  .marker--heel {
     white-space: nowrap;
   }
 }

@@ -1,0 +1,271 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import Mark from '../components/Mark.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { over } from '../data/over';
+import { bedrijf } from '../data/bedrijf';
+
+const kruimels = [{ naam: 'Over Tipero', href: '/over' }];
+
+// De eerste foto in src/assets/over/ (als die er is).
+const fotos = import.meta.glob<ImageMetadata>('../assets/over/*.{jpg,jpeg,png,webp}', {
+  eager: true,
+  import: 'default',
+});
+const foto = Object.values(fotos)[0];
+const fotoAlt = over.fotoAlt.replace('[Jouw naam]', bedrijf.eigenaar);
+---
+
+<BaseLayout pad="/over" kruimels={kruimels} paginaType="AboutPage">
+  <PageHero
+    eyebrow="Over Tipero"
+    titel={`Hoi, ik ben ${bedrijf.eigenaar}`}
+    accent={bedrijf.eigenaar}
+    intro={over.intro}
+    kruimels={kruimels}
+  >
+    <div class="portret" slot="aside">
+      {
+        foto ? (
+          <Picture
+            src={foto}
+            alt={fotoAlt}
+            formats={['avif', 'webp']}
+            widths={[360, 540, 720, 900]}
+            sizes="(min-width: 900px) 26rem, 90vw"
+            class="portret__foto"
+          />
+        ) : bedrijf.toonPlaceholders ? (
+          <div class="placeholder portret__placeholder">
+            <span>[foto van jou volgt]</span>
+            <span>Zet een foto in src/assets/over/</span>
+          </div>
+        ) : (
+          <div class="portret__merk" aria-hidden="true">
+            <Mark size="45%" />
+          </div>
+        )
+      }
+    </div>
+  </PageHero>
+
+  <section class="section" aria-labelledby="verhaal-titel">
+    <div class="container verhaal">
+      <div>
+        <p class="eyebrow">Mijn verhaal</p>
+        <h2 id="verhaal-titel">{over.verhaalTitel}</h2>
+      </div>
+      <div class="verhaal__tekst">
+        {over.verhaal.map((alinea) => <p>{alinea}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--grey" aria-labelledby="waarden-titel">
+    <div class="container">
+      <SectionHeader eyebrow="Waarden" titel={over.waardenTitel} id="waarden-titel" />
+      <ul class="waarden" role="list">
+        {
+          over.waarden.map((w) => (
+            <li class="waarde">
+              <span class="waarde__icoon">
+                <Icon name={w.icoon} size={22} />
+              </span>
+              <h3>{w.titel}</h3>
+              <p>{w.tekst}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="links-titel">
+    <div class="container">
+      <SectionHeader eyebrow="Verder lezen" titel="Meer over Tipero" id="links-titel" />
+      <ul class="verder" role="list">
+        <li>
+          <a href="/hoe-het-werkt">
+            <span>Hoe het werkt</span>
+            <span class="muted">Van je eerste berichtje tot de eerste tik.</span>
+            <Icon name="arrow-right" />
+          </a>
+        </li>
+        <li>
+          <a href="/producten">
+            <span>Producten</span>
+            <span class="muted">Reviewstand, menustand en socials-stand.</span>
+            <Icon name="arrow-right" />
+          </a>
+        </li>
+        <li>
+          <a href="/werkgebied">
+            <span>Werkgebied</span>
+            <span class="muted">Lekkerkerk, de Krimpenerwaard en omgeving.</span>
+            <Icon name="arrow-right" />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand titel="Zullen we kennismaken?" tekst="Stuur een berichtje en ik kom langs. Vrijblijvend, gewoon even kijken wat bij je zaak past." />
+</BaseLayout>
+
+<style>
+  .portret {
+    max-width: 26rem;
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  .portret :global(.portret__foto),
+  .portret :global(.portret__foto img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+  }
+
+  .portret__placeholder {
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-lg);
+  }
+
+  .portret__placeholder span + span {
+    font-size: 0.75rem;
+  }
+
+  .portret__merk {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-lg);
+    background: var(--ink-2);
+  }
+
+  .verhaal {
+    display: grid;
+    gap: 1.5rem 5rem;
+  }
+
+  .verhaal h2 {
+    margin-top: 1rem;
+  }
+
+  .verhaal__tekst {
+    display: grid;
+    gap: 1rem;
+    font-size: var(--fs-lead);
+    color: var(--text-muted);
+    align-content: start;
+  }
+
+  @media (min-width: 900px) {
+    .verhaal {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .verhaal__tekst {
+      padding-top: 2.4rem;
+    }
+  }
+
+  .waarden {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .waarden {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .waarden {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .waarde {
+    padding: 1.75rem;
+    border-radius: var(--radius);
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+  }
+
+  .waarde__icoon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1.25rem;
+    border-radius: 14px;
+    background: var(--yellow);
+  }
+
+  .waarde p {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+  }
+
+  .verder {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    border-top: 1px solid var(--grey-200);
+  }
+
+  .verder a {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.25rem 1rem;
+    align-items: center;
+    padding: 1.4rem 0.25rem;
+    border-bottom: 1px solid var(--grey-200);
+    text-decoration: none;
+  }
+
+  .verder a span:first-child {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .verder a span.muted {
+    grid-column: 1;
+  }
+
+  .verder a :global(svg) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    transition: transform 0.18s ease;
+  }
+
+  .verder a:hover :global(svg) {
+    transform: translateX(4px);
+  }
+
+  @media (min-width: 800px) {
+    .verder a {
+      grid-template-columns: 16rem 1fr auto;
+    }
+
+    .verder a span.muted {
+      grid-column: 2;
+    }
+
+    .verder a :global(svg) {
+      grid-column: 3;
+      grid-row: 1;
+    }
+  }
+</style>

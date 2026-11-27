@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import Mark from '../components/Mark.astro';
+import PageHero from '../components/PageHero.astro';
+
+const links = [
+  { tekst: 'Homepage', href: '/' },
+  { tekst: 'Producten', href: '/producten' },
+  { tekst: 'Prijzen', href: '/prijzen' },
+  { tekst: 'Veelgestelde vragen', href: '/veelgestelde-vragen' },
+  { tekst: 'Contact', href: '/contact' },
+];
+---
+
+<BaseLayout pad="/404">
+  <PageHero
+    eyebrow="Foutcode 404"
+    titel="Oeps, mis getikt."
+    accent="mis getikt."
+    intro="Deze pagina bestaat niet (meer). Misschien is de link verouderd of zit er een typfout in. Hieronder vind je de belangrijkste pagina's."
+  >
+    <ul class="links" slot="acties">
+      {
+        links.map((l, i) => (
+          <li>
+            <a class:list={['btn', i === 0 ? 'btn--yellow' : 'btn--outline']} href={l.href}>
+              {l.tekst}
+              {i === 0 && <Icon name="arrow-right" class="btn__icon" />}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="mis" slot="aside" aria-hidden="true">
+      <Mark size="100%" />
+    </div>
+  </PageHero>
+</BaseLayout>
+
+<style>
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .mis {
+    width: min(16rem, 60%);
+    margin-inline: auto;
+    opacity: 0.9;
+    transform: rotate(-12deg);
+  }
+</style>

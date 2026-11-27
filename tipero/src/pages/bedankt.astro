@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { bedrijf } from '../data/bedrijf';
+---
+
+<BaseLayout pad="/bedankt">
+  <PageHero
+    eyebrow="Bericht verstuurd"
+    titel="Bedankt voor je bericht!"
+    accent="Bedankt"
+    intro={`Je aanvraag is binnen. ${bedrijf.contact.reactietijd} Haast? Stuur dan ook even een WhatsApp.`}
+  >
+    <div class="btn-row" slot="acties">
+      <WhatsAppButton />
+      <a class="btn btn--outline" href="/">Terug naar de homepage</a>
+    </div>
+  </PageHero>
+</BaseLayout>

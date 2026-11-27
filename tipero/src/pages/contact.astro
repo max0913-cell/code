@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { bedrijf } from '../data/bedrijf';
+import { geldigEmail } from '../lib/format';
+
+const kruimels = [{ naam: 'Contact', href: '/contact' }];
+const email = geldigEmail();
+
+const vervolg = [
+  { titel: 'Ik reageer', tekst: bedrijf.contact.reactietijd },
+  { titel: 'We plannen een moment', tekst: 'Op een tijdstip dat jou uitkomt, in je eigen zaak.' },
+  { titel: 'Ik stel de stand in', tekst: 'Link opzoeken, programmeren en samen testen. Klaar.' },
+];
+---
+
+<BaseLayout pad="/contact" kruimels={kruimels} paginaType="ContactPage">
+  <PageHero
+    eyebrow="Contact"
+    titel="Vraag je NFC-standaard aan"
+    accent="NFC-standaard"
+    intro="Stuur een WhatsApp, mail of vul het formulier in. Ik kom langs, we kiezen samen de juiste stand en ik stel alles voor je in."
+    kruimels={kruimels}
+  />
+
+  <section class="section section--grey contact" aria-label="Contactmogelijkheden">
+    <div class="container contact__grid">
+      <div class="contact__opties">
+        <article class="optie optie--whatsapp on-dark">
+          <p class="optie__label">Snelste manier</p>
+          <h2>Stuur een WhatsApp</h2>
+          <p>Even een vraag of meteen een afspraak? App me, dan reageer ik zo snel mogelijk.</p>
+          <WhatsAppButton tekst={`WhatsApp ${bedrijf.contact.whatsapp}`} />
+        </article>
+
+        <article class="optie">
+          <span class="optie__icoon"><Icon name="mail" size={22} /></span>
+          <h2>Mail</h2>
+          <p>
+            {email ? <a href={`mailto:${email}`}>{email}</a> : <span>{bedrijf.contact.email}</span>}
+          </p>
+        </article>
+
+        <article class="optie">
+          <span class="optie__icoon"><Icon name="pin" size={22} /></span>
+          <h2>Werkgebied</h2>
+          <p>
+            {bedrijf.thuisbasis}, de Krimpenerwaard, Krimpen aan den IJssel en Rotterdam-Oost.{' '}
+            <a href="/werkgebied">Bekijk alle plaatsen</a>.
+          </p>
+          <p class="muted optie__klein">Tipero heeft geen winkel of bezoekadres: ik kom naar jou toe.</p>
+        </article>
+      </div>
+
+      <div class="contact__formulier">
+        <h2 id="formulier-titel">Contactformulier</h2>
+        <p class="muted">Vul in wat je weet. De rest bespreken we als ik langskom.</p>
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="vervolg-titel">
+    <div class="container">
+      <h2 id="vervolg-titel" class="vervolg__titel">Wat gebeurt er na je bericht?</h2>
+      <ol class="vervolg">
+        {
+          vervolg.map((v, i) => (
+            <li>
+              <span class="vervolg__nr" aria-hidden="true">
+                {i + 1}
+              </span>
+              <h3>{v.titel}</h3>
+              <p>{v.tekst}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact__grid {
+    display: grid;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  @media (min-width: 960px) {
+    .contact__grid {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 2rem;
+    }
+  }
+
+  .contact__opties {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .optie {
+    padding: clamp(1.5rem, 3vw, 2rem);
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+  }
+
+  .optie h2 {
+    font-size: 1.375rem;
+    letter-spacing: -0.015em;
+  }
+
+  .optie p {
+    margin-top: 0.5rem;
+  }
+
+  .optie a {
+    font-weight: 600;
+  }
+
+  .optie__klein {
+    font-size: 0.875rem;
+  }
+
+  .optie--whatsapp {
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+
+  .optie--whatsapp p {
+    color: var(--text-on-dark-muted);
+  }
+
+  .optie--whatsapp :global(.btn) {
+    margin-top: 1.5rem;
+  }
+
+  .optie__label {
+    margin: 0 0 0.75rem !important;
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: var(--yellow);
+    color: var(--ink) !important;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .optie__icoon {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    background: var(--yellow);
+  }
+
+  .contact__formulier {
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+  }
+
+  .contact__formulier h2 {
+    font-size: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  }
+
+  .contact__formulier > .muted {
+    margin: 0.5rem 0 1.75rem;
+  }
+
+  .vervolg__titel {
+    font-size: clamp(1.5rem, 1.25rem + 1vw, 2.25rem);
+    margin-bottom: 2rem;
+  }
+
+  .vervolg {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 800px) {
+    .vervolg {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2rem;
+    }
+  }
+
+  .vervolg li {
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--ink);
+  }
+
+  .vervolg__nr {
+    display: inline-grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    background: var(--yellow);
+    font-weight: 700;
+  }
+
+  .vervolg p {
+    margin-top: 0.35rem;
+    color: var(--text-muted);
+  }
+</style>

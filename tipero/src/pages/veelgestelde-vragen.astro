@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from '../components/CtaBand.astro';
+import FaqList from '../components/FaqList.astro';
+import PageHero from '../components/PageHero.astro';
+import { alleVragen, faq } from '../data/faq';
+
+const kruimels = [{ naam: 'Veelgestelde vragen', href: '/veelgestelde-vragen' }];
+const slug = (titel: string) => titel.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+---
+
+<BaseLayout pad="/veelgestelde-vragen" kruimels={kruimels} faq={alleVragen}>
+  <PageHero
+    eyebrow="Veelgestelde vragen"
+    titel="Vragen over de NFC-standaard"
+    accent="NFC-standaard"
+    intro="Alles over telefoons, de regels van Google, de stand zelf en bestellen. Staat je vraag er niet tussen? Stuur gerust een berichtje."
+    kruimels={kruimels}
+  >
+    <nav class="onderwerpen" slot="acties" aria-label="Onderwerpen">
+      <ul>
+        {
+          faq.map((c) => (
+            <li>
+              <a href={`#${slug(c.titel)}`}>{c.titel}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </PageHero>
+
+  <div class="section section--grey">
+    <div class="container container--narrow categorieen">
+      {
+        faq.map((categorie) => (
+          <section class="categorie" id={slug(categorie.titel)} aria-labelledby={`${slug(categorie.titel)}-titel`}>
+            <h2 id={`${slug(categorie.titel)}-titel`}>{categorie.titel}</h2>
+            <FaqList vragen={categorie.vragen} />
+          </section>
+        ))
+      }
+    </div>
+  </div>
+
+  <CtaBand titel="Staat je vraag er niet tussen?" tekst="Stuur een berichtje. Ik leg het je graag uit, of kom even langs om het te laten zien." />
+</BaseLayout>
+
+<style>
+  .onderwerpen ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .onderwerpen a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--ink-line);
+    border-radius: 999px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .onderwerpen a:hover {
+    border-color: var(--yellow);
+  }
+
+  .categorieen {
+    display: grid;
+    gap: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .categorie {
+    scroll-margin-top: 1.5rem;
+  }
+
+  .categorie h2 {
+    font-size: clamp(1.5rem, 1.25rem + 1vw, 2.125rem);
+    margin-bottom: 1.25rem;
+  }
+</style>

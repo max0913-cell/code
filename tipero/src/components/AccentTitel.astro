@@ -17,4 +17,4 @@ const midden = i >= 0 && accent ? accent : '';
 const na = i >= 0 && accent ? tekst.slice(i + accent.length) : '';
 ---
 
-<Tag id={id} class={className}>{voor}{midden && <span class="marker">{midden}</span>}{na}</Tag>
+<Tag id={id} class={className}>{voor}{midden && <span class:list={['marker', { 'marker--heel': midden.length <= 18 }]}>{midden}</span>}{na}</Tag>

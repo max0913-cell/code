@@ -14,6 +14,8 @@ export interface Branche {
   naam: string;
   /** Meervoud, voor in lopende tekst. */
   meervoud: string;
+  /** Het soort zaak, voor in lopende tekst ("in je kapsalon"). */
+  zaak: string;
   icoon: IconName;
   /** Kort zinnetje voor kaarten op de homepage. */
   teaser: string;
@@ -40,6 +42,7 @@ export const branches: Branche[] = [
     slug: 'kapper',
     naam: 'Kappers',
     meervoud: 'kappers',
+    zaak: 'kapsalon',
     icoon: 'scissors',
     teaser: 'Reviews bij het afrekenen, je prijslijst bij de wachtstoel en je Instagram als portfolio.',
     hero: {
@@ -116,6 +119,7 @@ export const branches: Branche[] = [
     slug: 'bakker',
     naam: 'Bakkers',
     meervoud: 'bakkers',
+    zaak: 'bakkerij',
     icoon: 'bread',
     teaser: 'Reviews terwijl de rij wacht, je assortiment of taartenlijst op de telefoon en socials voor wat er vers uit de oven komt.',
     hero: {
@@ -192,6 +196,7 @@ export const branches: Branche[] = [
     slug: 'snackbar',
     naam: 'Snackbars',
     meervoud: 'snackbars',
+    zaak: 'snackbar',
     icoon: 'fries',
     teaser: 'Je menu op de telefoon van wachtende klanten en een review terwijl de friet bakt.',
     hero: {

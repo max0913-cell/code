@@ -2,7 +2,17 @@
   "name": "tipero-website",
   "private": true,
   "version": "1.0.0",
+  "description": "Website van Tipero: NFC-standaards voor lokale ondernemers in Lekkerkerk en omgeving",
   "type": "module",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
   "dependencies": {
     "@astrojs/sitemap": "3.7.6",
     "astro": "7.4.13",

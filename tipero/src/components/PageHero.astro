@@ -47,8 +47,8 @@ const heeftAside = Astro.slots.has('aside');
     isolation: isolate;
   }
 
-  /* De golven uit het logo als groot, subtiel watermerk. */
-  .page-hero::after {
+  /* De golven uit het logo als groot, subtiel watermerk (alleen op brede schermen zonder illustratie). */
+  .page-hero:not(.page-hero--aside)::after {
     content: '';
     position: absolute;
     z-index: -1;
@@ -60,6 +60,12 @@ const heeftAside = Astro.slots.has('aside');
       center / contain no-repeat;
     opacity: 0.05;
     pointer-events: none;
+  }
+
+  @media (max-width: 899.98px) {
+    .page-hero::after {
+      display: none;
+    }
   }
 
   .page-hero__inner {

@@ -1,0 +1,210 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BrancheCards from '../components/BrancheCards.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import WerkgebiedKaart from '../components/WerkgebiedKaart.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { plaatsen } from '../data/werkgebied';
+
+const kruimels = [{ naam: 'Werkgebied', href: '/werkgebied' }];
+
+const groepen = [
+  {
+    titel: 'Krimpenerwaard',
+    intro: 'De gemeente waar Lekkerkerk zelf ook bij hoort. Van de Lek tot de Hollandse IJssel.',
+    plaatsen: plaatsen.filter((p) => p.regio === 'Krimpenerwaard'),
+  },
+  {
+    titel: 'Krimpen aan den IJssel',
+    intro: 'Net over de Hollandse IJssel, tegen Rotterdam aan.',
+    plaatsen: plaatsen.filter((p) => p.regio === 'Krimpen aan den IJssel'),
+  },
+  {
+    titel: 'Rotterdam-Oost',
+    intro: 'Voor zaken aan de oostkant van Rotterdam.',
+    plaatsen: plaatsen.filter((p) => p.regio === 'Rotterdam'),
+  },
+];
+---
+
+<BaseLayout pad="/werkgebied" kruimels={kruimels}>
+  <PageHero
+    eyebrow="Werkgebied"
+    titel="Lekkerkerk, de Krimpenerwaard en omgeving"
+    accent="Lekkerkerk"
+    intro="Tipero komt naar je toe. Ik werk vanuit Lekkerkerk en kom langs bij ondernemers in de hele Krimpenerwaard, in Krimpen aan den IJssel en in Rotterdam-Oost."
+    kruimels={kruimels}
+  >
+    <div class="btn-row" slot="acties">
+      <WhatsAppButton />
+    </div>
+    <WerkgebiedKaart slot="aside" />
+  </PageHero>
+
+  <section class="section" aria-labelledby="plaatsen-titel">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Plaatsen"
+        titel="Hier kom ik langs"
+        intro="Een NFC-standaard bestel je bij Tipero niet online en krijg je niet per post. Ik kom naar je zaak, stel de stand in en test hem samen met je."
+        id="plaatsen-titel"
+      />
+      <div class="groepen">
+        {
+          groepen.map((groep) => (
+            <section class="groep" aria-labelledby={`groep-${groep.titel.replace(/\W+/g, '-').toLowerCase()}`}>
+              <h3 id={`groep-${groep.titel.replace(/\W+/g, '-').toLowerCase()}`}>{groep.titel}</h3>
+              <p class="groep__intro">{groep.intro}</p>
+              <ul>
+                {groep.plaatsen.map((p) => (
+                  <li>
+                    <Icon name="pin" size={18} />
+                    <div>
+                      <strong>{p.naam}</strong>
+                      <span>{p.tekst}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--grey" aria-labelledby="langskomen-titel">
+    <div class="container langskomen">
+      <div>
+        <p class="eyebrow">Zo gaat het</p>
+        <h2 id="langskomen-titel">Langskomen hoort erbij</h2>
+      </div>
+      <div class="langskomen__tekst">
+        <p>
+          We spreken een moment af dat jou uitkomt: voor openingstijd, op een rustig moment of tussen twee klanten door. Ik
+          neem de stand mee, zoek de juiste link voor je op en test alles ter plekke met een iPhone en een Android.
+        </p>
+        <p>
+          Zit je net buiten dit gebied, bijvoorbeeld in een plaats verderop langs de Lek of de Hollandse IJssel? Vraag het
+          gerust. Vaak is er wel iets te regelen.
+        </p>
+        <p>
+          <a class="link-arrow" href="/hoe-het-werkt">
+            Bekijk hoe het werkt
+            <Icon name="arrow-right" />
+          </a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ink on-dark" aria-labelledby="branches-titel">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Voor wie"
+        titel="Voor lokale zaken met een toonbank"
+        intro="Kappers in Lekkerkerk, bakkers in Schoonhoven, snackbars in Krimpen: bekijk wat een stand voor jouw soort zaak kan doen."
+        id="branches-titel"
+      />
+      <BrancheCards />
+    </div>
+  </section>
+
+  <CtaBand titel="Zit je in de buurt?" />
+</BaseLayout>
+
+<style>
+  .groepen {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 900px) {
+    .groepen {
+      grid-template-columns: 1.4fr 1fr;
+    }
+
+    .groep:first-child {
+      grid-row: span 2;
+    }
+  }
+
+  .groep {
+    padding: clamp(1.5rem, 3vw, 2rem);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--grey-200);
+  }
+
+  .groep__intro {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+  }
+
+  .groep ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .groep:first-child ul {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .groep li {
+    display: grid;
+    grid-template-columns: 1.125rem 1fr;
+    gap: 0.75rem;
+    align-items: start;
+  }
+
+  .groep li :global(svg) {
+    margin-top: 0.25rem;
+  }
+
+  .groep li div {
+    display: grid;
+  }
+
+  .groep li span {
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+  }
+
+  .langskomen {
+    display: grid;
+    gap: 1.5rem 5rem;
+  }
+
+  .langskomen h2 {
+    margin-top: 1rem;
+  }
+
+  .langskomen__tekst {
+    display: grid;
+    gap: 1rem;
+    color: var(--text-muted);
+    font-size: var(--fs-lead);
+  }
+
+  .langskomen__tekst .link-arrow {
+    color: var(--ink);
+    font-size: 1rem;
+  }
+
+  @media (min-width: 900px) {
+    .langskomen {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .langskomen__tekst {
+      padding-top: 2.4rem;
+    }
+  }
+</style>
