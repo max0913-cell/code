@@ -1,0 +1,381 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AccentTitel from '../components/AccentTitel.astro';
+import BrancheCards from '../components/BrancheCards.astro';
+import CtaBand from '../components/CtaBand.astro';
+import FaqList from '../components/FaqList.astro';
+import HeroTap from '../components/HeroTap.astro';
+import Icon from '../components/Icon.astro';
+import PriceCards from '../components/PriceCards.astro';
+import ProductCards from '../components/ProductCards.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Steps from '../components/Steps.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Vergelijking from '../components/Vergelijking.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { home } from '../data/home';
+import { stappenKort } from '../data/stappen';
+import { andereZaken } from '../data/branches';
+import { homeVragen } from '../data/faq';
+import { bedrijf, prijzen } from '../data/bedrijf';
+import { testimonials } from '../data/testimonials';
+
+const toonTestimonials = testimonials.length > 0 || bedrijf.toonPlaceholders;
+---
+
+<BaseLayout pad="/">
+  <!-- Hero -->
+  <section class="hero on-dark" aria-labelledby="paginatitel">
+    <div class="container hero__inner">
+      <div class="hero__tekst">
+        <p class="eyebrow">{home.hero.eyebrow}</p>
+        <AccentTitel as="h1" id="paginatitel" tekst={home.hero.titel} accent={home.hero.accent} />
+        <p class="lead">{home.hero.intro}</p>
+        <div class="btn-row hero__knoppen">
+          <WhatsAppButton />
+          <a class="btn btn--outline" href="/prijzen">Bekijk de prijzen</a>
+        </div>
+        <ul class="hero__punten">
+          {
+            home.hero.punten.map((punt) => (
+              <li>
+                <Icon name="check" size={18} stroke={3} />
+                {punt}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="hero__beeld">
+        <HeroTap />
+      </div>
+    </div>
+  </section>
+
+  <!-- Probleem -->
+  <section class="section" aria-labelledby="probleem-titel">
+    <div class="container probleem">
+      <div>
+        <p class="eyebrow">{home.probleem.eyebrow}</p>
+        <h2 id="probleem-titel">{home.probleem.titel}</h2>
+      </div>
+      <div class="probleem__tekst">
+        {home.probleem.alineas.map((a) => <p>{a}</p>)}
+        <p>
+          <a class="link-arrow" href="/producten#review">
+            Bekijk de reviewstand
+            <Icon name="arrow-right" />
+          </a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hoe het werkt -->
+  <section class="section section--grey" aria-labelledby="stappen-titel">
+    <div class="container">
+      <SectionHeader eyebrow={home.stappen.eyebrow} titel={home.stappen.titel} id="stappen-titel" />
+      <Steps stappen={stappenKort} />
+      <p class="section-link">
+        <a class="link-arrow" href="/hoe-het-werkt">
+          Zo werkt het precies
+          <Icon name="arrow-right" />
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Producten -->
+  <section class="section" aria-labelledby="producten-titel">
+    <div class="container">
+      <SectionHeader
+        eyebrow={home.producten.eyebrow}
+        titel={home.producten.titel}
+        intro={home.producten.intro}
+        id="producten-titel"
+      />
+      <ProductCards />
+      <p class="section-link">
+        <a class="link-arrow" href="/producten">
+          Alle producten en uitvoeringen
+          <Icon name="arrow-right" />
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Voor wie -->
+  <section class="section section--ink on-dark" aria-labelledby="voorwie-titel">
+    <div class="container">
+      <SectionHeader
+        eyebrow={home.voorWie.eyebrow}
+        titel={home.voorWie.titel}
+        intro={home.voorWie.intro}
+        id="voorwie-titel"
+      />
+      <BrancheCards />
+      <div class="andere-zaken">
+        <h3>{home.voorWie.andereTitel}</h3>
+        <ul>
+          {andereZaken.map((zaak) => <li>{zaak}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Waarom Tipero -->
+  <section class="section" aria-labelledby="waarom-titel">
+    <div class="container">
+      <SectionHeader
+        eyebrow={home.waarom.eyebrow}
+        titel={home.waarom.titel}
+        intro={home.waarom.intro}
+        id="waarom-titel"
+      />
+      <ul class="voordelen" role="list">
+        {
+          home.waarom.punten.map((punt) => (
+            <li class="voordeel">
+              <span class="voordeel__icoon">
+                <Icon name={punt.icoon} size={22} />
+              </span>
+              <h3>{punt.titel}</h3>
+              <p>{punt.tekst}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="vergelijking-wrap">
+        <Vergelijking />
+      </div>
+    </div>
+  </section>
+
+  <!-- Ervaringen -->
+  {
+    toonTestimonials && (
+      <section class="section section--grey" aria-labelledby="ervaringen-titel">
+        <div class="container">
+          <SectionHeader eyebrow={home.testimonials.eyebrow} titel={home.testimonials.titel} id="ervaringen-titel" />
+          <Testimonials />
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Prijzen -->
+  <section class:list={['section', { 'section--grey': !toonTestimonials }]} aria-labelledby="prijzen-titel">
+    <div class="container">
+      <SectionHeader
+        eyebrow={home.prijzen.eyebrow}
+        titel={home.prijzen.titel}
+        intro={`${home.prijzen.intro}${prijzen.eenmalig ? ' Je betaalt één keer, zonder abonnement.' : ''}`}
+        id="prijzen-titel"
+        center
+      />
+      <PriceCards />
+      <p class="section-link section-link--center">
+        <a class="link-arrow" href="/prijzen">
+          Wat zit er precies bij in?
+          <Icon name="arrow-right" />
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class:list={['section', { 'section--grey': toonTestimonials }]} aria-labelledby="faq-titel">
+    <div class="container container--narrow">
+      <SectionHeader eyebrow={home.faq.eyebrow} titel={home.faq.titel} id="faq-titel" center />
+      <FaqList vragen={homeVragen} />
+      <p class="section-link section-link--center">
+        <a class="link-arrow" href="/veelgestelde-vragen">
+          Alle vragen en antwoorden
+          <Icon name="arrow-right" />
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--ink);
+    padding-block: clamp(2rem, 5vw, 4rem) clamp(3.5rem, 7vw, 5.5rem);
+  }
+
+  .hero__inner {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .hero__tekst > :global(* + *) {
+    margin-top: 1.4rem;
+  }
+
+  .hero__tekst :global(h1) {
+    max-width: 13ch;
+  }
+
+  .hero__tekst .lead {
+    max-width: 36rem;
+  }
+
+  .hero__knoppen {
+    margin-top: 2rem !important;
+  }
+
+  .hero__punten {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    list-style: none;
+    padding: 0;
+    font-size: 0.9375rem;
+    color: var(--text-on-dark-muted);
+  }
+
+  .hero__punten li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .hero__punten :global(svg) {
+    color: var(--yellow);
+  }
+
+  .hero__beeld {
+    width: 100%;
+    max-width: 30rem;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 960px) {
+    .hero__inner {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 3rem;
+    }
+
+    .hero__beeld {
+      max-width: none;
+      margin-right: -2rem;
+    }
+  }
+
+  /* ── Probleem ── */
+  .probleem {
+    display: grid;
+    gap: 1.5rem 4rem;
+  }
+
+  .probleem h2 {
+    margin-top: 1rem;
+  }
+
+  .probleem__tekst {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+    font-size: var(--fs-lead);
+    color: var(--text-muted);
+  }
+
+  .probleem__tekst .link-arrow {
+    color: var(--ink);
+    font-size: 1rem;
+  }
+
+  @media (min-width: 900px) {
+    .probleem {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .probleem__tekst {
+      padding-top: 2.4rem;
+    }
+  }
+
+  /* ── Links onder secties ── */
+  .section-link {
+    margin-top: 2.5rem;
+  }
+
+  .section-link--center {
+    text-align: center;
+  }
+
+  /* ── Voor wie ── */
+  .andere-zaken {
+    margin-top: 2.5rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .andere-zaken h3 {
+    font-size: 1rem;
+    color: var(--text-on-dark-muted);
+    font-weight: 500;
+  }
+
+  .andere-zaken ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .andere-zaken li {
+    padding: 0.45rem 1rem;
+    border: 1px solid var(--ink-line);
+    border-radius: 999px;
+    font-size: 0.9375rem;
+  }
+
+  /* ── Waarom ── */
+  .voordelen {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 2.25rem 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .voordelen {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .voordelen {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .voordeel__icoon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 14px;
+    background: var(--yellow);
+    color: var(--ink);
+    margin-bottom: 1.1rem;
+  }
+
+  .voordeel p {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+  }
+
+  .vergelijking-wrap {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+  }
+</style>

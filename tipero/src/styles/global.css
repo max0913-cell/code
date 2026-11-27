@@ -1,0 +1,532 @@
+/* ──────────────────────────────────────────────────────────
+   Tipero, basisstijl
+   Kleuren staan als tokens bovenaan; alle combinaties halen
+   minimaal WCAG AA (zie scripts/contrast.mjs).
+   ────────────────────────────────────────────────────────── */
+
+:root {
+  /* Merkkleuren */
+  --ink: #15172a;
+  --ink-2: #1e2137;
+  --ink-3: #2a2e4a;
+  --ink-line: #3a3f60;
+  --yellow: #ffc61a;
+  --yellow-hover: #ffd34f;
+  --yellow-soft: #fff5d1;
+  --white: #ffffff;
+  --grey-50: #f5f5f8;
+  --grey-100: #ececf2;
+  --grey-200: #dcdde6;
+
+  /* Tekst */
+  --text: var(--ink);
+  --text-muted: #4a4d66; /* 8.3:1 op wit, 7.7:1 op grey-50 */
+  --text-on-dark: #ffffff;
+  --text-on-dark-muted: #b8bbd0; /* 9.4:1 op ink */
+
+  /* Vorm */
+  --radius-sm: 12px;
+  --radius: 20px;
+  --radius-lg: 32px;
+  --shadow-sm: 0 1px 2px rgb(21 23 42 / 0.06);
+  --shadow: 0 1px 2px rgb(21 23 42 / 0.05), 0 12px 32px -8px rgb(21 23 42 / 0.14);
+
+  /* Ruimte en maten */
+  --container: 1180px;
+  --container-narrow: 760px;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --section-y: clamp(4rem, 9vw, 7.5rem);
+
+  /* Typografie */
+  --font: var(--font-poppins), Arial, sans-serif;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-lead: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
+  --fs-h1: clamp(2.375rem, 1.55rem + 3.9vw, 4.5rem);
+  --fs-h2: clamp(1.875rem, 1.4rem + 2.1vw, 3rem);
+  --fs-h3: clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem);
+
+  --focus-ring: var(--ink);
+  color-scheme: light;
+}
+
+/* ── Reset ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: 1.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Rustige overgang tussen pagina's (zonder JavaScript). */
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+body {
+  min-height: 100vh;
+  background: var(--white);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: var(--fs-base);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+picture,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+p,
+li,
+h1,
+h2,
+h3,
+h4 {
+  overflow-wrap: break-word;
+}
+
+/* ── Typografie ────────────────────────────────────────── */
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+
+h2 {
+  font-size: var(--fs-h2);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-thickness: 0.14em;
+}
+
+strong {
+  font-weight: 600;
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+/* ── Focus: altijd goed zichtbaar ──────────────────────── */
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.on-dark {
+  --focus-ring: var(--yellow);
+  color: var(--text-on-dark);
+}
+
+/* ── Layout-hulpjes ────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.container--narrow {
+  max-width: calc(var(--container-narrow) + 2 * var(--gutter));
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.section--grey {
+  background: var(--grey-50);
+}
+
+.section--ink {
+  background: var(--ink);
+}
+
+.section--yellow {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.flow > * + * {
+  margin-top: var(--flow, 1em);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--yellow);
+  color: var(--ink);
+  font-weight: 600;
+  border-radius: 999px;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* ── Tekststijlen ──────────────────────────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 0 0 0 4px rgb(255 198 26 / 0.25);
+  flex: none;
+}
+
+.on-dark .eyebrow {
+  color: var(--text-on-dark-muted);
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.on-dark .lead {
+  color: var(--text-on-dark-muted);
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.on-dark .muted {
+  color: var(--text-on-dark-muted);
+}
+
+/* Geel "markeerstift"-accent achter donkere tekst (nooit gele tekst op wit). */
+.marker {
+  background: linear-gradient(transparent 58%, var(--yellow) 58%, var(--yellow) 90%, transparent 90%);
+  padding-inline: 0.06em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+@media (min-width: 600px) {
+  .marker {
+    white-space: nowrap;
+  }
+}
+
+/* Op donkere achtergrond mag het accent wél geel zijn (11:1 contrast). */
+.on-dark .marker,
+.accent-on-dark {
+  background: none;
+  color: var(--yellow);
+  padding: 0;
+}
+
+.prose {
+  max-width: 68ch;
+}
+
+.prose > * + * {
+  margin-top: 1em;
+}
+
+.prose h2 {
+  font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  margin-top: 2.25em;
+}
+
+.prose h3 {
+  margin-top: 1.75em;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.25em;
+}
+
+.prose li + li {
+  margin-top: 0.4em;
+}
+
+.prose li::marker {
+  color: var(--text-muted);
+}
+
+/* ── Knoppen ───────────────────────────────────────────── */
+.btn {
+  --btn-bg: var(--ink);
+  --btn-fg: var(--white);
+  --btn-border: var(--btn-bg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3.25rem;
+  padding: 0.8rem 1.5rem;
+  border: 2px solid var(--btn-border);
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.btn:hover {
+  text-decoration: none;
+}
+
+.btn svg {
+  width: 1.25em;
+  height: 1.25em;
+  flex: none;
+}
+
+/* Zwarte knop (op lichte achtergrond). */
+.btn--ink:hover {
+  --btn-bg: var(--ink-3);
+}
+
+.btn--ink .btn__icon {
+  color: var(--yellow);
+}
+
+/* Gele knop (op donkere en lichte achtergrond; tekst altijd zwart). */
+.btn--yellow {
+  --btn-bg: var(--yellow);
+  --btn-fg: var(--ink);
+}
+
+.btn--yellow:hover {
+  --btn-bg: var(--yellow-hover);
+}
+
+/* Omlijnde knop. */
+.btn--outline {
+  --btn-bg: transparent;
+  --btn-fg: currentColor;
+  --btn-border: currentColor;
+}
+
+.btn--outline:hover {
+  --btn-bg: rgb(21 23 42 / 0.06);
+}
+
+.on-dark .btn--outline:hover {
+  --btn-bg: rgb(255 255 255 / 0.08);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Tekstlink met pijl. */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 2px solid var(--yellow);
+  padding-bottom: 0.1rem;
+  line-height: 1.4;
+}
+
+.link-arrow svg {
+  width: 1.1em;
+  height: 1.1em;
+  transition: transform 0.18s ease;
+}
+
+.link-arrow:hover svg {
+  transform: translateX(3px);
+}
+
+/* ── Kaarten ───────────────────────────────────────────── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius);
+  padding: clamp(1.5rem, 3vw, 2rem);
+}
+
+.grid {
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+@media (min-width: 640px) {
+  .grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .grid--4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 640px) and (max-width: 899.98px) {
+  .grid--3,
+  .grid--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Lijst met vinkjes. */
+.checklist {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.checklist li {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.checklist li::before {
+  content: '';
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0.1rem;
+  border-radius: 50%;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2315172A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E")
+      center / 0.95rem no-repeat,
+    var(--yellow);
+}
+
+/* Placeholder-blokken (zie bedrijf.toonPlaceholders). */
+.placeholder {
+  display: grid;
+  place-items: center;
+  gap: 0.25rem;
+  padding: 1.5rem;
+  border: 2px dashed var(--grey-200);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  text-align: center;
+  background: var(--white);
+}
+
+.on-dark .placeholder {
+  border-color: var(--ink-line);
+  background: transparent;
+  color: var(--text-on-dark-muted);
+}

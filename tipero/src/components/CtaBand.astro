@@ -1,0 +1,104 @@
+---
+import WhatsAppButton from './WhatsAppButton.astro';
+import { bedrijf } from '../data/bedrijf';
+
+interface Props {
+  titel?: string;
+  tekst?: string;
+  bericht?: string;
+}
+
+const {
+  titel = 'Klaar voor meer reviews?',
+  tekst = 'Stuur een berichtje. Ik kom langs, we kiezen samen de stand die bij je zaak past en ik stel alles voor je in.',
+  bericht,
+} = Astro.props;
+---
+
+<section class="cta-band" aria-labelledby="cta-titel">
+  <div class="container cta-band__inner">
+    <div class="cta-band__tekst">
+      <h2 id="cta-titel">{titel}</h2>
+      <p>{tekst}</p>
+      <p class="cta-band__klein">{bedrijf.contact.reactietijd}</p>
+    </div>
+    <div class="btn-row cta-band__knoppen">
+      <WhatsAppButton variant="ink" {...bericht ? { bericht } : {}} />
+      <a class="btn btn--outline" href="/contact">Naar het contactformulier</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    position: relative;
+    overflow: hidden;
+    background: var(--yellow);
+    color: var(--ink);
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+    isolation: isolate;
+  }
+
+  /* Groot merkteken als achtergrond. */
+  .cta-band::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    right: -4rem;
+    bottom: -8rem;
+    width: 26rem;
+    height: 26rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='57 -16 48 48' fill='none' stroke='%2315172A' stroke-width='7' stroke-linecap='round'%3E%3Cpath d='M70.47 2.3A20 20 0 0 1 86.7 18.53'/%3E%3Cpath d='M72.73-10.5A33 33 0 0 1 99.5 16.27'/%3E%3Ccircle cx='67' cy='22' r='4' fill='%2315172A'/%3E%3C/svg%3E")
+      center / contain no-repeat;
+    opacity: 0.08;
+  }
+
+  .cta-band__inner {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .cta-band__inner {
+      grid-template-columns: minmax(0, 1.4fr) auto;
+      gap: 4rem;
+    }
+  }
+
+  .cta-band h2 {
+    max-width: 16ch;
+  }
+
+  .cta-band p {
+    margin-top: 1rem;
+    max-width: 52ch;
+    font-size: var(--fs-lead);
+  }
+
+  .cta-band .cta-band__klein {
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  .cta-band__knoppen {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  @media (min-width: 520px) {
+    .cta-band__knoppen {
+      flex-direction: row;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .cta-band__knoppen {
+      flex-direction: column;
+    }
+  }
+
+  .cta-band .btn--outline:hover {
+    --btn-bg: rgb(21 23 42 / 0.08);
+  }
+</style>

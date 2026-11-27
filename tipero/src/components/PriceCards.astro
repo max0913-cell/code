@@ -1,0 +1,222 @@
+---
+/**
+ * De drie prijskaarten. Bedragen komen uit bedrijf.ts.
+ */
+import Icon from './Icon.astro';
+import StandMockup from './StandMockup.astro';
+import { prijzen } from '../data/bedrijf';
+import { formatPrijs, whatsappUrl } from '../lib/format';
+
+interface Props {
+  /** Kopniveau van de kaarttitels. */
+  kop?: 'h2' | 'h3';
+}
+
+const { kop: Kop = 'h3' } = Astro.props;
+const besparing = Math.round((prijzen.standaard * 2 - prijzen.set) * 100) / 100;
+const per = prijzen.eenmalig ? 'eenmalig' : '';
+
+const kaarten = [
+  {
+    id: 'standaard',
+    titel: 'Standaard',
+    sub: 'Eén stand in het Tipero-ontwerp',
+    prijs: prijzen.standaard,
+    eenheid: `per stand${per ? `, ${per}` : ''}`,
+    punten: ['Reviewstand, menustand of socials-stand', 'Strak zwart/geel ontwerp', 'NFC-chip én QR-code', 'Langskomen, instellen en testen'],
+    mockup: { soort: 'review', ontwerp: 'standaard' } as const,
+    uitgelicht: false,
+    label: '',
+  },
+  {
+    id: 'huisstijl',
+    titel: 'Eigen huisstijl',
+    sub: 'Eén stand met je eigen logo en kleuren',
+    prijs: prijzen.huisstijl,
+    eenheid: `per stand${per ? `, ${per}` : ''}`,
+    punten: ['Je eigen logo en kleuren', 'Eigen tekst op de stand', 'NFC-chip én QR-code', 'Langskomen, instellen en testen'],
+    mockup: { soort: 'review', ontwerp: 'huisstijl' } as const,
+    uitgelicht: true,
+    label: 'Past bij je zaak',
+  },
+  {
+    id: 'set',
+    titel: 'Set: review + menu',
+    sub: 'Twee standen in het Tipero-ontwerp',
+    prijs: prijzen.set,
+    eenheid: `voor de set${per ? `, ${per}` : ''}`,
+    punten: [
+      'Een reviewstand én een menustand',
+      'Strak zwart/geel ontwerp',
+      besparing > 0 ? `Je bespaart ${formatPrijs(besparing)} t.o.v. los` : 'Twee standen in één keer',
+      'Langskomen, instellen en testen',
+    ],
+    mockup: { soort: 'menu', ontwerp: 'standaard' } as const,
+    uitgelicht: false,
+    label: 'Voor horeca en winkels',
+  },
+];
+---
+
+<div class="price-cards">
+  {
+    kaarten.map((k) => {
+      const wa = whatsappUrl(`Hoi Tipero! Ik heb interesse in: ${k.titel} (${formatPrijs(k.prijs)}).`);
+      return (
+        <article class:list={['price-card', { 'price-card--uitgelicht': k.uitgelicht, 'on-dark': k.uitgelicht }]} id={k.id}>
+          <div class="price-card__kop">
+            <div class="price-card__mockup" aria-hidden="true">
+              <StandMockup soort={k.mockup.soort} ontwerp={k.mockup.ontwerp} label="" />
+              {k.id === 'set' && <StandMockup soort="review" label="" />}
+            </div>
+            {k.label && <p class="price-card__label">{k.label}</p>}
+          </div>
+          <Kop class="price-card__titel">{k.titel}</Kop>
+          <p class="price-card__sub">{k.sub}</p>
+          <p class="price-card__prijs">
+            <span class="price-card__bedrag">{formatPrijs(k.prijs)}</span>
+            <span class="price-card__eenheid">{k.eenheid}</span>
+          </p>
+          <ul class="checklist price-card__punten">
+            {k.punten.map((p) => (
+              <li>{p}</li>
+            ))}
+          </ul>
+          <a
+            class:list={['btn', k.uitgelicht ? 'btn--yellow' : 'btn--ink', 'price-card__knop']}
+            href={wa ?? '/contact'}
+            {...(wa ? { rel: 'noopener', target: '_blank' } : {})}
+          >
+            <Icon name="whatsapp" class="btn__icon" />
+            <span>
+              Vraag aan<span class="visually-hidden">: {k.titel}{wa ? ' (opent WhatsApp)' : ''}</span>
+            </span>
+          </a>
+        </article>
+      );
+    })
+  }
+</div>
+<p class="price-note muted">{prijzen.btwTekst}</p>
+
+<style>
+  .price-cards {
+    display: grid;
+    gap: 1.25rem;
+    align-items: stretch;
+  }
+
+  @media (min-width: 900px) {
+    .price-cards {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .price-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.75rem 1.75rem;
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+  }
+
+  .price-card--uitgelicht {
+    background: var(--ink);
+    border-color: var(--ink);
+    box-shadow: var(--shadow);
+  }
+
+  .price-card__kop {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .price-card__label {
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    background: var(--yellow);
+    color: var(--ink);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .price-card:not(.price-card--uitgelicht) .price-card__label {
+    background: var(--grey-100);
+  }
+
+  .price-card__mockup {
+    display: flex;
+    gap: 0.5rem;
+    height: 6.5rem;
+  }
+
+  .price-card__mockup :global(svg) {
+    width: auto;
+    height: 100%;
+  }
+
+  .price-card__sub {
+    margin-top: 0.25rem;
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .on-dark .price-card__sub {
+    color: var(--text-on-dark-muted);
+  }
+
+  .price-card__prijs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.6rem;
+    margin-block: 1.5rem;
+    padding-block: 1.25rem;
+    border-block: 1px solid var(--grey-200);
+  }
+
+  .on-dark .price-card__prijs {
+    border-color: var(--ink-line);
+  }
+
+  .price-card__bedrag {
+    font-size: clamp(2.25rem, 2rem + 1vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .on-dark .price-card__bedrag {
+    color: var(--yellow);
+  }
+
+  .price-card__eenheid {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .on-dark .price-card__eenheid {
+    color: var(--text-on-dark-muted);
+  }
+
+  .price-card__punten {
+    font-size: 0.9375rem;
+    margin-bottom: 2rem;
+  }
+
+  .price-card__knop {
+    margin-top: auto;
+  }
+
+  .price-note {
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    text-align: center;
+  }
+</style>

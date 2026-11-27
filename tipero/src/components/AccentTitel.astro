@@ -1,0 +1,20 @@
+---
+/**
+ * Kop met één accentdeel: geel op donker, gele markeerstift op licht.
+ */
+interface Props {
+  tekst: string;
+  accent?: string | undefined;
+  as?: 'h1' | 'h2' | 'h3';
+  id?: string;
+  class?: string;
+}
+
+const { tekst, accent, as: Tag = 'h2', id, class: className } = Astro.props;
+const i = accent ? tekst.indexOf(accent) : -1;
+const voor = i >= 0 ? tekst.slice(0, i) : tekst;
+const midden = i >= 0 && accent ? accent : '';
+const na = i >= 0 && accent ? tekst.slice(i + accent.length) : '';
+---
+
+<Tag id={id} class={className}>{voor}{midden && <span class="marker">{midden}</span>}{na}</Tag>

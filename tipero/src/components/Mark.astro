@@ -1,0 +1,31 @@
+---
+/**
+ * Het merkteken: de stip met golven uit het logo (de "tik").
+ * Wordt gebruikt als icoon voor NFC en als accent.
+ */
+interface Props {
+  class?: string;
+  /** Kleur van stip en golven. Standaard Tipero-geel. */
+  color?: string;
+  size?: number | string;
+}
+
+const { class: className, color = '#FFC61A', size } = Astro.props;
+---
+
+<svg
+  class:list={['mark', className]}
+  viewBox="57 -16 48 48"
+  width={size}
+  height={size}
+  fill="none"
+  stroke-linecap="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  <g stroke={color} stroke-width="7">
+    <path d="M70.47 2.3A20 20 0 0 1 86.7 18.53"></path>
+    <path d="M72.73-10.5A33 33 0 0 1 99.5 16.27"></path>
+  </g>
+  <circle cx="67" cy="22" r="8" fill={color}></circle>
+</svg>

@@ -1,0 +1,97 @@
+---
+/**
+ * Donkere paginakop voor subpagina's, met kruimelpad.
+ * Slots: "acties" (knoppen) en "aside" (illustratie rechts).
+ */
+import Breadcrumbs from './Breadcrumbs.astro';
+import AccentTitel from './AccentTitel.astro';
+import type { Kruimel } from '../lib/schema';
+
+interface Props {
+  eyebrow?: string;
+  titel: string;
+  accent?: string;
+  intro?: string;
+  kruimels?: Kruimel[];
+}
+
+const { eyebrow, titel, accent, intro, kruimels } = Astro.props;
+const heeftAside = Astro.slots.has('aside');
+---
+
+<section class:list={['page-hero', 'on-dark', { 'page-hero--aside': heeftAside }]} aria-labelledby="paginatitel">
+  <div class="container page-hero__inner">
+    <div class="page-hero__text">
+      {kruimels && <Breadcrumbs kruimels={kruimels} />}
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <AccentTitel as="h1" id="paginatitel" tekst={titel} accent={accent} />
+      {intro && <p class="lead">{intro}</p>}
+      {Astro.slots.has('acties') && <div class="page-hero__acties"><slot name="acties" /></div>}
+    </div>
+    {
+      heeftAside && (
+        <div class="page-hero__aside">
+          <slot name="aside" />
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--ink);
+    padding-block: clamp(1.5rem, 4vw, 2.5rem) clamp(3.5rem, 8vw, 6rem);
+    isolation: isolate;
+  }
+
+  /* De golven uit het logo als groot, subtiel watermerk. */
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    right: -6rem;
+    top: -5rem;
+    width: 30rem;
+    height: 30rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='57 -16 48 48' fill='none' stroke='%23FFFFFF' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M70.47 2.3A20 20 0 0 1 86.7 18.53'/%3E%3Cpath d='M72.73-10.5A33 33 0 0 1 99.5 16.27'/%3E%3C/svg%3E")
+      center / contain no-repeat;
+    opacity: 0.05;
+    pointer-events: none;
+  }
+
+  .page-hero__inner {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .page-hero__text > :global(* + *) {
+    margin-top: 1.25rem;
+  }
+
+  .page-hero__text :global(.breadcrumbs) {
+    margin-bottom: 2rem;
+  }
+
+  .page-hero__text :global(h1) {
+    max-width: 18ch;
+  }
+
+  .page-hero__text .lead {
+    max-width: 58ch;
+  }
+
+  .page-hero__acties {
+    margin-top: 2rem !important;
+  }
+
+  @media (min-width: 900px) {
+    .page-hero--aside .page-hero__inner {
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 4rem;
+    }
+  }
+</style>

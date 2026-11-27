@@ -1,0 +1,200 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { bedrijf } from '../data/bedrijf';
+import { footerMenu } from '../data/navigatie';
+import { geldigEmail, whatsappUrl } from '../lib/format';
+
+const jaar = new Date().getFullYear();
+const wa = whatsappUrl();
+const email = geldigEmail();
+const kvk = bedrijf.contact.kvk.trim();
+const btw = bedrijf.contact.btw.trim();
+
+const kolommen = [
+  { titel: 'Producten', links: footerMenu.producten },
+  { titel: 'Voor wie', links: footerMenu.voorWie },
+  { titel: 'Tipero', links: footerMenu.tipero },
+];
+---
+
+<footer class="site-footer on-dark">
+  <div class="container">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <a href="/" class="site-footer__logo" aria-label="Tipero, naar de homepage">
+          <Logo variant="wit" label="" />
+        </a>
+        <p class="muted">
+          NFC-standaards voor de toonbank van lokale zaken in {bedrijf.thuisbasis}, de Krimpenerwaard en omgeving.
+        </p>
+        <ul class="site-footer__contact">
+          <li>
+            <Icon name="whatsapp" size={20} />
+            {
+              wa ? (
+                <a href={wa} rel="noopener" target="_blank">
+                  WhatsApp {bedrijf.contact.whatsapp}
+                  <span class="visually-hidden">(opent WhatsApp)</span>
+                </a>
+              ) : (
+                <span>WhatsApp {bedrijf.contact.whatsapp}</span>
+              )
+            }
+          </li>
+          <li>
+            <Icon name="mail" size={20} />
+            {email ? <a href={`mailto:${email}`}>{email}</a> : <span>{bedrijf.contact.email}</span>}
+          </li>
+          <li>
+            <Icon name="pin" size={20} />
+            <a href="/werkgebied">Werkgebied: {bedrijf.thuisbasis} en omgeving</a>
+          </li>
+        </ul>
+      </div>
+
+      {
+        kolommen.map((kolom) => (
+          <nav class="site-footer__col" aria-label={kolom.titel}>
+            <h2 class="site-footer__heading">{kolom.titel}</h2>
+            <ul>
+              {kolom.links.map((link) => (
+                <li>
+                  <a href={link.href}>{link.tekst}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>
+        © {jaar} {bedrijf.naam}
+        {kvk && <span> · KvK {kvk}</span>}
+        {btw && <span> · Btw {btw}</span>}
+      </p>
+      <ul>
+        <li><a href="/privacy">Privacyverklaring</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--ink);
+    padding-block: clamp(3.5rem, 7vw, 5.5rem) 2rem;
+    font-size: 0.9375rem;
+  }
+
+  .site-footer a {
+    text-decoration: none;
+  }
+
+  .site-footer a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--yellow);
+  }
+
+  .site-footer__top {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .site-footer__top {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .site-footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .site-footer__top {
+      grid-template-columns: 1.6fr repeat(3, minmax(0, 1fr));
+    }
+
+    .site-footer__brand {
+      grid-column: auto;
+    }
+  }
+
+  .site-footer__logo {
+    display: inline-block;
+    border-radius: 8px;
+  }
+
+  .site-footer__logo :global(svg) {
+    width: 7.5rem;
+  }
+
+  .site-footer__brand p {
+    margin-top: 1rem;
+    max-width: 34ch;
+  }
+
+  .site-footer__contact {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .site-footer__contact li {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .site-footer__contact :global(svg) {
+    color: var(--yellow);
+    flex: none;
+  }
+
+  .site-footer__heading {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-on-dark-muted);
+    margin-bottom: 1rem;
+  }
+
+  .site-footer__col ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .site-footer__col a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.25rem;
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--ink-line);
+    color: var(--text-on-dark-muted);
+    font-size: 0.875rem;
+  }
+
+  .site-footer__bottom ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+  }
+</style>

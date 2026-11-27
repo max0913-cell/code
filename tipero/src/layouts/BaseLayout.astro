@@ -1,0 +1,128 @@
+---
+/**
+ * Basislayout voor alle pagina's: <head> met SEO-tags, Open Graph,
+ * structured data (JSON-LD), header, main en footer.
+ */
+import { Font } from 'astro:assets';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { seo, type PaginaSeo, type SeoPad } from '../data/seo';
+import { bedrijf } from '../data/bedrijf';
+import type { FaqItem } from '../data/faq';
+import { absoluteUrl } from '../lib/format';
+import { kruimelpad, organisatie, webpagina, website, type Kruimel } from '../lib/schema';
+
+interface Props {
+  /** Pad van de pagina, zoals in seo.ts (bv. '/prijzen'). */
+  pad: SeoPad;
+  /** Kruimelpad zonder "Home" (die komt er automatisch voor). */
+  kruimels?: Kruimel[];
+  /** Extra JSON-LD-nodes voor deze pagina. */
+  schema?: Record<string, unknown>[];
+  /** Maakt van de pagina een FAQPage met deze vragen. */
+  faq?: FaqItem[];
+  /** Schema.org-type van de pagina (bv. 'AboutPage', 'ContactPage'). */
+  paginaType?: string;
+}
+
+const { pad, kruimels = [], schema = [], faq, paginaType } = Astro.props;
+const pagina: PaginaSeo = seo[pad];
+const noindex = pagina.noindex === true;
+const canonical = absoluteUrl(pad);
+const ogAfbeelding = absoluteUrl(pagina.ogAfbeelding ?? '/og/tipero.png');
+
+const alleKruimels: Kruimel[] = kruimels.length ? [{ naam: 'Home', href: '/' }, ...kruimels] : [];
+
+const paginaNode = webpagina({
+  url: canonical,
+  naam: pagina.titel,
+  omschrijving: pagina.omschrijving,
+  afbeelding: ogAfbeelding,
+  heeftKruimelpad: alleKruimels.length > 0,
+  ...(paginaType ? { type: paginaType } : {}),
+});
+
+if (faq) {
+  paginaNode['@type'] = 'FAQPage';
+  paginaNode['mainEntity'] = faq.map((v) => ({
+    '@type': 'Question',
+    name: v.vraag,
+    acceptedAnswer: { '@type': 'Answer', text: v.antwoord.join(' ') },
+  }));
+}
+
+const graph = [
+  organisatie(),
+  website(),
+  paginaNode,
+  ...(alleKruimels.length ? [kruimelpad(canonical, alleKruimels)] : []),
+  ...schema,
+];
+
+// `<` escapen, zodat de JSON nooit een </script> kan bevatten.
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
+---
+
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pagina.titel}</title>
+    <meta name="description" content={pagina.omschrijving} />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex, follow" />
+      ) : (
+        <>
+          <meta name="robots" content="index, follow, max-image-preview:large" />
+          <link rel="canonical" href={canonical} />
+        </>
+      )
+    }
+
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#15172A" />
+
+    <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="nl_NL" />
+    <meta property="og:site_name" content={bedrijf.naam} />
+    <meta property="og:title" content={pagina.titel} />
+    <meta property="og:description" content={pagina.omschrijving} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogAfbeelding} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${bedrijf.naam}: ${pagina.titel.replace(/ \| Tipero$/, '')}`} />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pagina.titel} />
+    <meta name="twitter:description" content={pagina.omschrijving} />
+    <meta name="twitter:image" content={ogAfbeelding} />
+
+    <Font cssVariable="--font-poppins" preload={[{ weight: 700 }, { weight: 400 }]} />
+
+    <script type="application/ld+json" is:inline set:html={jsonLd} />
+  </head>
+  <body>
+    <a class="skip-link" href="#inhoud">Direct naar de inhoud</a>
+    <Header actief={pad} />
+    <main id="inhoud" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  main:focus {
+    outline: none;
+  }
+</style>

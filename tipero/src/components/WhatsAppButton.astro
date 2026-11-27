@@ -1,0 +1,29 @@
+---
+/**
+ * WhatsApp-knop met vooraf ingevuld bericht.
+ * Zolang het 06-nummer in bedrijf.ts nog een placeholder is,
+ * linkt de knop naar /contact.
+ */
+import Icon from './Icon.astro';
+import { whatsappUrl } from '../lib/format';
+
+interface Props {
+  tekst?: string;
+  bericht?: string;
+  variant?: 'yellow' | 'ink' | 'outline';
+  class?: string;
+}
+
+const { tekst = 'Stuur een WhatsApp', bericht, variant = 'yellow', class: className } = Astro.props;
+const url = whatsappUrl(bericht);
+---
+
+<a
+  class:list={['btn', `btn--${variant}`, className]}
+  href={url ?? '/contact'}
+  {...url ? { rel: 'noopener', target: '_blank' } : {}}
+>
+  <Icon name="whatsapp" class="btn__icon" />
+  <span>{tekst}</span>
+  {url && <span class="visually-hidden">(opent WhatsApp)</span>}
+</a>

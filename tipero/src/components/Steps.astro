@@ -1,0 +1,111 @@
+---
+import Icon from './Icon.astro';
+import type { Stap } from '../data/stappen';
+
+interface Props {
+  stappen: Stap[];
+  /** Kopniveau van de staptitels. */
+  kop?: 'h2' | 'h3';
+  kolommen?: 3 | 2;
+}
+
+const { stappen, kop: Kop = 'h3', kolommen = 3 } = Astro.props;
+---
+
+<ol class:list={['steps', `steps--${kolommen}`]}>
+  {
+    stappen.map((stap, i) => (
+      <li class="step">
+        <div class="step__top">
+          <span class="step__num" aria-hidden="true">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <span class="step__icon">
+            <Icon name={stap.icoon} size={22} />
+          </span>
+        </div>
+        <Kop class="step__titel">
+          <span class="visually-hidden">Stap {i + 1}: </span>
+          {stap.titel}
+        </Kop>
+        <p class="step__tekst">{stap.tekst}</p>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .steps {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+    counter-reset: stap;
+  }
+
+  @media (min-width: 720px) {
+    .steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .steps--3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .step {
+    position: relative;
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+    border-radius: var(--radius);
+    padding: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .step__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.75rem;
+  }
+
+  .step__num {
+    font-size: clamp(2.5rem, 2rem + 2vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    -webkit-text-stroke: 0;
+  }
+
+  .step__num::after {
+    content: '';
+    display: inline-block;
+    width: 0.32em;
+    height: 0.32em;
+    margin-left: 0.08em;
+    border-radius: 50%;
+    background: var(--yellow);
+  }
+
+  .step__icon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--yellow);
+  }
+
+  .step__titel {
+    font-size: var(--fs-h3);
+  }
+
+  .step__tekst {
+    margin-top: 0.6rem;
+    color: var(--text-muted);
+  }
+</style>

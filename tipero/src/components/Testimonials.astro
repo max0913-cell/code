@@ -1,0 +1,85 @@
+---
+/**
+ * Ervaringen van klanten. Zolang er geen echte ervaringen zijn,
+ * worden placeholders getoond (of niets, als toonPlaceholders uit staat).
+ */
+import { testimonials } from '../data/testimonials';
+import { bedrijf } from '../data/bedrijf';
+
+interface Props {
+  /** Aantal placeholders als er nog geen ervaringen zijn. */
+  aantalPlaceholders?: number;
+  placeholderTekst?: string;
+}
+
+const { aantalPlaceholders = 3, placeholderTekst = '[testimonial volgt]' } = Astro.props;
+const toon = testimonials.length > 0 || bedrijf.toonPlaceholders;
+---
+
+{
+  toon && (
+    <div class="testimonials">
+      {testimonials.length > 0
+        ? testimonials.map((t) => (
+            <figure class="testimonial">
+              <blockquote>
+                <p>“{t.tekst}”</p>
+              </blockquote>
+              <figcaption>
+                <strong>{t.naam}</strong>
+                <span>
+                  {t.zaak}, {t.plaats}
+                </span>
+              </figcaption>
+            </figure>
+          ))
+        : Array.from({ length: aantalPlaceholders }, () => (
+            <div class="placeholder testimonial-placeholder">
+              <span>{placeholderTekst}</span>
+            </div>
+          ))}
+    </div>
+  )
+}
+
+<style>
+  .testimonials {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 900px) {
+    .testimonials {
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    }
+  }
+
+  .testimonial {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 2rem;
+    border-radius: var(--radius);
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+  }
+
+  .testimonial blockquote p {
+    font-size: 1.0625rem;
+    font-weight: 500;
+  }
+
+  .testimonial figcaption {
+    display: grid;
+    font-size: 0.9375rem;
+  }
+
+  .testimonial figcaption span {
+    color: var(--text-muted);
+  }
+
+  .testimonial-placeholder {
+    min-height: 10rem;
+  }
+</style>

@@ -1,0 +1,116 @@
+---
+import Icon from './Icon.astro';
+import { home } from '../data/home';
+
+const { titel, kolommen, rijen } = home.vergelijking;
+---
+
+<div class="vergelijking">
+  <table>
+    <caption>{titel}</caption>
+    <thead>
+      <tr>
+        {kolommen.map((k, i) => (i === 0 ? <td /> : <th scope="col">{k}</th>))}
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rijen.map(([kenmerk, webshop, tipero]) => (
+          <tr>
+            <th scope="row">{kenmerk}</th>
+            <td>{webshop}</td>
+            <td class="vergelijking__tipero">
+              <span>
+                <Icon name="check" size={18} stroke={3} />
+                {tipero}
+              </span>
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .vergelijking {
+    border-radius: var(--radius);
+    border: 1px solid var(--grey-200);
+    overflow: hidden;
+    background: var(--white);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  caption {
+    text-align: left;
+    padding: 1.25rem 1.25rem 1rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  th,
+  td {
+    padding: 0.9rem 1.25rem;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid var(--grey-200);
+  }
+
+  thead th {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  tbody th {
+    font-weight: 600;
+  }
+
+  tbody td:not(.vergelijking__tipero) {
+    color: var(--text-muted);
+  }
+
+  .vergelijking__tipero {
+    background: var(--yellow-soft);
+    font-weight: 600;
+  }
+
+  thead th:last-child {
+    background: var(--yellow);
+    color: var(--ink);
+  }
+
+  .vergelijking__tipero span {
+    display: inline-flex;
+    gap: 0.4rem;
+    align-items: flex-start;
+  }
+
+  .vergelijking__tipero :global(svg) {
+    flex: none;
+    margin-top: 0.2rem;
+  }
+
+  @media (max-width: 599.98px) {
+    table {
+      font-size: 0.875rem;
+    }
+
+    th,
+    td {
+      padding: 0.75rem 0.7rem;
+    }
+
+    .vergelijking__tipero :global(svg) {
+      display: none;
+    }
+  }
+</style>

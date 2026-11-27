@@ -1,0 +1,120 @@
+---
+/**
+ * Uitklapbare vragen met <details>: werkt zonder JavaScript.
+ */
+import Icon from './Icon.astro';
+
+export interface FaqWeergave {
+  id?: string;
+  vraag: string;
+  antwoord: string[];
+  link?: { tekst: string; href: string } | undefined;
+}
+
+interface Props {
+  vragen: FaqWeergave[];
+  kop?: 'h2' | 'h3';
+}
+
+const { vragen, kop: Kop = 'h3' } = Astro.props;
+---
+
+<div class="faq">
+  {
+    vragen.map((v) => (
+      <details class="faq__item" id={v.id}>
+        <summary>
+          <Kop class="faq__vraag">{v.vraag}</Kop>
+          <span class="faq__icoon" aria-hidden="true">
+            <Icon name="plus" size={20} stroke={2.5} />
+          </span>
+        </summary>
+        <div class="faq__antwoord">
+          {v.antwoord.map((alinea) => (
+            <p>{alinea}</p>
+          ))}
+          {v.link && (
+            <p>
+              <a class="link-arrow" href={v.link.href}>
+                {v.link.tekst}
+                <Icon name="arrow-right" />
+              </a>
+            </p>
+          )}
+        </div>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .faq {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .faq__item {
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+    border-radius: var(--radius);
+    scroll-margin-top: 1.5rem;
+  }
+
+  .faq__item[open] {
+    border-color: var(--ink);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.15rem 1.25rem 1.15rem 1.5rem;
+    cursor: pointer;
+    list-style: none;
+    border-radius: var(--radius);
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__vraag {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+
+  .faq__icoon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: var(--grey-100);
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .faq__item[open] .faq__icoon {
+    background: var(--yellow);
+    transform: rotate(45deg);
+  }
+
+  .faq__antwoord {
+    padding: 0 1.5rem 1.4rem;
+    color: var(--text-muted);
+    max-width: 70ch;
+  }
+
+  .faq__antwoord > * + * {
+    margin-top: 0.75rem;
+  }
+
+  .faq__antwoord .link-arrow {
+    color: var(--ink);
+  }
+</style>

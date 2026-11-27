@@ -1,0 +1,116 @@
+---
+import Icon from './Icon.astro';
+import StandMockup from './StandMockup.astro';
+import { producten } from '../data/producten';
+---
+
+<div class="product-cards">
+  {
+    producten.map((p) => (
+      <article class="product-card">
+        <a class="product-card__visual" href={`/producten#${p.id}`} tabindex="-1" aria-hidden="true">
+          <StandMockup soort={p.id} label="" />
+        </a>
+        <div class="product-card__body">
+          <h3>
+            <a href={`/producten#${p.id}`}>{p.naam}</a>
+          </h3>
+          <p class="product-card__quote">“{p.standTekst}”</p>
+          <p class="muted">{p.kort}</p>
+          <p class="product-card__link">
+            <span class="link-arrow" aria-hidden="true">
+              Meer over de {p.naam.toLowerCase()}
+              <Icon name="arrow-right" />
+            </span>
+          </p>
+        </div>
+      </article>
+    ))
+  }
+</div>
+
+<style>
+  .product-cards {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 760px) {
+    .product-cards {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .product-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius);
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+    overflow: hidden;
+    transition:
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .product-card:hover {
+    box-shadow: var(--shadow);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .product-card:hover {
+      transform: translateY(-3px);
+    }
+  }
+
+  .product-card__visual {
+    display: grid;
+    place-items: center;
+    padding: 2.25rem 2rem 1.5rem;
+    background:
+      radial-gradient(circle at 50% 58%, var(--yellow) 0 38%, transparent 38.5%),
+      var(--grey-50);
+  }
+
+  .product-card__visual :global(svg) {
+    width: min(11rem, 70%);
+  }
+
+  .product-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.5rem 1.5rem 1.75rem;
+    flex: 1;
+  }
+
+  .product-card h3 a {
+    text-decoration: none;
+  }
+
+  /* De hele kaart is klikbaar via de link in de kop. */
+  .product-card h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .product-card h3 a:focus-visible {
+    outline: none;
+  }
+
+  .product-card:has(h3 a:focus-visible) {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 3px;
+  }
+
+  .product-card__quote {
+    font-weight: 600;
+  }
+
+  .product-card__link {
+    margin-top: auto;
+    padding-top: 0.75rem;
+  }
+</style>

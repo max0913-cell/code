@@ -1,0 +1,57 @@
+---
+import type { Kruimel } from '../lib/schema';
+
+interface Props {
+  kruimels: Kruimel[];
+}
+
+const { kruimels } = Astro.props;
+const alle = [{ naam: 'Home', href: '/' }, ...kruimels];
+---
+
+<nav class="breadcrumbs" aria-label="Kruimelpad">
+  <ol>
+    {
+      alle.map((k, i) =>
+        i === alle.length - 1 ? (
+          <li aria-current="page">{k.naam}</li>
+        ) : (
+          <li>
+            <a href={k.href}>{k.naam}</a>
+          </li>
+        ),
+      )
+    }
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.5rem;
+    list-style: none;
+    padding: 0;
+    font-size: 0.875rem;
+    color: var(--text-on-dark-muted);
+  }
+
+  .breadcrumbs li + li::before {
+    content: '/';
+    margin-right: 0.5rem;
+    color: var(--ink-line);
+  }
+
+  .breadcrumbs a {
+    text-decoration: none;
+  }
+
+  .breadcrumbs a:hover {
+    color: var(--white);
+    text-decoration: underline;
+  }
+
+  .breadcrumbs [aria-current='page'] {
+    color: var(--white);
+  }
+</style>

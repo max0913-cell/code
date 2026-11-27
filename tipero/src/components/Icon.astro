@@ -1,0 +1,33 @@
+---
+import { paden, type IconName } from '../lib/icons';
+
+
+interface Props {
+  name: IconName;
+  class?: string;
+  size?: number | string;
+  /** Lijndikte. */
+  stroke?: number;
+  /** Geef een label als het icoon zelfstandig betekenis heeft; anders is het decoratief. */
+  label?: string;
+}
+
+const { name, class: className, size = 24, stroke = 2, label } = Astro.props;
+---
+
+<svg
+  class:list={['icon', className]}
+  viewBox="0 0 24 24"
+  width={size}
+  height={size}
+  fill="none"
+  stroke="currentColor"
+  stroke-width={stroke}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+  focusable="false"
+  set:html={paden[name]}
+/>

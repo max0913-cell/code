@@ -1,0 +1,40 @@
+---
+import { maakQr } from '../lib/qr';
+import { bedrijf } from '../data/bedrijf';
+
+interface Props {
+  /** Waar de QR-code naartoe wijst. Standaard de Tipero-site. */
+  url?: string;
+  x?: number;
+  y?: number;
+  size: number;
+  /** Kleur van de modules. */
+  color?: string;
+  /** Achtergrondkleur (inclusief witrand). */
+  background?: string;
+  radius?: number;
+}
+
+const {
+  url = bedrijf.url,
+  x = 0,
+  y = 0,
+  size,
+  color = '#15172A',
+  background = '#FFFFFF',
+  radius = 0,
+} = Astro.props;
+
+const { d, grootte } = maakQr(url);
+const rand = 2; // stille zone in modules
+const schaal = size / (grootte + rand * 2);
+---
+
+<g transform={`translate(${x} ${y})`}>
+  <rect width={size} height={size} rx={radius} fill={background}></rect>
+  <path
+    d={d}
+    fill={color}
+    transform={`translate(${rand * schaal} ${rand * schaal}) scale(${schaal})`}
+    shape-rendering="crispEdges"></path>
+</g>

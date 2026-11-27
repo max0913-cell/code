@@ -1,0 +1,380 @@
+---
+/**
+ * Hero-illustratie: een telefoon tikt op een Tipero-reviewstand op de
+ * toonbank, er gaan "golven" van de tikzone af en de reviewpagina opent.
+ * Alleen SVG + CSS. Bij prefers-reduced-motion staat alles stil (eindbeeld).
+ */
+import QrCode from './QrCode.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const sterren = [0, 1, 2, 3, 4];
+const sterPad = 'M12 1.6l3.1 6.4 7 1-5.1 5 1.2 7-6.2-3.3-6.2 3.3 1.2-7-5.1-5 7-1z';
+---
+
+<svg
+  class:list={['hero-tap', className]}
+  viewBox="0 0 620 540"
+  role="img"
+  aria-label="Illustratie: een telefoon tikt op een Tipero-reviewstand op de toonbank en opent direct de reviewpagina."
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <!-- achtergrond: gele schijf met zachte ringen -->
+  <circle cx="330" cy="250" r="292" fill="none" stroke="#FFFFFF" stroke-opacity="0.05" stroke-width="1.5"></circle>
+  <circle cx="330" cy="250" r="252" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="1.5"></circle>
+  <circle cx="330" cy="250" r="214" fill="#FFC61A"></circle>
+
+  <!-- toonbank -->
+  <defs>
+    <linearGradient id="toonbank-voorkant" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#23263D"></stop>
+      <stop offset="1" stop-color="#15172A"></stop>
+    </linearGradient>
+  </defs>
+  <rect x="10" y="462" width="600" height="78" fill="url(#toonbank-voorkant)"></rect>
+  <rect x="10" y="452" width="600" height="16" rx="8" fill="#2E3250"></rect>
+  <ellipse cx="210" cy="455" rx="150" ry="5" fill="#000" opacity="0.28"></ellipse>
+
+  <!-- stand -->
+  <g class="hero-tap__stand">
+    <rect x="105" y="125" width="220" height="316" rx="20" fill="#07080F"></rect>
+    <rect x="100" y="120" width="220" height="316" rx="20" fill="#15172A" stroke="#2A2E4A" stroke-width="1.5"></rect>
+
+    <g fill="#FFC61A">
+      {sterren.map((i) => <path transform={`translate(${123 + i * 19} 152) scale(0.74)`} d={sterPad} />)}
+    </g>
+
+    <!-- tikzone -->
+    <circle class="hero-tap__glow" cx="278" cy="166" r="26" fill="#FFC61A"></circle>
+    <circle cx="278" cy="166" r="26" fill="none" stroke="#FFC61A" stroke-width="2.2" stroke-dasharray="4 4.5"></circle>
+    <svg x="263" y="151" width="30" height="30" viewBox="57 -16 48 48" aria-hidden="true">
+      <g fill="none" stroke="#FFC61A" stroke-width="7" stroke-linecap="round">
+        <path d="M70.47 2.3A20 20 0 0 1 86.7 18.53"></path>
+        <path d="M72.73-10.5A33 33 0 0 1 99.5 16.27"></path>
+      </g>
+      <circle cx="67" cy="22" r="8" fill="#FFC61A"></circle>
+    </svg>
+
+    <g font-weight="700" font-size="31" letter-spacing="-0.6">
+      <text x="122" y="238" fill="#FFFFFF">Laat een</text>
+      <text x="122" y="272" fill="#FFC61A">review</text>
+      <text x="122" y="306" fill="#FFFFFF">achter!</text>
+    </g>
+    <g font-size="12.5" fill="#B8BBD0">
+      <text x="123" y="336">Tik met je telefoon</text>
+      <text x="123" y="352">of scan de QR-code</text>
+    </g>
+    <QrCode x={122} y={366} size={56} radius={8} />
+    <g font-size="12">
+      <text x="192" y="390" font-weight="600" fill="#FFFFFF">Geen app</text>
+      <text x="192" y="406" fill="#B8BBD0">nodig</text>
+    </g>
+
+    <rect x="86" y="430" width="248" height="26" rx="9" fill="#2A2E4A"></rect>
+    <rect x="86" y="430" width="248" height="7" rx="3.5" fill="#3A3F60"></rect>
+  </g>
+
+  <!-- golven vanaf de tikzone -->
+  <g class="hero-tap__waves" fill="none" stroke="#15172A" stroke-width="3">
+    <circle class="hero-tap__wave hero-tap__wave--1" cx="278" cy="166" r="34" vector-effect="non-scaling-stroke"></circle>
+    <circle class="hero-tap__wave hero-tap__wave--2" cx="278" cy="166" r="34" vector-effect="non-scaling-stroke"></circle>
+    <circle class="hero-tap__wave hero-tap__wave--3" cx="278" cy="166" r="34" vector-effect="non-scaling-stroke"></circle>
+  </g>
+
+  <!-- telefoon -->
+  <g class="hero-tap__phone" transform="translate(300 140) rotate(-26)">
+    <rect x="-2" y="6" width="134" height="262" rx="26" fill="#000" opacity="0.22"></rect>
+    <rect width="130" height="260" rx="24" fill="#23263D" stroke="#3A3F60" stroke-width="1.5"></rect>
+    <rect x="130" y="72" width="3" height="32" rx="1.5" fill="#3A3F60"></rect>
+
+    <!-- scherm A: vergrendelscherm -->
+    <rect x="6" y="6" width="118" height="248" rx="19" fill="#0E1020"></rect>
+    <text x="65" y="58" text-anchor="middle" font-size="9" fill="#B8BBD0">Tik op de stand</text>
+    <text x="65" y="90" text-anchor="middle" font-size="30" font-weight="600" fill="#FFFFFF">12:30</text>
+    <svg x="51" y="190" width="28" height="28" viewBox="57 -16 48 48" aria-hidden="true">
+      <g fill="none" stroke="#FFC61A" stroke-width="7" stroke-linecap="round">
+        <path d="M70.47 2.3A20 20 0 0 1 86.7 18.53"></path>
+        <path d="M72.73-10.5A33 33 0 0 1 99.5 16.27"></path>
+      </g>
+      <circle cx="67" cy="22" r="8" fill="#FFC61A"></circle>
+    </svg>
+
+    <!-- scherm B: reviewpagina -->
+    <g class="hero-tap__screen">
+      <rect x="6" y="6" width="118" height="248" rx="19" fill="#FFFFFF"></rect>
+      <rect x="20" y="32" width="90" height="12" rx="6" fill="#ECECF2"></rect>
+      <circle cx="31" cy="72" r="12" fill="#FFC61A"></circle>
+      <text x="31" y="76" text-anchor="middle" font-size="11" font-weight="700" fill="#15172A">J</text>
+      <text x="49" y="70" font-size="11" font-weight="700" fill="#15172A">Jouw zaak</text>
+      <text x="49" y="83" font-size="8.5" fill="#4A4D66">Deel je ervaring</text>
+      {
+        sterren.map((i) => (
+          <g transform={`translate(${19 + i * 19} 98) scale(0.7)`}>
+            <path d={sterPad} fill="#FFFFFF" stroke="#C9CAD6" stroke-width="1.6" stroke-linejoin="round" />
+            <path class={`hero-tap__star hero-tap__star--${i + 1}`} d={sterPad} fill="#FFC61A" />
+          </g>
+        ))
+      }
+      <rect x="18" y="128" width="94" height="62" rx="8" fill="#F5F5F8" stroke="#ECECF2"></rect>
+      <rect x="26" y="140" width="70" height="5" rx="2.5" fill="#DCDDE6"></rect>
+      <rect x="26" y="152" width="58" height="5" rx="2.5" fill="#DCDDE6"></rect>
+      <rect x="26" y="164" width="40" height="5" rx="2.5" fill="#DCDDE6"></rect>
+      <rect x="18" y="204" width="94" height="26" rx="13" fill="#15172A"></rect>
+      <text x="65" y="221" text-anchor="middle" font-size="9.5" font-weight="600" fill="#FFFFFF">Plaatsen</text>
+    </g>
+
+    <rect x="47" y="13" width="36" height="11" rx="5.5" fill="#07080F"></rect>
+  </g>
+</svg>
+
+<style>
+  .hero-tap {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 620 / 540;
+  }
+
+  /* ── Eindbeeld (ook voor prefers-reduced-motion) ── */
+  .hero-tap__phone {
+    transform-box: view-box;
+    transform-origin: 0 0;
+    transform: translate(300px, 140px) rotate(-26deg);
+  }
+
+  .hero-tap__glow {
+    opacity: 0;
+  }
+
+  .hero-tap__wave {
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+  }
+
+  .hero-tap__wave--1 {
+    transform: scale(1.35);
+    opacity: 0.55;
+  }
+
+  .hero-tap__wave--2 {
+    transform: scale(1.9);
+    opacity: 0.3;
+  }
+
+  /* ── Animatie: alleen als de gebruiker beweging niet heeft uitgezet ── */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-tap__phone {
+      animation: tap-phone 6s cubic-bezier(0.45, 0, 0.25, 1) infinite both;
+    }
+
+    .hero-tap__glow {
+      animation: tap-glow 6s ease-out infinite both;
+    }
+
+    .hero-tap__wave {
+      animation: tap-wave 6s ease-out infinite both;
+    }
+
+    .hero-tap__wave--2 {
+      animation-name: tap-wave-2;
+    }
+
+    .hero-tap__wave--3 {
+      animation-name: tap-wave-3;
+    }
+
+    .hero-tap__screen {
+      animation: tap-screen 6s ease infinite both;
+    }
+
+    .hero-tap__star {
+      animation: tap-star-1 6s ease infinite both;
+    }
+
+    .hero-tap__star--2 {
+      animation-name: tap-star-2;
+    }
+
+    .hero-tap__star--3 {
+      animation-name: tap-star-3;
+    }
+
+    .hero-tap__star--4 {
+      animation-name: tap-star-4;
+    }
+
+    .hero-tap__star--5 {
+      animation-name: tap-star-5;
+    }
+  }
+
+  @keyframes tap-phone {
+    0%,
+    12% {
+      transform: translate(300px, 140px) rotate(-26deg);
+    }
+    24%,
+    40% {
+      transform: translate(237px, 197px) rotate(-35deg);
+    }
+    54%,
+    100% {
+      transform: translate(300px, 140px) rotate(-26deg);
+    }
+  }
+
+  @keyframes tap-glow {
+    0%,
+    23% {
+      opacity: 0;
+    }
+    26% {
+      opacity: 0.9;
+    }
+    42%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes tap-wave {
+    0%,
+    24% {
+      transform: scale(1);
+      opacity: 0;
+    }
+    26% {
+      opacity: 0.8;
+    }
+    44%,
+    100% {
+      transform: scale(3.4);
+      opacity: 0;
+    }
+  }
+
+  @keyframes tap-wave-2 {
+    0%,
+    29% {
+      transform: scale(1);
+      opacity: 0;
+    }
+    31% {
+      opacity: 0.7;
+    }
+    49%,
+    100% {
+      transform: scale(3.4);
+      opacity: 0;
+    }
+  }
+
+  @keyframes tap-wave-3 {
+    0%,
+    34% {
+      transform: scale(1);
+      opacity: 0;
+    }
+    36% {
+      opacity: 0.6;
+    }
+    54%,
+    100% {
+      transform: scale(3.4);
+      opacity: 0;
+    }
+  }
+
+  @keyframes tap-screen {
+    0%,
+    26% {
+      opacity: 0;
+    }
+    30%,
+    90% {
+      opacity: 1;
+    }
+    96%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes tap-star-1 {
+    0%,
+    50% {
+      opacity: 0;
+    }
+    53%,
+    90% {
+      opacity: 1;
+    }
+    96%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes tap-star-2 {
+    0%,
+    54% {
+      opacity: 0;
+    }
+    57%,
+    90% {
+      opacity: 1;
+    }
+    96%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes tap-star-3 {
+    0%,
+    58% {
+      opacity: 0;
+    }
+    61%,
+    90% {
+      opacity: 1;
+    }
+    96%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes tap-star-4 {
+    0%,
+    62% {
+      opacity: 0;
+    }
+    65%,
+    90% {
+      opacity: 1;
+    }
+    96%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes tap-star-5 {
+    0%,
+    66% {
+      opacity: 0;
+    }
+    69%,
+    90% {
+      opacity: 1;
+    }
+    96%,
+    100% {
+      opacity: 0;
+    }
+  }
+</style>

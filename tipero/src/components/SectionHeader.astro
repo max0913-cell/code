@@ -1,0 +1,37 @@
+---
+import AccentTitel from './AccentTitel.astro';
+
+interface Props {
+  eyebrow?: string | undefined;
+  titel: string;
+  accent?: string | undefined;
+  intro?: string | undefined;
+  id?: string | undefined;
+  center?: boolean;
+}
+
+const { eyebrow, titel, accent, intro, id, center = false } = Astro.props;
+---
+
+<header class:list={['section-header', { 'section-header--center': center }]}>
+  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+  <AccentTitel as="h2" tekst={titel} accent={accent} {...id ? { id } : {}} />
+  {intro && <p class="lead">{intro}</p>}
+  <slot />
+</header>
+
+<style>
+  .section-header {
+    max-width: 44rem;
+    margin-bottom: clamp(2.25rem, 5vw, 3.5rem);
+  }
+
+  .section-header > :global(* + *) {
+    margin-top: 1rem;
+  }
+
+  .section-header--center {
+    margin-inline: auto;
+    text-align: center;
+  }
+</style>
